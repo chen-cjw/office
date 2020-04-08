@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateSubtasksTable extends Migration
+{
+    /**
+     * Run the migrations.
+     * 子任务
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('subtasks', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('content')->comment('任务流程');
+            $table->text('images')->nullable()->comment('上传的图片');// 多图怕长度过长
+            $table->unsignedBigInteger('task_id')->comment('父任务');
+            $table->unsignedBigInteger('user_id')->comment('指派某人');
+            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->date('close_date')->comment('截止日期');
+            $table->string('task_flow')->comment('任务流程');
+            $table->enum('status',['pending','complete','overdue'])->comment('进行中(pending)|完成(complete)|逾期(overdue)');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('subtasks');
+    }
+}

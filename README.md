@@ -1,8 +1,13 @@
 ## Laravel Framework 6.18.2
 
-## About Laravel
+## https://packagist.org/ 依赖包
+- 跨源资源共享 composer require fruitcake/laravel-cors  | 全局
+- 样式输出统一 liyu/dingo-serializer-switch
+## jwt 
+- composer require tymon/jwt-auth
+- php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+- php artisan jwt:secret
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
