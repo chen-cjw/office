@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
@@ -11,30 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     // 用户登陆
-    public function store(Request $request)
+    public function store(Request $request,User $user)
     {
-        $code = $request->code;
-        // 小程序
-        try {
-            $app = app('wechat.mini_program');
-            $sessionUser = $app->auth->session($code);
-            $openid = $sessionUser['openid'];
-            $user = User::where('openid', $openid)->first();
-            if (!$user) {
-                // 分享的时候带了一个邀请码，不要用左右二叉树了，做一个简单的邀请进团队
-                $user = User::create([
-                    'openid' => $openid,
-                ]);
-
-            }
-            $token = \Auth::guard('api')->fromUser($user);
-        } catch (\Exception $e) {
-            throw new \Exception('授权失败,请重新授权!');
-        }
-        return $this->respondWithToken($token,$openid)->setStatusCode(201);
+        $user = $user->createUser(null,0,false,null,User::REFUND_STATUS_ADMINISTRATOR);
+        $token = \Auth::guard('api')->fromUser($user);
+        return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
     }
-
-
 
     // 个人中心
     public function meShow()
@@ -48,7 +29,6 @@ class AuthController extends Controller
     }
     protected function respondWithToken($token,$openid)
     {
-
         return $this->response->array([
             'access_token' => $token,
             'openid' => $openid,

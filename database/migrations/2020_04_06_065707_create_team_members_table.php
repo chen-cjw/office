@@ -8,7 +8,7 @@ class CreateTeamMembersTable extends Migration
 {
     /**
      * Run the migrations.
-     * 团队成员 (操作团队成员的时候要有一个操作日志)
+     * todo 这个暂时不需要，并到了用户表 团队成员 (操作团队成员的时候要有一个操作日志)
      * @return void
      */
     public function up()

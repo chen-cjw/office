@@ -15,7 +15,7 @@ class CreateTaskFlowsTable extends Migration
     {
         Schema::create('task_flows', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('step')->comment('流程步骤');
+            $table->string('step_name')->comment('流程步骤名称');
             $table->unsignedBigInteger('user_id')->comment('步骤负责人');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('task_flow_collection_id')->comment('步骤负责人');

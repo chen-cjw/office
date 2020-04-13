@@ -72,5 +72,10 @@ In order to ensure that the Laravel community is welcoming to all, please review
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
+1、我邀请了某个老板加入，那他创建团队以后有没有免费的团队使用人数和使用的期限
+2、我现在是老板，我加入了某个团队，那我还可以去创建自己的团队吗
+3、一个人可以创建多个团队吗，一个人可以可以参加多个团队吗
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1、每个人只能参加一个团队，
+2、参加了团队就不可以去创建团队，
+3、每个用户只可以创建一个团队，只要是冻结了某个人的账号，这个用户就依旧不可以参加别人的团队，除非删除了他

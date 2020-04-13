@@ -15,13 +15,13 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('content')->comment('任务流程');
-            $table->text('images')->nullable()->comment('上传的图片');// 多图怕长度过长
-            $table->unsignedBigInteger('user_id')->comment('指派某人');
+            $table->text('content')->comment('任务的内容');
+            $table->json('images')->nullable()->comment('任务的图片');// 多图怕长度过长
+            $table->unsignedBigInteger('user_id')->comment('发布人');
             $table->foreign('user_id')->references('id')->on('users');
             $table->date('close_date')->comment('截止日期');
             $table->string('task_flow')->comment('任务流程');
-            $table->enum('status',['start','end','stop'])->comment('任务是可以暂停的');
+            $table->enum('status',['start','end','stop'])->comment('start(开始)|end(结束)|stop(停止)');
             $table->timestamps();
         });
     }

@@ -2,9 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Task extends Model
+class Task extends ImageUpload
 {
-    //
+
+    protected $fillable = [
+        'content','images','close_date','task_flow','status'
+    ];
+
+
+
+
+
+
+
 }

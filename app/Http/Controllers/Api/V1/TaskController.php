@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Requests\TaskRequest;
+use App\Models\Task;
+use App\Transformers\TaskTransformer;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -14,18 +16,31 @@ class TaskController extends Controller
 
     public function index()
     {
-        
     }
 
     // 创建子任务(发布任务) 无父任务(创建给你让你，去完成的)
-    public function store()
+    public function store(TaskRequest $request)
     {
-        
+        // todo 谁可以创建任务
+        $task = new Task($request->only('content','close_date','task_flow','status'));
+        return $this->storeSave($task);
     }
+
+//    public function storeSave($task)
+//    {
+//        $imageBool = request()->hasFile('images');
+//        $images = request()->file('images');
+//        $uploadImage = $task->uploadImages($imageBool,$images);
+//        $task->user()->associate($this->user);
+//        $task->images = json_encode($uploadImage);
+//        $task->save();
+//
+//        return $this->response->created();
+//    }
     //
-    public function show($id)
+    public function show(Task $task)
     {
-        
+        return $this->response->item($task,new TaskTransformer());
     }
 
 }

@@ -8,6 +8,21 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
+
+    const REFUND_STATUS_ADMINISTRATOR = 'administrator';
+    const REFUND_STATUS_ADMIN = 'admin';
+    const REFUND_STATUS_MEMBER = 'member';
+    const REFUND_STATUS_FREEZE = 'freeze';
+    const REFUND_STATUS_WAIT = 'wait';
+    // comment('超级管理员(administrator)|管理员(admin)|成员(member)|冻结账号(freeze)|等待审核(wait)');
+    public static $status = [
+        self::REFUND_STATUS_ADMINISTRATOR    => '超级管理员',
+        self::REFUND_STATUS_ADMIN    => '管理员',
+        self::REFUND_STATUS_MEMBER    => '成员',
+        self::REFUND_STATUS_FREEZE    => '冻结账号',
+        self::REFUND_STATUS_WAIT    => '等待审核',
+    ];
+
     use Notifiable;
     public function getJWTIdentifier()
     {
@@ -29,9 +44,15 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'openid','nickname','sex','language','city','province','country','avatar','unionid'
+        'openid','nickname','sex','language','city','province','country',
+        'avatar','unionid','parent_id','is_open','day','team_id','status'
     ];
 
+    // 每个人只能有一个团队
+    public function team()
+    {
+        return $this->hasOne(Team::class);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -49,4 +70,39 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         //'email_verified_at' => 'datetime',
     ];
+
+
+    public function createUser($parent,$day,$isOpen,$teamId,$status)
+    {
+        return User::create([
+            'openid' => mt_rand(10000000000,9999999990000),
+            'parent_id'=>$parent,
+            'is_open' => $isOpen,
+            'day' => $day,
+            'team_id' => $teamId,
+            'status'=>$status
+        ]);
+
+
+        // 等下封装起来
+        $code = $request->code;
+        // 小程序
+        try {
+            $app = app('wechat.mini_program');
+            $sessionUser = $app->auth->session($code);
+            $openid = $sessionUser['openid'];
+            $user = User::where('openid', $openid)->first();
+            if (!$user) {
+                // 分享的时候带了一个邀请码，不要用左右二叉树了，做一个简单的邀请进团队
+                $user = User::create([
+                    'openid' => $openid,
+                ]);
+
+            }
+            $token = \Auth::guard('api')->fromUser($user);
+        } catch (\Exception $e) {
+            throw new \Exception('授权失败,请重新授权!');
+        }
+        return $this->respondWithToken($token,$openid)->setStatusCode(201);
+    }
 }

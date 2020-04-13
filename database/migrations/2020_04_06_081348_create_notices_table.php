@@ -15,7 +15,13 @@ class CreateNoticesTable extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('content')->comment('通知的内容');
+            $table->text('content')->comment('通知的内容');
+            $table->boolean('is_read')->comment('是否已读');
+            $table->unsignedBigInteger('send_user_id')->comment('发送人');
+            $table->unsignedBigInteger('to_user_id')->comment('接收人');
+            $table->foreign('send_user_id')->references('id')->on('users');
+            $table->foreign('to_user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }

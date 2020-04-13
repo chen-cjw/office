@@ -4,21 +4,18 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTaskFlowCollectionsTable extends Migration
+class CreateTestsTable extends Migration
 {
     /**
      * Run the migrations.
-     * 步骤名称的合集
+     *
      * @return void
      */
     public function up()
     {
-        Schema::create('task_flow_collections', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('content')->comment('步骤名称的合集');
-            $table->unsignedBigInteger('user_id')->comment('流程添加人');
-            $table->foreign('user_id')->references('id')->on('users');
-
+            $table->json('images');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateTaskFlowCollectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_flow_collections');
+        Schema::dropIfExists('tests');
     }
 }

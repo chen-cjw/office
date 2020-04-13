@@ -24,8 +24,10 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', [
     'namespace' => 'App\Http\Controllers\Api\V1',
-    'middleware' => ['serializer:array']
+    'middleware' => ['serializer:array', 'bindings'] // bindings 注入获取对象
 ], function ($api) {
+    $api->post('/auth','AuthController@store')->name('api.auth.store');
+
     // 授权登陆 | 前端提交code给我
     $api->get('/auth','AuthController@index')->name('api.auth.index');
 
@@ -35,25 +37,17 @@ $api->version('v1', [
     // 退出
     $api->delete('/auth/current', 'AuthController@destroy')->name('api.auth.destroy');
 
-    /**
-     * 首页
-     **/
-    // 任务列表(首页)
-    $api->get('/tasks','TaskController@index')->name('api.task.index');
-    // 创建任务
-    $api->post('/tasks','TaskController@store')->name('api.task.store');
-    // 详情
-    $api->get('/tasks/{id}','TaskController@show')->name('api.task.show');
+
 
     /**
      * 更多
      **/
     // 我的通知
     $api->get('/mores/notice','MoreController@notice')->name('api.mores.notice');
-    // 邀请同事加入 给他一个二维码，别人可以扫描
-    $api->get('/mores/inviting_colleague','MoreController@invitingColleague')->name('api.mores.inviting_colleague');
-    // 邀请老板加入
-    $api->get('/mores/inviting_boss','MoreController@invitingBoss')->name('api.mores.inviting_boss');
+//    // 邀请同事加入 给他一个二维码，别人可以扫描
+//    $api->get('/mores/inviting_colleague','MoreController@invitingColleague')->name('api.mores.inviting_colleague');
+//    // 邀请老板加入
+//    $api->get('/mores/inviting_boss','MoreController@invitingBoss')->name('api.mores.inviting_boss');
     // 任务流程
     $api->get('/mores/task_flow','MoreController@taskFlow')->name('api.mores.task_flow');
     // 帮助中心
@@ -66,12 +60,44 @@ $api->version('v1', [
     /**
      * 团队
      **/
-    // 我的团队
-    $api->get('/teams','TeamController@index')->name('api.team.index');
-    // 创建团队 要符合某个条件，成员可以创建团队
-    $api->post('/teams','TeamController@store')->name('api.team.store');
-    // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
-    $api->patch('/teams/{id}','TeamController@update')->name('api.team.update');
+
+    $api->group(['middleware' => ['auth:api']], function ($api) {
+        // 我的团队
+        $api->get('/teams','TeamController@index')->name('api.team.index');
+        // 创建团队 要符合某个条件，成员可以创建团队
+        $api->post('/teams','TeamController@store')->name('api.team.store');
+        // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
+        $api->patch('/teams/{id}','TeamController@update')->name('api.team.update');
+
+
+        // 邀请同事加入
+        $api->post('/teams/{team}/users/{user}','UserController@storeFellow')->name('api.team.storeFellow');
+
+        // 邀请老板加入
+        $api->post('/teams/users/{user}','UserController@storeBoss')->name('api.team.storeBoss');
+
+        /**
+         * 首页
+         **/
+        // 任务列表(首页)
+        $api->get('/tasks','TaskController@index')->name('api.task.index');
+        // 创建任务
+        $api->post('/tasks','TaskController@store')->name('api.task.store');
+        // 详情
+        $api->get('/tasks/{task}','TaskController@show')->name('api.task.show');
+
+        /**
+         * 任务流程
+         **/
+        // 任务流程
+        $api->get('/task_flows','TaskFlowController@index')->name('api.task_flow.index');
+        // 任务 详情
+        $api->get('/task_flows/{id}','TaskFlowController@show')->name('api.task_flow.show');
+        // 创建子任务 有父任务(任务已经建好，只是做的分发)
+        $api->post('/tasks/{task}/task_flows','TaskFlowController@store')->name('api.task_flow.store');
+
+    });
+
 
     /**
      * 任务详情下的评论
@@ -83,14 +109,6 @@ $api->version('v1', [
     $api->post('/discuss','DiscussController@store')->name('api.discuss.store');
 
 
-    /**
-     * 任务流程
-     **/
-    // 任务流程
-    $api->get('/task_flow','TaskFlowController@index')->name('api.task_flow.index');
-    // 任务 详情
-    $api->get('/task_flow/{id}','TaskFlowController@show')->name('api.task_flow.show');
-    // 创建子任务 有父任务(任务已经建好，只是做的分发)
-    $api->post('/task_flow','TaskFlowController@store')->name('api.task_flow.store');
+
 
 });
