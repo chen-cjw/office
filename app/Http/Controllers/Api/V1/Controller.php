@@ -15,7 +15,7 @@ class Controller extends BaseController
         $imageBool = request()->hasFile('images');
         $images = request()->file('images');
         $uploadImage = $model->uploadImages($imageBool,$images);
-        $model->user()->associate($this->user);
+//        $model->user()->associate($this->user);
         $model->images = json_encode($uploadImage);
         $model->save();
 

@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Discuss extends Model
+class Discuss extends ImageUpload
 {
-    //
+    protected $fillable = ['content','images','task_id','comment_user_id','reply_user_id'];
+
 }

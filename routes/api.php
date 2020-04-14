@@ -81,6 +81,7 @@ $api->version('v1', [
         $api->get('/tasks','TaskController@index')->name('api.task.index');
         // 创建任务
         $api->post('/tasks','TaskController@store')->name('api.task.store');
+        $api->post('/sub_tasks','SubTaskController@store')->name('api.sub_task.store');
         // 详情
         $api->get('/tasks/{task}','TaskController@show')->name('api.task.show');
 
@@ -93,6 +94,11 @@ $api->version('v1', [
         $api->get('/task_flows/{id}','TaskFlowController@show')->name('api.task_flow.show');
         // 创建子任务 有父任务(任务已经建好，只是做的分发)
         $api->post('/tasks/{task}/task_flows','TaskFlowController@store')->name('api.task_flow.store');
+
+
+        // 评论
+        $api->get('/discusses','DiscussController@index')->name('api.discuss.index');
+        $api->post('/discusses','DiscussController@store')->name('api.discuss.store');
 
     });
 

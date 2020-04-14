@@ -16,7 +16,7 @@ class CreateSubtasksTable extends Migration
         Schema::create('subtasks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('content')->comment('任务流程');
-            $table->text('images')->nullable()->comment('任务的图片');// 多图怕长度过长
+            $table->json('images')->nullable()->comment('任务的图片');// 多图怕长度过长
             $table->unsignedBigInteger('task_id')->comment('父任务');
             $table->unsignedBigInteger('user_id')->comment('指派某人');
             $table->foreign('task_id')->references('id')->on('tasks');// 可以知道谁发送给我的

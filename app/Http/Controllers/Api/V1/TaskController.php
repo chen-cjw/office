@@ -16,6 +16,7 @@ class TaskController extends Controller
 
     public function index()
     {
+
     }
 
     // 创建子任务(发布任务) 无父任务(创建给你让你，去完成的)
@@ -23,13 +24,15 @@ class TaskController extends Controller
     {
         // todo 谁可以创建任务
         $task = new Task($request->only('content','close_date','task_flow','status'));
+        $task->user()->associate($this->user);
+
         return $this->storeSave($task);
     }
 
     //
-    public function show(Task $task)
+    public function show($id)
     {
-        return $this->response->item($task,new TaskTransformer());
+        return $this->response->item($this->user->tasks()->findOrFail($id),new TaskTransformer());
     }
 
 //    public function storeSave($task)

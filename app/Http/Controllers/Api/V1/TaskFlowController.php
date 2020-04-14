@@ -24,14 +24,15 @@ class TaskFlowController extends Controller
     }
 
     // 创建子任务 有父任务(任务已经建好，只是做的分发)
-    public function store(TaskFlowRequest $request,Task $task)
+    public function store(TaskFlowRequest $request,$task)
     {
         // todo 创建人可以分配任务
         $taskFlow = new TaskFlow($request->only('content','close_date','task_flow','status'));
+        $taskFlow->user()->associate($this->user);
+        $taskFlow->task()->associate($this->user->tasks()->findOrFail($task));
+        $this->storeSave($taskFlow);
 
-        $taskFlow->task()->associate($task);
-        $taskFlow;
-        return $this->storeSave($taskFlow);
+        return $this->response->created();
     }
 
 

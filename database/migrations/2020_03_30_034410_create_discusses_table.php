@@ -16,7 +16,7 @@ class CreateDiscussesTable extends Migration
         Schema::create('discusses', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('content')->comment('回复的内容');
-            $table->text('image')->comment('回复的图片');
+            $table->json('images')->comment('回复的图片');
             $table->unsignedBigInteger('task_id')->comment('那个任务下发表的');
             $table->unsignedBigInteger('comment_user_id')->comment('发表评论人');
             $table->unsignedBigInteger('reply_user_id')->comment('回复人');
