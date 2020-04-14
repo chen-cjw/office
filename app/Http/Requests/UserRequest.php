@@ -26,6 +26,8 @@ class UserRequest extends FormRequest
         return [
             'parent_id'=>'',// 数据库必须存在
             'team_id'=>'',// 用户必须存在
+            'code'=>'required',
+
         ];
     }
 

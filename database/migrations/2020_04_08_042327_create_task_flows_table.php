@@ -8,7 +8,7 @@ class CreateTaskFlowsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * 新增任务流程
      * @return void
      */
     public function up()

@@ -13,19 +13,18 @@ class TeamController extends Controller
     // 我的团队
     public function index()
     {
-        $team = $this->user()->team;
-        return $this->response->item($team,new TeamTransformer());
+        if (Team::where('user_id',$this->user->id)->exists()) {
+            return $this->response->collection(Team::where('user_id',$this->user->id)->get(),new TeamTransformer());
+        }
+        return ['data'=>[]];
     }
-    // todo 目前可以创建多个团队
+    // 创建团队
     public function store(TeamRequest $request)
     {
-        // todo 要符合某个条件，成员可以创建团队
-        // 创建团队
         $team = new Team(['name'=>$request->name]);
         $team->user()->associate($this->user());
         $team->save();
-        $this->user()->update(['task_id'=>$team->id]);
-
+        $this->user()->update(['team'=>$team->id]);
         return $this->response->created();
     }
 

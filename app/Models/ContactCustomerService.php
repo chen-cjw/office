@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactCustomerService extends Model
 {
-    //
+    protected $fillable = ['content'];
+
 }

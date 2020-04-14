@@ -31,8 +31,6 @@ $api->version('v1', [
     // 授权登陆 | 前端提交code给我
     $api->get('/auth','AuthController@index')->name('api.auth.index');
 
-    // 个人信息
-    $api->get('/meShow','AuthController@meShow')->name('api.auth.meShow');
 
     // 退出
     $api->delete('/auth/current', 'AuthController@destroy')->name('api.auth.destroy');
@@ -56,25 +54,25 @@ $api->version('v1', [
     $api->get('/mores/contact_customer_service','MoreController@contactCustomerService')->name('api.mores.contact_customer_service');
 
 
-    // TeamController
-    /**
-     * 团队
-     **/
+    // 邀请同事加入
+    $api->post('/teams/{team}/users/{user}','UserController@storeFellow')->name('api.team.storeFellow');
+
+    // 邀请老板加入
+    $api->post('/teams/users/{user}','UserController@storeBoss')->name('api.team.storeBoss');
 
     $api->group(['middleware' => ['auth:api']], function ($api) {
+        // 个人信息
+        $api->get('/meShow','AuthController@meShow')->name('api.auth.meShow');
+
+        /**
+         * 团队
+         **/
         // 我的团队
         $api->get('/teams','TeamController@index')->name('api.team.index');
         // 创建团队 要符合某个条件，成员可以创建团队
         $api->post('/teams','TeamController@store')->name('api.team.store');
         // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
-        $api->patch('/teams/{id}','TeamController@update')->name('api.team.update');
-
-
-        // 邀请同事加入
-        $api->post('/teams/{team}/users/{user}','UserController@storeFellow')->name('api.team.storeFellow');
-
-        // 邀请老板加入
-        $api->post('/teams/users/{user}','UserController@storeBoss')->name('api.team.storeBoss');
+        $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
 
         /**
          * 首页

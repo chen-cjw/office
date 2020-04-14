@@ -11,8 +11,4 @@ class Task extends ImageUpload
 
 
 
-
-
-
-
 }

@@ -6,7 +6,7 @@ use League\Fractal\TransformerAbstract;
 class TeamTransformer extends TransformerAbstract
 {
 
-    protected $availableIncludes = ['users'];
+    protected $availableIncludes = ['user'];
 
     public function transform(Team $team)
     {
@@ -20,8 +20,8 @@ class TeamTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeUsers(Team $team)
+    public function includeUser(Team $team)
     {
-        return $this->collection($team->users,new UserTransformer());
+        return $this->item($team->user,new UserTransformer());
     }
 }

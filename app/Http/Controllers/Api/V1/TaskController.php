@@ -26,6 +26,12 @@ class TaskController extends Controller
         return $this->storeSave($task);
     }
 
+    //
+    public function show(Task $task)
+    {
+        return $this->response->item($task,new TaskTransformer());
+    }
+
 //    public function storeSave($task)
 //    {
 //        $imageBool = request()->hasFile('images');
@@ -37,10 +43,4 @@ class TaskController extends Controller
 //
 //        return $this->response->created();
 //    }
-    //
-    public function show(Task $task)
-    {
-        return $this->response->item($task,new TaskTransformer());
-    }
-
 }
