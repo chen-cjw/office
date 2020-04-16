@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller as BaseController;
 use App\Models\Task;
+use App\Models\TeamMember;
 use Dingo\Api\Routing\Helpers;
 
 class Controller extends BaseController
@@ -21,4 +22,15 @@ class Controller extends BaseController
 
         return $this->response->created();
     }
+
+    // 邀请成员
+    public function teamMember($user,$team)
+    {
+        $teamMember = new TeamMember();
+        $teamMember->user()->associate($user);
+        $teamMember->team()->associate($team);
+        $teamMember->save();
+
+    }
+
 }

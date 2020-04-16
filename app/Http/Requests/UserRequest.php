@@ -24,9 +24,6 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent_id'=>'',// 数据库必须存在
-            'team_id'=>'',// 用户必须存在
-//            'code'=>'required',
 
         ];
     }

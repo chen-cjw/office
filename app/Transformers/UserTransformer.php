@@ -14,7 +14,6 @@ class UserTransformer extends TransformerAbstract
             'openid' => $user->openid,
             'nickname' => $user->nickname,
             'sex' => $user->sex,
-            //'team_id' => $user->team_id?:$user->team,
             'avatar' => $user->avatar,
             'openid' => auth('api')->user() ? auth('api')->user()->openid : null,
             'status'=> User::$status[$user->status],

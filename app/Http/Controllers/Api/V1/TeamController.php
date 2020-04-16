@@ -4,27 +4,37 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\TeamRequest;
 use App\Models\Team;
+use App\Models\TeamMember;
 use App\Transformers\TeamTransformer;
-use Dingo\Api\Auth\Auth;
-use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class TeamController extends Controller
 {
     // 我的团队成员
     public function index()
     {
-        if (Team::where('user_id',$this->user->id)->exists()) {
-            return $this->response->collection(Team::where('user_id',$this->user->id)->get(),new TeamTransformer());
+        $teamId = TeamMember::where('user_id',$this->user->id)->value('team_id');
+        if ($teamId) {
+            return $this->response->item(Team::findOrFail($teamId),new TeamTransformer());
         }
         return ['data'=>[]];
     }
     // 创建团队
     public function store(TeamRequest $request)
     {
-        $team = new Team(['name'=>$request->name]);
-        $team->user()->associate($this->user());
-        $team->save();
-        $this->user()->update(['team'=>$team->id]);
+        DB::beginTransaction();
+        try {
+            $team = new Team(['name'=>$request->name]);
+            $team->user()->associate($this->user());
+            $team->save();
+
+            $teamMember = new TeamMember();
+            $teamMember->user()->associate($this->user());
+            $teamMember->team()->associate($team);
+            $teamMember->save();
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+        }
         return $this->response->created();
     }
 

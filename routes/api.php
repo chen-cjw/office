@@ -45,10 +45,10 @@ $api->version('v1', [
     $api->get('/mores/contact_customer_service','MoreController@contactCustomerService')->name('api.mores.contact_customer_service');
 
     // 邀请同事加入
-    $api->post('/teams/{team}/users/{user}','UserController@storeFellow')->name('api.team.storeFellow');
+    $api->get('/teams/{team}/users/{user}','UserController@storeFellow')->name('api.team.storeFellow');
 
     // 邀请老板加入
-    $api->post('/teams/users/{user}','UserController@storeBoss')->name('api.team.storeBoss');
+    $api->get('/teams/users/{user}','UserController@storeBoss')->name('api.team.storeBoss');
 
     $api->group(['middleware' => ['auth:api']], function ($api) {
         // 个人信息
