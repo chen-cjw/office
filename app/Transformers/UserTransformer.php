@@ -28,4 +28,9 @@ class UserTransformer extends TransformerAbstract
         return $this->item($user->team,new TeamTransformer());
     }
 
+    public function includeTasks()
+    {
+        
+    }
+
 }

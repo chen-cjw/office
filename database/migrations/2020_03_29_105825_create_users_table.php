@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname')->nullable();
             $table->boolean('sex')->nullable();
             // todo 这里有问题
-            $table->unsignedBigInteger('team_id')->nullable()->comment('所属团队'); // 每个用户只可以有一个团队
+            //$table->unsignedBigInteger('team_id')->nullable()->comment('所属团队'); // 每个用户只可以有一个团队
             $table->unsignedBigInteger('send_invite_set_id')->nullable()->comment('同事/老板'); // 每个用户只可以有一个团队
             $table->bigInteger('parent_id')->nullable()->comment('邀请人');
             $table->bigInteger('is_open')->default(0)->comment('是否开启送的天数');

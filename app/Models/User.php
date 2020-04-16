@@ -64,7 +64,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function tasks()
     {
-        return $this->belongsTo(Task::class,'id','user_id');
+        return $this->hasMany(Task::class);
     }
 
     public function taskFlowCollections()
@@ -76,15 +76,14 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(SendInviteSet::class);
     }
     // 创建一个用户
-    public function createUser($parent,$sendInviteSetId,$isOpen,$teamId,$status)
+    public function createUser($parent,$sendInviteSetId,$isOpen,$status)
     {
-        return User::find(2);
+//        return User::find(2);
         return User::create([
             'openid' => mt_rand(10000000000,9999999990000),
             'parent_id'=>$parent,
             'is_open' => $isOpen,
             'send_invite_set_id' => $sendInviteSetId,
-            'team_id' => $teamId,
             'status'=>$status
         ]);
 

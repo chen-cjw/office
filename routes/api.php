@@ -65,8 +65,8 @@ $api->version('v1', [
         /**
          * 首页
          **/
-        // 任务列表(首页)
-        $api->get('/tasks','TaskController@index')->name('api.task.index');
+        // 任务列表(首页) 分配给我的
+        $api->get('/sub_tasks','SubTaskController@index')->name('api.sub_tasks.index');
         // 创建任务
         $api->post('/tasks','TaskController@store')->name('api.task.store');
         $api->post('/sub_tasks','SubTaskController@store')->name('api.sub_task.store');

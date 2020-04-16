@@ -13,7 +13,6 @@ class TaskController extends Controller
      * 我的任务(首页)
      * 条件（按截止时间排序 | 创建时间排序 | 查看已完成任务 | 查看我创建的任务）
      **/
-
     public function index()
     {
         $tasks = $this->user->tasks()->paginate();

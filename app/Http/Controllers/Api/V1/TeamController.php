@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    // 我的团队
+    // 我的团队成员
     public function index()
     {
         if (Team::where('user_id',$this->user->id)->exists()) {
