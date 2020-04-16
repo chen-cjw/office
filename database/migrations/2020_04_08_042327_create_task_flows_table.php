@@ -20,7 +20,7 @@ class CreateTaskFlowsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('task_flow_collection_id')->comment('步骤负责人');
             $table->foreign('task_flow_collection_id')->references('id')->on('task_flow_collections');
-            $table->enum('status',['start','pending','complete','stop'])->comment('开始(start)|进行中(pending)|完成(complete)|逾期(stop)');
+            $table->enum('status',['start','pending','end','expired'])->comment('开始(start)|进行中(pending)|完成(end)|逾期(expired)');
 
             $table->timestamps();
         });

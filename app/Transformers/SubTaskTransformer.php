@@ -14,7 +14,7 @@ class SubTaskTransformer extends TransformerAbstract
             'images' => $subtask->images,
             'close_date' => $subtask->close_date,
             'task_flow' => $subtask->task_flow,
-            'status' => $subtask->status,
+            'status' => Subtask::$status[$subtask->status],
             'created_at' => $subtask->created_at->toDateTimeString(),
             'updated_at' => $subtask->updated_at->toDateTimeString(),
         ];

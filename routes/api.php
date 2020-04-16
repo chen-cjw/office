@@ -27,32 +27,22 @@ $api->version('v1', [
     'middleware' => ['serializer:array', 'bindings'] // bindings 注入获取对象
 ], function ($api) {
     $api->post('/auth','AuthController@store')->name('api.auth.store');
-
     // 授权登陆 | 前端提交code给我
     $api->get('/auth','AuthController@index')->name('api.auth.index');
-
-
     // 退出
     $api->delete('/auth/current', 'AuthController@destroy')->name('api.auth.destroy');
-
-
-
     /**
      * 更多
      **/
     // 我的通知
     $api->get('/mores/notice','MoreController@notice')->name('api.mores.notice');
-//    // 邀请同事加入 给他一个二维码，别人可以扫描
-//    $api->get('/mores/inviting_colleague','MoreController@invitingColleague')->name('api.mores.inviting_colleague');
-//    // 邀请老板加入
-//    $api->get('/mores/inviting_boss','MoreController@invitingBoss')->name('api.mores.inviting_boss');
+
     // 任务流程
     $api->get('/mores/task_flow','MoreController@taskFlow')->name('api.mores.task_flow');
     // 帮助中心
     $api->get('/mores/help_center','MoreController@helpCenter')->name('api.mores.help_center');
     // 联系客服
     $api->get('/mores/contact_customer_service','MoreController@contactCustomerService')->name('api.mores.contact_customer_service');
-
 
     // 邀请同事加入
     $api->post('/teams/{team}/users/{user}','UserController@storeFellow')->name('api.team.storeFellow');
@@ -63,7 +53,6 @@ $api->version('v1', [
     $api->group(['middleware' => ['auth:api']], function ($api) {
         // 个人信息
         $api->get('/meShow','AuthController@meShow')->name('api.auth.meShow');
-
         /**
          * 团队
          **/
@@ -73,7 +62,6 @@ $api->version('v1', [
         $api->post('/teams','TeamController@store')->name('api.team.store');
         // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
         $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
-
         /**
          * 首页
          **/
@@ -84,7 +72,6 @@ $api->version('v1', [
         $api->post('/sub_tasks','SubTaskController@store')->name('api.sub_task.store');
         // 详情
         $api->get('/tasks/{task}','TaskController@show')->name('api.task.show');
-
         /**
          * 任务流程
          **/
@@ -93,16 +80,19 @@ $api->version('v1', [
         // 任务 详情
         $api->get('/task_flows/{id}','TaskFlowController@show')->name('api.task_flow.show');
         // 创建子任务 有父任务(任务已经建好，只是做的分发)
-        $api->post('/tasks/{task}/task_flows','TaskFlowController@store')->name('api.task_flow.store');
+        $api->post('/task_flows','TaskFlowController@store')->name('api.task_flow.store');
+        // 任务流程列表
+        $api->get('/task_flow_collections','TaskFlowCollectionController@index')->name('api.task_flow_collections.index');
+        // 查看
+        $api->get('/task_flow_collections/{id}','TaskFlowCollectionController@show')->name('api.task_flow_collections.show');
+        // 编辑
+        $api->patch('/task_flow_collections/{task_flow_collection_id}/task_flows/{task_flow_id}','TaskFlowController@update')->name('api.task_flow_collections.update');
 
 
         // 评论
         $api->get('/discusses','DiscussController@index')->name('api.discuss.index');
         $api->post('/discusses','DiscussController@store')->name('api.discuss.store');
-
     });
-
-
     /**
      * 任务详情下的评论
      **/
@@ -111,8 +101,4 @@ $api->version('v1', [
 
     // 回复评论
     $api->post('/discuss','DiscussController@store')->name('api.discuss.store');
-
-
-
-
 });

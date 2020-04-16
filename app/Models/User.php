@@ -67,6 +67,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Task::class,'id','user_id');
     }
 
+    public function taskFlowCollections()
+    {
+        return $this->hasMany(TaskFlowCollection::class);
+    }
     public function sendInviteSet()
     {
         return $this->hasOne(SendInviteSet::class);

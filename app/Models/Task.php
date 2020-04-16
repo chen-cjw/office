@@ -4,11 +4,13 @@ namespace App\Models;
 
 class Task extends ImageUpload
 {
-
-    const REFUND_STATUS_ADMINISTRATOR = 'administrator';
+    const REFUND_STATUS = 'start';
+    const REFUND_END = 'end';
+    const REFUND_STOP = 'stop';
     public static $status = [
-        self::REFUND_STATUS_ADMINISTRATOR    => '超级管理员',
-
+        self::REFUND_STATUS => '开始',
+        self::REFUND_END => '结束',
+        self::REFUND_STOP => '停止',
     ];
 
     protected $fillable = [

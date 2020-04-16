@@ -16,7 +16,8 @@ class TaskController extends Controller
 
     public function index()
     {
-
+        $tasks = $this->user->tasks()->paginate();
+        return $tasks;
     }
 
     // 创建子任务(发布任务) 无父任务(创建给你让你，去完成的)

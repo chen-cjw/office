@@ -15,7 +15,7 @@ class CreateTaskFlowCollectionsTable extends Migration
     {
         Schema::create('task_flow_collections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('content')->comment('步骤名称的合集');
+            $table->string('name')->comment('步骤名称的合集');
             $table->unsignedBigInteger('user_id')->comment('流程添加人');
             $table->foreign('user_id')->references('id')->on('users');
 

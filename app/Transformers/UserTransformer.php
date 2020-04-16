@@ -17,7 +17,7 @@ class UserTransformer extends TransformerAbstract
             //'team_id' => $user->team_id?:$user->team,
             'avatar' => $user->avatar,
             'openid' => auth('api')->user() ? auth('api')->user()->openid : null,
-            'status'=>User::$status[$user->status],
+            'status'=> User::$status[$user->status],
             'created_at' => $user->created_at->toDateTimeString(),
             'updated_at' => $user->updated_at->toDateTimeString(),
         ];
