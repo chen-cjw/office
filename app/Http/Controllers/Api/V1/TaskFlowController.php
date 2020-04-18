@@ -11,20 +11,6 @@ use Illuminate\Http\Request;
 
 class TaskFlowController extends Controller
 {
-    /***
-     * 任务流程 新增任务流程
-     **/
-    public function index()
-    {
-
-    }
-
-    // 任务 详情
-    public function show($id)
-    {
-        
-    }
-
     // 创建子任务 有父任务(任务已经建好，只是做的分发)
     public function store(Request $request)
     {
@@ -43,7 +29,6 @@ class TaskFlowController extends Controller
         }
         // task_flows 表         'step_name','status'
         $taskFlow = new TaskFlow($request->only('step_name','status'));
-
         // user_id 要控制在自己的团队之内
         $taskFlow->user()->associate(User::findOrFail($request->user_id));
         $taskFlow->taskFlowCollection()->associate($taskFlowCollection);
@@ -51,7 +36,7 @@ class TaskFlowController extends Controller
         return $this->response->created();
     }
 
-    // todo 这里需要看是否是耨个团队成员
+    // todo 这里需要看是否是某个团队成员
     public function update(Request $request,$task_flow_collection_id,$task_flow_id)
     {
         $this->user->taskFlowCollections()->findOrFail($task_flow_collection_id)->taskFlows()->where('id',$task_flow_id)->update(['user_id'=>$request->user_id]);

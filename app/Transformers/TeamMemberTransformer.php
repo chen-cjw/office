@@ -13,6 +13,8 @@ class TeamMemberTransformer extends TransformerAbstract
     {
         return [
             'id' => $teamMember->id,
+            'user_id'=>$teamMember->user_id,
+            'team_id'=>$teamMember->team_id,
             'created_at' => $teamMember->created_at->toDateTimeString(),
             'updated_at' => $teamMember->updated_at->toDateTimeString(),
         ];

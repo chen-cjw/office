@@ -5,16 +5,37 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\SubTaskRequest;
 use App\Models\Subtask;
 use App\Models\User;
+use App\Transformers\SubTaskTransformer;
 use App\Transformers\TaskTransformer;
+use Illuminate\Http\Request;
 
 class SubTaskController extends Controller
 {
     // 默认是分配的
     public function index()
     {
-        return $this->response->collection($this->user->tasks,new TaskTransformer());
+        if($close_date = \request()->close_date) {
+            $subTasks = $this->user->subTasks()->orderBy('close_date',$close_date)->paginate();
+        }elseif ($created_at = \request()->created_at) {
+            $subTasks = $this->user->subTasks()->orderBy('created_at',$created_at)->paginate();
+        }else {
+            $subTasks = $this->user->subTasks()->orderBy('created_at','desc')->paginate();
+        }
+
+        return $this->response->paginator($subTasks, new SubTaskTransformer());
+    }
+    // 查看已完成的(分配给我的)
+    public function status(Request $request)
+    {
+//        $status = $request->input('status','complete');
+        $subTasks = $this->user->subTasks()->where('status','complete')->paginate();
+        return $this->response->paginator($subTasks, new SubTaskTransformer());
     }
 
+    public function show($id)
+    {
+        return $this->response->item($this->user->subTasks()->findOrFail($id),new SubTaskTransformer());
+    }
     // todo 判断user_id 是不是我们团队的
     // todo 必须有团队才可以
     public function store(SubTaskRequest $request)

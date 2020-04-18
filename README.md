@@ -12,6 +12,31 @@ php artisan db:seed
 - php artisan jwt:secret
 
 
+
+
+## 个人中心 Versions: CURRENT
+URL
+https://documenter.getpostman.com/view/11004805/Szf53916
+
+
+## 任务流程 Versions: CURRENT
+URL
+https://documenter.getpostman.com/view/11004805/Szf539Ji
+
+
+## 创建任务 Versions: CURRENT
+URL
+https://documenter.getpostman.com/view/11004805/Szf539Jj
+
+
+## 团队 Versions: CURRENT
+URL
+https://documenter.getpostman.com/view/11004805/Szf539Jm
+
+## 评论 Versions: CURRENT
+URL
+https://documenter.getpostman.com/view/11004805/Szf539Jo
+
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
 - Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.

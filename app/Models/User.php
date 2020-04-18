@@ -21,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
         self::REFUND_STATUS_ADMIN    => '管理员',
         self::REFUND_STATUS_MEMBER    => '成员',
         self::REFUND_STATUS_FREEZE    => '冻结账号',
+        self::REFUND_STATUS_WAIT    => '等待审核',
         self::REFUND_STATUS_DEL    => '未加团队',
 
     ];
@@ -67,6 +68,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Task::class);
     }
 
+    public function subTasks()
+    {
+        return $this->hasMany(Subtask::class);
+    }
+
     public function taskFlowCollections()
     {
         return $this->hasMany(TaskFlowCollection::class);
@@ -78,8 +84,8 @@ class User extends Authenticatable implements JWTSubject
     // 创建一个用户
     public function createUser($parent,$sendInviteSetId,$isOpen,$status)
     {
-        return User::find(3);
-        return User::create([
+//        return User::find(2);
+         return User::create([
             'openid' => mt_rand(10000000000,9999999990000),
             'parent_id'=>$parent,
             'is_open' => $isOpen,
@@ -87,6 +93,8 @@ class User extends Authenticatable implements JWTSubject
             'status'=>$status
         ]);
 
+        $token = \Auth::guard('api')->fromUser($user);
+        return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
 
         // 等下封装起来
         $code = $request->code;
@@ -99,9 +107,12 @@ class User extends Authenticatable implements JWTSubject
             if (!$user) {
                 // 分享的时候带了一个邀请码，不要用左右二叉树了，做一个简单的邀请进团队
                 $user = User::create([
-                    'openid' => $openid,
+                    'openid' => mt_rand(10000000000,9999999990000),
+                    'parent_id'=>$parent,
+                    'is_open' => $isOpen,
+                    'send_invite_set_id' => $sendInviteSetId,
+                    'status'=>$status
                 ]);
-
             }
             $token = \Auth::guard('api')->fromUser($user);
         } catch (\Exception $e) {

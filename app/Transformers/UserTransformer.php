@@ -15,6 +15,7 @@ class UserTransformer extends TransformerAbstract
             'nickname' => $user->nickname,
             'sex' => $user->sex,
             'avatar' => $user->avatar,
+            'parent_id' => $user->parent_id,
             'openid' => auth('api')->user() ? auth('api')->user()->openid : null,
             'status'=> User::$status[$user->status],
             'created_at' => $user->created_at->toDateTimeString(),

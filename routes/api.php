@@ -61,12 +61,22 @@ $api->version('v1', [
         // 创建团队 要符合某个条件，成员可以创建团队
         $api->post('/teams','TeamController@store')->name('api.team.store');
         // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
-        $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
+//        $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
+        // 修改团队成员的权限
+        $api->patch('/teams/{team}/users/{user}','TeamController@update')->name('api.team.update');
+
+
         /**
          * 首页
          **/
         // 任务列表(首页) 分配给我的
         $api->get('/sub_tasks','SubTaskController@index')->name('api.sub_tasks.index');
+        // 查看已完成的(分配给我的)
+        $api->get('/sub_tasks/status','SubTaskController@status')->name('api.tasks.status');
+
+        // 查看我创建的任务
+        $api->get('/tasks','TaskController@index')->name('api.tasks.index');
+
         // 创建任务
         $api->post('/tasks','TaskController@store')->name('api.task.store');
         $api->post('/sub_tasks','SubTaskController@store')->name('api.sub_task.store');

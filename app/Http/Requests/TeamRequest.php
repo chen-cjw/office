@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TeamRule;
 use Dingo\Api\Http\FormRequest;
 
 class TeamRequest extends FormRequest
@@ -23,9 +24,22 @@ class TeamRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|min:3|max:20|unique:teams,name',
-        ];
+        switch ($this->method()) {
+            case 'GET':
+            case 'POST':
+                return [
+                    'name' => ['required','min:3','max:20','unique:teams,name',new TeamRule()],
+                ];
+            case 'PATCH':
+                return [
+                    'name' => ['min:3','max:20','unique:teams,name'],
+                ];
+            case 'DELETE':
+
+            default:
+                return [];
+        }
+
     }
 
     public function attributes()
