@@ -107,3 +107,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 1、每个人只能参加一个团队，
 2、参加了团队就不可以去创建团队，
 3、每个用户只可以创建一个团队，只要是冻结了某个人的账号，这个用户就依旧不可以参加别人的团队，除非删除了他
+数据库名：office_com
+
+用户：office_com
+
+密码：kHPEjecwpCPpEKAD
