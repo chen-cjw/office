@@ -29,12 +29,9 @@ class TaskController extends Controller
     // 创建子任务(发布任务) 无父任务(创建给你让你，去完成的)
     public function store(TaskRequest $request)
     {
-        return 111;
         // todo 谁可以创建任务
         $task = new Task($request->only('content','close_date','task_flow','status'));
-        return $task;
         $task->user()->associate($this->user);
-
         return $this->storeSave($task);
     }
 
@@ -43,7 +40,12 @@ class TaskController extends Controller
     {
         return $this->response->item($this->user->tasks()->findOrFail($id),new TaskTransformer());
     }
-
+    // 只有本人才可以修改任务状态
+    public function update(TaskRequest $request,$id)
+    {
+        $this->user->tasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+        return $this->response->created();
+    }
 //    public function storeSave($task)
 //    {
 //        $imageBool = request()->hasFile('images');

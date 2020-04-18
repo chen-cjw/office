@@ -36,8 +36,7 @@ class SubTaskController extends Controller
     {
         return $this->response->item($this->user->subTasks()->findOrFail($id),new SubTaskTransformer());
     }
-    // todo 判断user_id 是不是我们团队的
-    // todo 必须有团队才可以
+    // todo 判断user_id 是不是我们团队的，必须有团队才可以
     public function store(SubTaskRequest $request)
     {
         $subtask = new Subtask($request->only('content','close_date','task_flow','status'));
@@ -46,5 +45,12 @@ class SubTaskController extends Controller
         $this->storeSave($subtask);
 
         return $this->response->created();
+    }
+    // 只有本人才可以修改任务状态
+    public function update(SubTaskRequest $request,$id)
+    {
+        $this->user->subTasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+        return $this->response->created();
+
     }
 }

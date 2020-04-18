@@ -23,13 +23,26 @@ class TaskRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'content'=>'required',
-            'images'=>'required',
-            'close_date'=>'required',
-            'task_flow'=>'required',
-            'status'=>'required'
-        ];
+        switch ($this->method()) {
+            case 'GET':
+            case 'POST':
+                return [
+                    'content'=>'required',
+                    'images'=>'required',
+                    'close_date'=>'required',
+                    'task_flow'=>'required',
+                    'status'=>'required'
+                ];
+            case 'PATCH':
+                return [
+                    'status' => ['required'],
+                ];
+            case 'DELETE':
+
+            default:
+                return [];
+        }
+
     }
 
     public function attributes()

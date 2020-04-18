@@ -79,8 +79,11 @@ $api->version('v1', [
 
         // 创建任务
         $api->post('/tasks','TaskController@store')->name('api.task.store');
+        $api->patch('/tasks/{id}','TaskController@update')->name('api.task.update');
         $api->post('/sub_tasks','SubTaskController@store')->name('api.sub_task.store');
-        // 详情
+        $api->patch('/sub_tasks/{id}','SubTaskController@update')->name('api.sub_task.update');
+
+        // 详情(我创建的任务)
         $api->get('/tasks/{task}','TaskController@show')->name('api.task.show');
         /**
          * 任务流程

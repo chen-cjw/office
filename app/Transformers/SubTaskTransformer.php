@@ -11,6 +11,7 @@ class SubTaskTransformer extends TransformerAbstract
         return [
             'id' => $subtask->id,
             'content' => $subtask->content,
+            'task_id' => $subtask->task_id,
             'images' => $subtask->images,
             'close_date' => $subtask->close_date,
             'task_flow' => $subtask->task_flow,

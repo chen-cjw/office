@@ -24,7 +24,10 @@ class DiscussRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'content'=>'required',
+            'task_id'=>'required',
+            'images'=>'required',
+//            'comment_user_id'=>'required',
         ];
     }
 }

@@ -23,8 +23,17 @@ class SubTaskRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        switch ($this->method()) {
+            case 'GET':
+            case 'POST':
+            case 'PATCH':
+                return [
+                    'status' => ['required'],
+                ];
+            case 'DELETE':
+
+            default:
+                return [];
+        }
     }
 }

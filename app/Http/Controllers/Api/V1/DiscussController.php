@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\DiscussRequest;
 use App\Models\Discuss;
+use App\Models\Task;
 
 class DiscussController extends Controller
 {
@@ -19,8 +20,8 @@ class DiscussController extends Controller
     // 自己不能给自己回复
     public function store(DiscussRequest $request)
     {
-        // protected $fillable = ['content','image','task_id','comment_user_id','reply_user_id'];
-        $data = $request->only('content','task_id','reply_user_id','comment_user_id');
+        // 判断两个人是否是一个团队的
+        $data = $request->only('content','task_id','comment_user_id');
         $data['reply_user_id'] = $this->user->id;
         $discuss = new Discuss($data);
 
