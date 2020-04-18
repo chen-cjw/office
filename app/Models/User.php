@@ -84,7 +84,7 @@ class User extends Authenticatable implements JWTSubject
     // 创建一个用户
     public function createUser($parent,$sendInviteSetId,$isOpen,$status)
     {
-        return User::find(2);
+//        return User::find(2);
          return User::create([
             'openid' => mt_rand(10000000000,9999999990000),
             'parent_id'=>$parent,
@@ -92,9 +92,6 @@ class User extends Authenticatable implements JWTSubject
             'send_invite_set_id' => $sendInviteSetId,
             'status'=>$status
         ]);
-
-        $token = \Auth::guard('api')->fromUser($user);
-        return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
 
         // 等下封装起来
         $code = $request->code;
@@ -106,7 +103,7 @@ class User extends Authenticatable implements JWTSubject
             $user = User::where('openid', $openid)->first();
             if (!$user) {
                 // 分享的时候带了一个邀请码，不要用左右二叉树了，做一个简单的邀请进团队
-                $user = User::create([
+                return User::create([
                     'openid' => mt_rand(10000000000,9999999990000),
                     'parent_id'=>$parent,
                     'is_open' => $isOpen,
@@ -114,10 +111,9 @@ class User extends Authenticatable implements JWTSubject
                     'status'=>$status
                 ]);
             }
-            $token = \Auth::guard('api')->fromUser($user);
+            return $user;
         } catch (\Exception $e) {
             throw new \Exception('授权失败,请重新授权!');
         }
-        return $this->respondWithToken($token,$openid)->setStatusCode(201);
     }
 }

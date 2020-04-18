@@ -18,7 +18,7 @@ class CreateTaskFlowCollectionsTable extends Migration
             $table->string('name')->comment('步骤名称的合集');
             $table->unsignedBigInteger('user_id')->comment('流程添加人');
             $table->foreign('user_id')->references('id')->on('users');
-
+            $table->unique('name','user_id');
             $table->timestamps();
         });
     }
