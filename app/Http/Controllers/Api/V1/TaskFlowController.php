@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\TaskFlowRequest;
-use App\Models\Task;
 use App\Models\TaskFlow;
 use App\Models\TaskFlowCollection;
 use App\Models\User;
@@ -36,11 +34,10 @@ class TaskFlowController extends Controller
             $taskFlow->taskFlowCollection()->associate($taskFlowCollection);
             $taskFlow->save();
             DB::commit();
+            return $this->response->created();
         } catch (\Exception $ex) {
             DB::rollback();
         }
-
-        return $this->response->created();
     }
 
     // todo 这里需要看是否是某个团队成员

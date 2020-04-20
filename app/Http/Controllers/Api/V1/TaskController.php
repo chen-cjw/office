@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\TaskLog;
 use App\Http\Requests\TaskRequest;
 use App\Models\Task;
-use App\Transformers\SubTaskTransformer;
+use App\Models\User;
 use App\Transformers\TaskTransformer;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -26,13 +27,24 @@ class TaskController extends Controller
         return $this->response->paginator($tasks,new TaskTransformer());
     }
 
+    // todo 谁可以创建任务
     // 创建子任务(发布任务) 无父任务(创建给你让你，去完成的)
     public function store(TaskRequest $request)
     {
-        // todo 谁可以创建任务
-        $task = new Task($request->only('content','close_date','task_flow','status'));
-        $task->user()->associate($this->user);
-        return $this->storeSave($task);
+        DB::beginTransaction();
+        try {
+            $task = new Task($request->only('content','close_date','task_flow','status','assignment_user_id'));
+            $task->user()->associate($this->user);
+            // 创建日志
+            $taskItem = $this->storeSave($task);
+            event(new TaskLog($this->user->username.'创建了任务',$this->user->id,$taskItem->id));
+            event(new TaskLog($this->user->username.'指派给了'.User::findOrFail($request->assignment_user_id)->username,$request->assignment_user_id,$request->task_id));
+
+            return $this->response->created();
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+        }
     }
 
     //

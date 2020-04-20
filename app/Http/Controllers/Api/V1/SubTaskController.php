@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\SubTaskRequest;
 use App\Models\Subtask;
+use App\Models\TaskFlow;
 use App\Models\User;
 use App\Transformers\SubTaskTransformer;
 use App\Transformers\TaskTransformer;
@@ -39,17 +40,26 @@ class SubTaskController extends Controller
     // todo 判断user_id 是不是我们团队的，必须有团队才可以
     public function store(SubTaskRequest $request)
     {
-        $subtask = new Subtask($request->only('content','close_date','task_flow','status'));
-        $subtask->user()->associate(User::findOrFail($request->user_id));
-        $subtask->task()->associate($this->user->tasks()->findOrFail($request->task_id));
-        $this->storeSave($subtask);
-
-        return $this->response->created();
+        DB::beginTransaction();
+        try {
+            $subtask = new Subtask($request->only('content','close_date','task_flow','status'));
+            $user = User::findOrFail($request->user_id);
+            $subtask->user()->associate($user);
+            $subtask->task()->associate($this->user->tasks()->findOrFail($request->task_id));
+            $this->storeSave($subtask);
+            event(new TaskFlow($this->user->username.'指派给了'.$user->username,$request->user_id,$request->task_id));
+            DB::commit();
+            return $this->response->created();
+        } catch (\Exception $ex) {
+            DB::rollback();
+        }
     }
     // 只有本人才可以修改任务状态
     public function update(SubTaskRequest $request,$id)
     {
         $this->user->subTasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+        event(new TaskFlow($this->user->username.Subtask::$status[$request->status],$id));
+
         return $this->response->created();
 
     }

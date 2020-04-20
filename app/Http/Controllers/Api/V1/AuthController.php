@@ -12,7 +12,6 @@ class AuthController extends Controller
     // 用户登陆 自己登陆$sendInviteSetId 默认是老板,超级管理员权限
     public function store(Request $request,User $user)
     {
-
         $user = $user->createUser(null,1,false,User::REFUND_STATUS_ADMINISTRATOR);
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$user->openid)->setStatusCode(201);

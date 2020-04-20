@@ -8,7 +8,7 @@ class CreateTaskLogsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * 这个数据库多态最合适，因为他有任务表和子任务表。不好区分
      * @return void
      */
     public function up()

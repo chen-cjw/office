@@ -18,7 +18,8 @@ class Controller extends BaseController
         $uploadImage = $model->uploadImages($imageBool,$images);
 //        $model->user()->associate($this->user);
         $model->images = json_encode($uploadImage);
-        $model->save();
+        $res = $model->save();
+        return $model;
 
         return $this->response->created();
     }

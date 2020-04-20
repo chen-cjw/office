@@ -27,4 +27,9 @@ class Task extends ImageUpload
         return $this->hasMany(Discuss::class);
     }
 
+    public function taskLogs()
+    {
+        return $this->hasMany(TaskLog::class);
+    }
+
 }

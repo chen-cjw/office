@@ -5,7 +5,7 @@ use League\Fractal\TransformerAbstract;
 
 class TaskTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['user','subtasks','discusses'];
+    protected $availableIncludes = ['user','subtasks','discusses','taskLogs'];
     public function transform(Task $task)
     {
         return [
@@ -33,6 +33,11 @@ class TaskTransformer extends TransformerAbstract
     public function includeDiscusses(Task $task)
     {
         return $this->collection($task->discusses,new DiscussTransformer());
+    }
+
+    public function includeTaskLogs(Task $task)
+    {
+        return $this->collection($task->taskLogs,new TaskLogTransformer());
     }
 
 }
