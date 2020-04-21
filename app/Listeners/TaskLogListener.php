@@ -33,7 +33,8 @@ class TaskLogListener
         $task_id = $event->task_id;
         $data = \array_merge(['content'=>$content],['user_id'=>$user_id],['task_id'=>$task_id]);
         Log::info($data);
-
         \App\Models\TaskLog::create($data);
+
+
     }
 }

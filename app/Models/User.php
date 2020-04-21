@@ -82,11 +82,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(SendInviteSet::class);
     }
     // 创建一个用户
-    public function createUser($parent,$sendInviteSetId,$isOpen,$status)
+    public function createUser($phone,$parent,$sendInviteSetId,$isOpen,$status)
     {
 //        return User::find(2);
          return User::create([
-            'openid' => mt_rand(10000000000,9999999990000),
+            'unionid' => mt_rand(10000000000,9999999990000),
+            'phone' => $phone,
             'parent_id'=>$parent,
             'is_open' => $isOpen,
             'send_invite_set_id' => $sendInviteSetId,

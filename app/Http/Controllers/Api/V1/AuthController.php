@@ -12,6 +12,26 @@ class AuthController extends Controller
     // 用户登陆 自己登陆$sendInviteSetId 默认是老板,超级管理员权限
     public function store(Request $request,User $user)
     {
+
+        // 推送消息
+//        $app = app('wechat.official_account');
+//        $app->template_message->send([
+//            'touser' => 'osQAa4x84mf-ly54cjdxMDNfNRRc',
+//            'template_id' => 'OPENTM414446600',
+//            //'url' => 'https://easywechat.org',
+//            'data' => [
+//                'key1' => '1',
+//                'key2' => '2',
+//                'key3' => '3',
+//                'key4' => '4',
+//                'key5' => '5',
+//                'key6' => '6',
+//                'key7' => '7',
+//            ],
+//        ]);
+//
+//        return 1111;
+
         $user = $user->createUser(null,1,false,User::REFUND_STATUS_ADMINISTRATOR);
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
