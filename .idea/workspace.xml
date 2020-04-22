@@ -82,8 +82,8 @@
       <file leaf-file-name="WeChatController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/WeChatController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+            <state relative-caret-position="345">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
               <folding>
                 <element signature="e#47#83#0#PHP" expanded="true" />
               </folding>
@@ -462,12 +462,12 @@
       <workItem from="1585365597369" duration="14951000" />
       <workItem from="1586072143460" duration="107743000" />
       <workItem from="1586942662764" duration="35512000" />
-      <workItem from="1587179953916" duration="25687000" />
+      <workItem from="1587179953916" duration="25804000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183893000" />
+    <option name="totallyTimeSpent" value="184010000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -895,8 +895,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/WeChatController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+        <state relative-caret-position="345">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="e#47#83#0#PHP" expanded="true" />
           </folding>
