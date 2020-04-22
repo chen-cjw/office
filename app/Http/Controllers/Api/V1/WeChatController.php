@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Log;
+use Illuminate\Support\Facades\Log;
+
 class WeChatController extends Controller
 {
     /**
@@ -18,11 +19,13 @@ class WeChatController extends Controller
 
         $app = app('wechat.official_account');
         $app->server->push(function($message){
-            return "欢迎关注 overtrue！";
-        });
-        $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
+//            return "欢迎关注 overtrue！";
+            return session('wechat.oauth_user.default'); // 拿到授权用户资料
 
-        dd($user);
+        });
+//        $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
+
+//        dd($user);
 
         return $app->server->serve();
     }
