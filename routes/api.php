@@ -28,16 +28,11 @@ $api->version('v1', [
 ], function ($api) {
 
     $api->group(['middleware' => ['wechat.oauth']], function ($api) {
-        $api->get('/user', function () {
+        $api->get('/wechat', function () {
             $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
 
             dd($user);
         });
-    });
-    $api->get('/wechat', function () {
-        $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
-
-        dd($user);
     });
 
     // 关注以后用跳出来的东西
