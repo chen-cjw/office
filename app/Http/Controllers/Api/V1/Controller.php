@@ -18,7 +18,7 @@ class Controller extends BaseController
         $uploadImage = $model->uploadImages($imageBool,$images);
 //        $model->user()->associate($this->user);
         $model->images = json_encode($uploadImage);
-        $res = $model->save();
+        $model->save();
         return $model;
 
         return $this->response->created();
@@ -31,7 +31,18 @@ class Controller extends BaseController
         $teamMember->user()->associate($user);
         $teamMember->team()->associate($team);
         $teamMember->save();
-
     }
 
+    // 发送模版消息
+    public function template_message($openid,$template_id,$data)
+    {
+        $app = app('wechat.official_account');
+        $app->template_message->send([
+            'touser' => $openid,
+            'template_id' => $template_id,
+            //'url' => 'https://easywechat.org',
+            'data' => $data,
+        ]);
+        return $app;
+    }
 }

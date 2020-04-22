@@ -16,20 +16,20 @@ class AuthController extends Controller
         // 推送消息
 //        $app = app('wechat.official_account');
 //        $app->template_message->send([
-//            'touser' => 'osQAa4x84mf-ly54cjdxMDNfNRRc',
-//            'template_id' => 'OPENTM414446600',
+//            'touser' => 'o3h-OwSQf7bBErKhjn7MOrp1Z3dc',
+//            'template_id' => 'dbiJFgxR16uboLVjb8-m9bCFFyM5DDbIxsrrBoikmeE',
 //            //'url' => 'https://easywechat.org',
 //            'data' => [
-//                'key1' => '1',
-//                'key2' => '2',
-//                'key3' => '3',
-//                'key4' => '4',
-//                'key5' => '5',
-//                'key6' => '6',
-//                'key7' => '7',
+//                'first' => 'first',
+//                'keyword1' => '1',
+//                'keyword2' => '2',
+//                'keyword3' => '3',
+//                'keyword4' => '4',
+//                'keyword5' => '5',
+//                'remark' => 'remark',
 //            ],
 //        ]);
-//
+////
 //        return 1111;
 
         $user = $user->createUser(null,1,false,User::REFUND_STATUS_ADMINISTRATOR);
