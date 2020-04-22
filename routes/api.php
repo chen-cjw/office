@@ -27,6 +27,14 @@ $api->version('v1', [
     'middleware' => ['serializer:array', 'bindings'] // bindings 注入获取对象
 ], function ($api) {
 
+    $api->group(['middleware' => ['web', 'wechat.oauth']], function ($api) {
+        $api->get('/user', function () {
+            $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
+
+            dd($user);
+        });
+    });
+    // 关注以后用跳出来的东西
     $api->any('/wechat', 'WeChatController@serve');
 
     $api->post('/auth','AuthController@store')->name('api.auth.store');
