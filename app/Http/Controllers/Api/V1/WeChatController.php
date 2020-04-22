@@ -20,6 +20,9 @@ class WeChatController extends Controller
         $app->server->push(function($message){
             return "欢迎关注 overtrue！";
         });
+        $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
+
+        dd($user);
 
         return $app->server->serve();
     }
