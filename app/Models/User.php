@@ -47,7 +47,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'openid', 'avatar','nickname','sex','team_id','parent_id','is_open','send_invite_set_id','status',
+        'wx_openid','ml_openid','phone','unionid','avatar','nickname','sex','team_id','parent_id','is_open','send_invite_set_id','status',
     ];
     /**
      * The attributes that should be cast to native types.
@@ -86,7 +86,7 @@ class User extends Authenticatable implements JWTSubject
     {
 //        return User::find(2);
          return User::create([
-            'unionid' => mt_rand(10000000000,9999999990000),
+            'ml_openid' => mt_rand(10000000000,9999999990000),
             'phone' => $phone,
             'parent_id'=>$parent,
             'is_open' => $isOpen,

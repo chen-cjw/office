@@ -15,18 +15,16 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('openid')->unique()->comment('微信唯一标识');
-            $table->string('unionid')->unique()->comment('公众号和小程序的唯一标识');
+            $table->string('unionid')->unique()->nullable()->comment('公众号和小程序的唯一标识');
+            $table->string('wx_openid')->unique()->nullable()->comment('公众号');
+            $table->string('ml_openid')->unique()->nullable()->comment('小程序');
             $table->string('phone')->unique();
             $table->string('avatar')->nullable();
             $table->string('nickname')->nullable();
             $table->boolean('sex')->nullable();
-            // todo 这里有问题
-            //$table->unsignedBigInteger('team_id')->nullable()->comment('所属团队'); // 每个用户只可以有一个团队
             $table->unsignedBigInteger('send_invite_set_id')->nullable()->comment('同事/老板'); // 每个用户只可以有一个团队
             $table->bigInteger('parent_id')->nullable()->comment('邀请人');
             $table->bigInteger('is_open')->default(0)->comment('是否开启送的天数');
-            //$table->foreign('team_id')->references('id')->on('teams');// 可以知道谁发送给我的
             $table->foreign('send_invite_set_id')->references('id')->on('send_invite_sets');// 可以知道谁发送给我的
             // 这里应该还有一个操作日志才对
             $table->enum('status',['administrator','admin','member','freeze','wait'])

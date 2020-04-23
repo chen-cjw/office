@@ -13,26 +13,7 @@ class AuthController extends Controller
     public function store(Request $request,User $user)
     {
 
-        // 推送消息
-//        $app = app('wechat.official_account');
-//        $app->template_message->send([
-//            'touser' => 'o3h-OwSQf7bBErKhjn7MOrp1Z3dc',
-//            'template_id' => 'dbiJFgxR16uboLVjb8-m9bCFFyM5DDbIxsrrBoikmeE',
-//            //'url' => 'https://easywechat.org',
-//            'data' => [
-//                'first' => 'first',
-//                'keyword1' => '1',
-//                'keyword2' => '2',
-//                'keyword3' => '3',
-//                'keyword4' => '4',
-//                'keyword5' => '5',
-//                'remark' => 'remark',
-//            ],
-//        ]);
-////
-//        return 1111;
-
-        $user = $user->createUser(null,1,false,User::REFUND_STATUS_ADMINISTRATOR);
+        $user = $user->createUser($request->phone,0,1,false,User::REFUND_STATUS_ADMINISTRATOR);
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
     }
