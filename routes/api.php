@@ -104,8 +104,9 @@ $api->version('v1', [
         $api->get('/task_flows','TaskFlowController@index')->name('api.task_flow.index');
         // 任务 详情
         $api->get('/task_flows/{id}','TaskFlowController@show')->name('api.task_flow.show');
-        // 创建子任务 有父任务(任务已经建好，只是做的分发)
+        // 创建流程 有父任务
         $api->post('/task_flows','TaskFlowController@store')->name('api.task_flow.store');
+        $api->patch('/task_flows/{status}','TaskFlowController@updateStatus')->name('api.task_flow.updateStatus');
         // 任务流程列表
         $api->get('/task_flow_collections','TaskFlowCollectionController@index')->name('api.task_flow_collections.index');
         // 查看

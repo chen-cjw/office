@@ -14,7 +14,7 @@ class Task extends ImageUpload
     ];
 
     protected $fillable = [
-        'content','images','close_date','task_flow','status'
+        'content','images','close_date','task_flow','status','assignment_user_id'
     ];
 
     public function subtasks()

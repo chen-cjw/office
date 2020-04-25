@@ -6,7 +6,7 @@ use App\Models\TeamMember;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 
-class TeamRule implements Rule
+class TeamMemberRule implements Rule
 {
     /**
      * Create a new rule instance.
@@ -29,9 +29,9 @@ class TeamRule implements Rule
     {
         $isset = TeamMember::where('user_id',auth('api')->id())->first();
         if ($isset) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -41,6 +41,6 @@ class TeamRule implements Rule
      */
     public function message()
     {
-        return '此用户已加入团队.';
+        return '团队未创建/团队没有成员.';
     }
 }

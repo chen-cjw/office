@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\TeamMemberToken;
+use App\Http\Middleware\TeamUseToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate;
 
@@ -64,6 +66,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'wechat.oauth'=>OAuthAuthenticate::class,
+        'team.use'=>TeamUseToken::class,   // 团队是否可用(人数/到期时间)
+        'team.member'=>TeamMemberToken::class, // 团队成员是否存在
 
     ];
 

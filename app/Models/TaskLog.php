@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class TaskLog extends Model
 {
-    protected $fillable = ['content','user_id','task_id'];
+    protected $fillable = ['content','user_id','model_id','model_type'];
 }

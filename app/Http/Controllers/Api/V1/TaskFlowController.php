@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\TaskFlowRequest;
+use App\Http\Requests\TaskFlowUpdateStatusRequest;
 use App\Models\TaskFlow;
 use App\Models\TaskFlowCollection;
 use App\Models\User;
+use Dingo\Api\Exception\ResourceException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TaskFlowController extends Controller
 {
-    // 创建子任务 有父任务(任务已经建好，只是做的分发)
-    public function store(Request $request)
+    // 任务流程
+    public function store(TaskFlowRequest $request)
     {
         DB::beginTransaction();
         try {
@@ -24,8 +27,8 @@ class TaskFlowController extends Controller
                 $taskFlowCollection->save();
             }else {
                 // 修改
-                $taskFlowCollectionId = $this->user->taskFlowCollections()->where('name',$taskFlowCollectionName)->update(['name'=>$taskFlowCollectionName.'-'.$stepName]);
-                $taskFlowCollection = TaskFlowCollection::find($taskFlowCollectionId);
+                $taskFlowCollection= $this->user->taskFlowCollections()->where('name',$taskFlowCollectionName)->first();//
+                $taskFlowCollection->update(['name'=>$taskFlowCollectionName.'-'.$stepName]);;
             }
             // task_flows 表         'step_name','status'
             $taskFlow = new TaskFlow($request->only('step_name','status'));
@@ -37,6 +40,7 @@ class TaskFlowController extends Controller
             return $this->response->created();
         } catch (\Exception $ex) {
             DB::rollback();
+            throw new ResourceException('任务流程创建失败');
         }
     }
 
@@ -46,4 +50,12 @@ class TaskFlowController extends Controller
         $this->user->taskFlowCollections()->findOrFail($task_flow_collection_id)->taskFlows()->where('id',$task_flow_id)->update(['user_id'=>$request->user_id]);
         return $this->response->created();
     }
+    
+    // 我本人修改本人的任务流程状态
+    public function updateStatus(TaskFlowUpdateStatusRequest $request,$id)
+    {
+        $this->user->taskFlows()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+        return $this->response->created();
+    }
+
 }

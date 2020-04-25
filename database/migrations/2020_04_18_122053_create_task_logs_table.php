@@ -16,10 +16,10 @@ class CreateTaskLogsTable extends Migration
         Schema::create('task_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('content')->comment('操作内容');
-            $table->unsignedBigInteger('task_id')->nullable()->comment('任务');
-            $table->foreign('task_id')->references('id')->on('tasks');
             $table->unsignedBigInteger('user_id')->nullable()->comment('操作人');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('model_id')->comment('那个模型下面id');
+            $table->string('model_type')->comment('那个模型下面的');
             $table->timestamps();
         });
     }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TeamMemberRule;
+use App\Rules\TeamRule;
+use App\Rules\TeamUserRule;
 use Dingo\Api\Http\FormRequest;
 
 class TaskRequest extends FormRequest
@@ -27,15 +30,16 @@ class TaskRequest extends FormRequest
             case 'GET':
             case 'POST':
                 return [
-                    'content'=>'required',
-                    'images'=>'required',
-                    'close_date'=>'required',
+                    'content'=>['required',new TeamMemberRule()], // 提前有团队了
+                    'images'=>'',
+                    'close_date'=>'required|date',
                     'task_flow'=>'required',
-                    'status'=>'required'
+                    'status'=>'required|in:start,end,stop',
+                    'assignment_user_id'=>['required',new TeamUserRule()]  // 这个人必须在团队里面
                 ];
             case 'PATCH':
                 return [
-                    'status' => ['required'],
+                    'status' => ['required',''],
                 ];
             case 'DELETE':
 
@@ -52,7 +56,8 @@ class TaskRequest extends FormRequest
             'images'=>'图片',
             'close_date'=>'截止日期',
             'task_flow'=>'任务流程',
-            'status'=>'状态'
+            'status'=>'状态',
+            'assignment_user_id'=>'指派某人'
         ];
     }
 }

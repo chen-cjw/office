@@ -15,17 +15,19 @@ class TaskLog
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $content;
     public $user_id;
-    public $task_id;
+    public $model_id;
+    public $model_type;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(string  $content,int $user_id,int $task_id)
+    public function __construct(string  $content,int $user_id,int $model_id,string $model_type)
     {
         $this->content = $content;
         $this->user_id = $user_id;
-        $this->task_id = $task_id;
+        $this->model_id = $model_id;
+        $this->model_type = $model_type;
     }
 
     /**

@@ -9,9 +9,12 @@ class UserTransformer extends TransformerAbstract
 
     public function transform(User $user)
     {
+        // 'wx_openid','ml_openid','phone','unionid','avatar','nickname','sex','team_id','parent_id','is_open','send_invite_set_id','status',
         return [
             'id' => $user->id,
-            'openid' => $user->openid,
+            'wx_openid' => $user->wx_openid,
+            'ml_openid' => $user->ml_openid,
+            'phone' => $user->phone,
             'nickname' => $user->nickname,
             'sex' => $user->sex,
             'avatar' => $user->avatar,
@@ -26,6 +29,11 @@ class UserTransformer extends TransformerAbstract
     public function includeTeam(User $user)
     {
         return $this->item($user->team,new TeamTransformer());
+    }
+
+    public function includeSendInviteSet(User $user)
+    {
+        return $this->item($user->sendInviteSet,new SendIn);
     }
 
     public function includeTasks()

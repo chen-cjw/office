@@ -30,11 +30,10 @@ class TaskLogListener
     {
         $content = $event->content;
         $user_id = $event->user_id;
-        $task_id = $event->task_id;
-        $data = \array_merge(['content'=>$content],['user_id'=>$user_id],['task_id'=>$task_id]);
+        $model_id = $event->model_id;
+        $model_type = $event->model_type;
+        $data = \array_merge(['content'=>$content],['user_id'=>$user_id],['model_id'=>$model_id],['model_type'=>$model_type]);
         Log::info($data);
         \App\Models\TaskLog::create($data);
-
-
     }
 }
