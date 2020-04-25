@@ -63,7 +63,9 @@ $api->version('v1', [
     $api->get('/teams/users/{user}','UserController@storeBoss')->name('api.team.storeBoss');
 
     $api->group(['middleware' => ['auth:api']], function ($api) {
-        // 个人信息
+
+
+            // 个人信息
         $api->get('/meShow','AuthController@meShow')->name('api.auth.meShow');
         /**
          * 团队
@@ -76,7 +78,6 @@ $api->version('v1', [
 //        $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
         // 修改团队成员的权限
         $api->patch('/teams/{team}/users/{user}','TeamController@update')->name('api.team.update');
-
 
         /**
          * 首页
@@ -105,7 +106,10 @@ $api->version('v1', [
         // 任务 详情
         $api->get('/task_flows/{id}','TaskFlowController@show')->name('api.task_flow.show');
         // 创建流程 有父任务
-        $api->post('/task_flows','TaskFlowController@store')->name('api.task_flow.store');
+        // 必须是有团队了才行
+        $api->group(['middleware' => ['team.use']], function ($api) {
+            $api->post('/task_flows','TaskFlowController@store')->name('api.task_flow.store');
+        });
         $api->patch('/task_flows/{status}','TaskFlowController@updateStatus')->name('api.task_flow.updateStatus');
         // 任务流程列表
         $api->get('/task_flow_collections','TaskFlowCollectionController@index')->name('api.task_flow_collections.index');

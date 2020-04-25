@@ -10,6 +10,7 @@ use App\Models\User;
 use Dingo\Api\Exception\ResourceException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TaskFlowController extends Controller
 {
@@ -40,6 +41,7 @@ class TaskFlowController extends Controller
             return $this->response->created();
         } catch (\Exception $ex) {
             DB::rollback();
+            Log::error($ex);
             throw new ResourceException('任务流程创建失败');
         }
     }
@@ -48,6 +50,7 @@ class TaskFlowController extends Controller
     public function update(Request $request,$task_flow_collection_id,$task_flow_id)
     {
         $this->user->taskFlowCollections()->findOrFail($task_flow_collection_id)->taskFlows()->where('id',$task_flow_id)->update(['user_id'=>$request->user_id]);
+        // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
         return $this->response->created();
     }
     
@@ -55,6 +58,7 @@ class TaskFlowController extends Controller
     public function updateStatus(TaskFlowUpdateStatusRequest $request,$id)
     {
         $this->user->taskFlows()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+        // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
         return $this->response->created();
     }
 

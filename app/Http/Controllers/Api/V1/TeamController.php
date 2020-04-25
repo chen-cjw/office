@@ -32,7 +32,7 @@ class TeamController extends Controller
 
         DB::beginTransaction();
         try {
-            $team = new Team(['name'=>$request->name]);
+            $team = new Team(['name'=>$request->name,'close_time'=>date('Y-m-d H:i:s')]);
             $team->user()->associate($this->user());
             $team->save();
 

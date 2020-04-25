@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\TaskFlow;
+use App\Models\TaskFlowCollection;
 use Dingo\Api\Http\FormRequest;
 
 class TaskFlowRequest extends FormRequest
@@ -23,36 +25,38 @@ class TaskFlowRequest extends FormRequest
      */
     public function rules()
     {
-        switch ($this->method()) {
-            case 'GET':
-            case 'POST':
-                return [
-                    'content'=>'required',
-                    'images'=>'',
-                    'close_date'=>'required',
-                    'task_flow'=>'required',
-                    'status'=>'required'
-                ];
-            case 'PATCH':
-                return [
-                    'status' => ['required'],
-                ];
-            case 'DELETE':
+        return [
+            'name'=>[
+                function ($attribute, $value, $fail) {
+                    if($value) {
+                        if (TaskFlowCollection::where('user_id',auth('api')->id())->where('name',$value)->first()) {
+                            return $fail('流程名称不存在！');
+                        }
+                    }
+                },
+            ],
 
-            default:
-                return [];
-        }
+            'step_name'=>['required',
+                function ($attribute, $value, $fail) {
+                    if($this->input('name')) {
 
+                    }else {
+                        if ($sku = TaskFlow::where('user_id',$this->input('user_id'))->where('step_name',$value)->first()) {
+                            return $fail('流程步骤已存在！');
+                        }
+                    }
+                },
+            ],
+            'status'=>'required|in:start,pending,end,complete',
+            'user_id'=>['required'] // 必须在用户表中，要在这个团队内
+        ];
     }
 
     public function attributes()
     {
         return [
-            'content'=>'内容',
-            'images'=>'图片',
-            'close_date'=>'截止日期',
-            'task_flow'=>'任务流程',
-            'status'=>'状态'
+            'step_name'=>'流程步骤名称',
+            'status'=>'状态',
         ];
     }
 }

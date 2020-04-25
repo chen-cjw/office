@@ -58,6 +58,7 @@ class TaskController extends Controller
     public function update(TaskRequest $request,$id)
     {
         $this->user->tasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+        // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
         return $this->response->created();
     }
 //    public function storeSave($task)
