@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserStoreBossRequest;
 use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
@@ -41,12 +42,10 @@ class UserController extends Controller
         }
     }
 
-    // todo 这个可能不需要了邀请老板
-    public function storeBoss($userId)
+    // todo 这里的邀请有一个问题，同事邀请了，但是并没有团队，所以没有办法创建团队。没有添加免费适用的权利
+    public function storeBoss(UserStoreBossRequest $request,$userId)
     {
-        // todo 判断用户是否存在,等下封装
-        User::findOrFail($userId);
-        $user = $this->user_model->createUser($userId,2,true,User::REFUND_STATUS_ADMINISTRATOR);
+        $user = $this->user_model->createUser($request->phone,$userId,2,true,User::REFUND_STATUS_ADMINISTRATOR,$request->code);
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
     }

@@ -27,14 +27,6 @@ $api->version('v1', [
     'middleware' => ['serializer:array', 'bindings'] // bindings 注入获取对象
 ], function ($api) {
 
-//    $api->group(['middleware' => ['wechat.oauth']], function ($api) {
-//        $api->get('/wechat', function () {
-//            $user = session('wechat.oauth_user.default'); // 拿到授权用户资料
-//
-//            dd($user);
-//        });
-//    });
-
     // 关注以后用跳出来的东西
     $api->any('/wechat', 'WeChatController@serve');
 
@@ -91,8 +83,8 @@ $api->version('v1', [
         $api->get('/tasks','TaskController@index')->name('api.tasks.index');
 
         // 创建任务
-        $api->post('/tasks','TaskController@store')->name('api.task.store');
-        $api->patch('/tasks/{id}','TaskController@update')->name('api.task.update');
+//        $api->post('/tasks','TaskController@store')->name('api.task.store');
+//        $api->patch('/tasks/{id}','TaskController@update')->name('api.task.update');
         $api->post('/sub_tasks','SubTaskController@store')->name('api.sub_task.store');
         $api->patch('/sub_tasks/{id}','SubTaskController@update')->name('api.sub_task.update');
 
@@ -108,8 +100,14 @@ $api->version('v1', [
         // 创建流程 有父任务
         // 必须是有团队了才行
         $api->group(['middleware' => ['team.use']], function ($api) {
+            $api->post('/tasks','TaskController@store')->name('api.task.store');
+
             $api->post('/task_flows','TaskFlowController@store')->name('api.task_flow.store');
         });
+//        $api->group(['middleware' => ['welfare']], function ($api) {
+            $api->patch('/tasks/{id}','TaskController@update')->name('api.task.update');
+//        });
+
         $api->patch('/task_flows/{status}','TaskFlowController@updateStatus')->name('api.task_flow.updateStatus');
         // 任务流程列表
         $api->get('/task_flow_collections','TaskFlowCollectionController@index')->name('api.task_flow_collections.index');

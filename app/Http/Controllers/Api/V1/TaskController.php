@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Events\TaskLog;
+use App\Events\Welfare;
 use App\Http\Requests\TaskRequest;
+use App\Listeners\WelfareListener;
 use App\Models\Task;
 use App\Models\Team;
+use App\Models\TeamMember;
 use App\Models\User;
 use App\Transformers\TaskTransformer;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -54,22 +58,21 @@ class TaskController extends Controller
     {
         return $this->response->item($this->user->tasks()->findOrFail($id),new TaskTransformer());
     }
-    // 只有本人才可以修改任务状态
+
+    // 只有本人才可以修改任务状态，任务完成。邀请我的人(有团队的人)，可使用天数就会增加
     public function update(TaskRequest $request,$id)
     {
-        $this->user->tasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
-        // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
-        return $this->response->created();
+        DB::beginTransaction();
+        try {
+            $this->user->tasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+            // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
+            event(new Welfare());
+            DB::commit();
+            return $this->response->created();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            throw new \Exception($ex);
+        }
+
     }
-//    public function storeSave($task)
-//    {
-//        $imageBool = request()->hasFile('images');
-//        $images = request()->file('images');
-//        $uploadImage = $task->uploadImages($imageBool,$images);
-//        $task->user()->associate($this->user);
-//        $task->images = json_encode($uploadImage);
-//        $task->save();
-//
-//        return $this->response->created();
-//    }
 }

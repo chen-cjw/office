@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\TaskLog' => [
             'App\Listeners\TaskLogListener',
         ],
+        'App\Events\Welfare' => [
+            'App\Listeners\WelfareListener',
+        ],
     ];
 
     /**
