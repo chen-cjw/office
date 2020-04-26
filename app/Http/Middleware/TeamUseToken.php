@@ -25,7 +25,7 @@ class TeamUseToken
             if(!$team) {
                 throw new ResourceException('请超级管理员续费之后在使用！');
             }
-            // 团队下有多少人
+            // 团队下有多少人任务流程创建失败
             $team = Team::where('id',$teamMember->team_id)->first();
             $teamMemberCount = $team->members()->count();
             if (bccomp($teamMemberCount, $team->number_count) == 1) { //bccomp('1', '2') . "\n";   // -1

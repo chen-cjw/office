@@ -47,7 +47,7 @@ class TaskFlowController extends Controller
     }
 
     // todo 这里需要看是否是某个团队成员
-    public function update(Request $request,$task_flow_collection_id,$task_flow_id)
+    public function update(TaskFlowRequest $request,$task_flow_collection_id,$task_flow_id)
     {
         $this->user->taskFlowCollections()->findOrFail($task_flow_collection_id)->taskFlows()->where('id',$task_flow_id)->update(['user_id'=>$request->user_id]);
         // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
