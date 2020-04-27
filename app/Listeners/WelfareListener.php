@@ -35,7 +35,7 @@ class WelfareListener
         $thisUser = auth('api')->user();
         if($thisUser->is_open == true) {
             if($thisUser->tasks()->where('status',Task::REFUND_END)->count() == $thisUser->sendInviteSet->requirement) {
-                // todo 可能没有团队，没有团队就不加
+                // todo 可能没有团队，没有团队就加在他上面
                 $addTime = Carbon::parse(User::findOrFail($thisUser->parent_id)->team->close_time)->addDays($thisUser->sendInviteSet->day);
                 $teamMember = TeamMember::where('user_id',$thisUser->parent_id)->first();
                 if($teamMember) {

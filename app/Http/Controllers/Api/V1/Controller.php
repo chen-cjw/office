@@ -36,13 +36,17 @@ class Controller extends BaseController
     // 发送模版消息
     public function template_message($openid,$template_id,$data)
     {
-        $app = app('wechat.official_account');
+        $app = app('wechat.mini_program');
         $app->template_message->send([
             'touser' => $openid,
             'template_id' => $template_id,
-            //'url' => 'https://easywechat.org',
-            'data' => $data,
+            'page' => 'index',
+            'form_id' => 'form-id',
+            'data' => [
+                'keyword1' => 'VALUE',
+                'keyword2' => 'VALUE2',
+                // ...
+            ],
         ]);
-        return $app;
     }
 }
