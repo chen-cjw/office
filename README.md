@@ -13,7 +13,6 @@ php artisan db:seed
 
 
 
-
 ## 个人中心 Versions: CURRENT
 URL
 https://documenter.getpostman.com/view/11004805/Szf53916

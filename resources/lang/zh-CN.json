@@ -1,0 +1,33 @@
+{
+  "ID": "ID",
+  "Created at":"创建时间",
+  "Updated at":"更新时间",
+
+  "Unionid":"多端唯一标识",
+  "Wx openid":"公众号标识",
+  "Phone":"手机号码",
+  "Nickname":"用户昵称",
+  "Sex":"性别",
+  "Parent id":"邀请人",
+  "Is open":"福利开启",
+  "Status":"状态",
+
+  "Content":"内容",
+
+  "Images":"图片",
+
+  "Is read":"是否已读",
+  "Name":"名称",
+  "Day":"天数",
+  "Requirement":"符合次数",
+
+  "Close date":"到期时间",
+  "Task flow":"流程步骤合集",
+
+  "Step name":"步骤名称",
+  "Model type":"模型类型",
+  "Model id":"模型ID",
+
+  "Number count":"成员人数",
+  "Close time":"到期时间"
+}
