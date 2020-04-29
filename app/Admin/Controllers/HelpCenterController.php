@@ -60,9 +60,7 @@ class HelpCenterController extends AdminController
     protected function form()
     {
         $form = new Form(new HelpCenter());
-
-        $form->textarea('content', __('Content'));
-
+        $form->UEditor('content', __('Content'));
         return $form;
     }
 }

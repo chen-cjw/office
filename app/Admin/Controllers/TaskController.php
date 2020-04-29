@@ -27,13 +27,15 @@ class TaskController extends AdminController
         $grid = new Grid(new Task());
 
         $grid->column('id', __('Id'));
+        $grid->column('user_id', __('发布用户'));
+        $grid->column('images', __('Images'))->lightbox(['width' => 35, 'height' => 35]);//->lightbox(['width' => 50, 'height' => 50]);;
         $grid->column('content', __('Content'));
-        $grid->column('images', __('Images'));
-        $grid->column('user_id', __('User id'));
-        $grid->column('close_date', __('Close date'));
         $grid->column('task_flow', __('Task flow'));
-        $grid->column('assignment_user_id', __('Assignment user id'));
-        $grid->column('status', __('Status'));
+        $grid->column('user.nickname', __('指派给'));
+        $grid->column('status', __('Status'))->display(function ($stu) {
+            return Task::$status[$stu];
+        });
+        $grid->column('close_date', __('Close date'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -51,7 +53,7 @@ class TaskController extends AdminController
         $show = new Show(Task::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('content', __('Content'));
+        $show->field('conlight-boxtent', __('Content'));
         $show->field('images', __('Images'));
         $show->field('user_id', __('User id'));
         $show->field('close_date', __('Close date'));

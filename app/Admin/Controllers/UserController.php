@@ -27,11 +27,11 @@ class UserController extends AdminController
         $grid = new Grid(new User());
 
         $grid->column('id', __('Id'));
-        $grid->column('unionid', __('Unionid'));
-        $grid->column('wx_openid', __('Wx openid'));
+        $grid->column('avatar', __('Avatar'));
+        //$grid->column('unionid', __('Unionid'));
+        //$grid->column('wx_openid', __('Wx openid'));
         $grid->column('ml_openid', __('Ml openid'));
         $grid->column('phone', __('Phone'));
-        $grid->column('avatar', __('Avatar'));
         $grid->column('nickname', __('Nickname'));
         $grid->column('sex', __('Sex'));
         $grid->column('send_invite_set_id', __('Send invite set id'));

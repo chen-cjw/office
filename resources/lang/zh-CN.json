@@ -5,6 +5,8 @@
 
   "Unionid":"多端唯一标识",
   "Wx openid":"公众号标识",
+  "Ml openid":"小程序标识",
+  "Avatar":"头像",
   "Phone":"手机号码",
   "Nickname":"用户昵称",
   "Sex":"性别",
@@ -17,9 +19,9 @@
   "Images":"图片",
 
   "Is read":"是否已读",
-  "Name":"名称",
-  "Day":"天数",
-  "Requirement":"符合次数",
+  "Name":"邀请老板/同事",
+  "Day":"所送天数",
+  "Requirement":"完成任务次数",
 
   "Close date":"到期时间",
   "Task flow":"流程步骤合集",

@@ -122,6 +122,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/vendor/encore/laravel-admin" />
+      <path value="$PROJECT_DIR$/vendor/laravel-admin-ext/grid-lightbox" />
+      <path value="$PROJECT_DIR$/vendor/codingyu/laravel-ueditor" />
+      <path value="$PROJECT_DIR$/vendor/codingyu/ueditor" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
