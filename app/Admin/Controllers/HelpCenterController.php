@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Str;
 
 class HelpCenterController extends AdminController
 {
@@ -27,7 +28,9 @@ class HelpCenterController extends AdminController
         $grid = new Grid(new HelpCenter());
 
         $grid->column('id', __('Id'));
-        $grid->column('content', __('Content'));
+        $grid->column('content', __('Content'))->display(function ($content) {
+            return Str::limit($content, $limit = 500, $end = '...');
+        });
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -61,6 +64,7 @@ class HelpCenterController extends AdminController
     {
         $form = new Form(new HelpCenter());
         $form->UEditor('content', __('Content'));
+
         return $form;
     }
 }

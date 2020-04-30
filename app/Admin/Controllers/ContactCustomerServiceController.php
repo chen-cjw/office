@@ -7,6 +7,7 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Illuminate\Support\Str;
 
 class ContactCustomerServiceController extends AdminController
 {
@@ -27,7 +28,9 @@ class ContactCustomerServiceController extends AdminController
         $grid = new Grid(new ContactCustomerService());
 
         $grid->column('id', __('Id'));
-        $grid->column('content', __('Content'));
+        $grid->column('content', __('Content'))->display(function ($content) {
+            return Str::limit($content, $limit = 500, $end = '...');
+        });
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -45,7 +48,7 @@ class ContactCustomerServiceController extends AdminController
         $show = new Show(ContactCustomerService::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('content', __('Content'));
+        $show->field('content', __('Content'))->unescape();
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -61,7 +64,7 @@ class ContactCustomerServiceController extends AdminController
     {
         $form = new Form(new ContactCustomerService());
 
-        $form->textarea('content', __('Content'));
+        $form->UEditor('content', __('Content'));
 
         return $form;
     }

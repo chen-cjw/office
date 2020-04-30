@@ -30,7 +30,9 @@ class TaskFlowController extends AdminController
         $grid->column('step_name', __('Step name'));
         $grid->column('user_id', __('User id'));
         $grid->column('task_flow_collection_id', __('Task flow collection id'));
-        $grid->column('status', __('Status'));
+        $grid->column('status', __('Status'))->display(function ($statusColumn) {
+            return TaskFlow::$status[$statusColumn];
+        });
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

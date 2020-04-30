@@ -21,10 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->string('avatar')->nullable();
             $table->string('nickname')->nullable();
-            $table->boolean('sex')->nullable();
+            $table->boolean('sex')->nullable()->default(1);
             $table->unsignedBigInteger('send_invite_set_id')->nullable()->comment('同事/老板'); // 每个用户只可以有一个团队
             $table->bigInteger('parent_id')->nullable()->comment('邀请人');
-            $table->bigInteger('is_open')->default(0)->comment('是否开启送的天数');
+            $table->boolean('is_open')->default(0)->comment('是否开启送的天数');
             $table->foreign('send_invite_set_id')->references('id')->on('send_invite_sets');// 可以知道谁发送给我的
             // 这里应该还有一个操作日志才对
             $table->enum('status',['administrator','admin','member','freeze','wait'])

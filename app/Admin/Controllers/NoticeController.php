@@ -28,9 +28,10 @@ class NoticeController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('content', __('Content'));
+        $grid->column('send_user_id', __('发送人'));
+        $grid->column('to_user_id', __('接收人'));
         $grid->column('is_read', __('Is read'));
-        $grid->column('send_user_id', __('Send user id'));
-        $grid->column('to_user_id', __('To user id'));
+
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

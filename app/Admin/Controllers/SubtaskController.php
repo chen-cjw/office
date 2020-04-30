@@ -33,7 +33,9 @@ class SubtaskController extends AdminController
         $grid->column('user_id', __('User id'));
         $grid->column('close_date', __('Close date'));
         $grid->column('task_flow', __('Task flow'));
-        $grid->column('status', __('Status'));
+        $grid->column('status', __('Status'))->display(function ($statusColumn) {
+            return Subtask::$status[$statusColumn];
+        });
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

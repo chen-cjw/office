@@ -27,8 +27,8 @@ class TeamController extends AdminController
         $grid = new Grid(new Team());
 
         $grid->column('id', __('Id'));
-        $grid->column('name', __('Name'));
-        $grid->column('user_id', __('User id'));
+        $grid->column('name', __('团队名称'));
+        $grid->column('user.nickname', __('创建人'));
         $grid->column('number_count', __('Number count'));
         $grid->column('close_time', __('Close time'));
         $grid->column('created_at', __('Created at'));
@@ -48,8 +48,8 @@ class TeamController extends AdminController
         $show = new Show(Team::findOrFail($id));
 
         $show->field('id', __('Id'));
-        $show->field('name', __('Name'));
-        $show->field('user_id', __('User id'));
+        $show->field('name', __('团队名称'));
+        $show->field('user_id', __('创建人'));
         $show->field('number_count', __('Number count'));
         $show->field('close_time', __('Close time'));
         $show->field('created_at', __('Created at'));
@@ -67,8 +67,8 @@ class TeamController extends AdminController
     {
         $form = new Form(new Team());
 
-        $form->text('name', __('Name'));
-        $form->number('user_id', __('User id'));
+        $form->text('name', __('团队名称'));
+        $form->number('user_id', __('创建人'));
         $form->number('number_count', __('Number count'));
         $form->datetime('close_time', __('Close time'))->default(date('Y-m-d H:i:s'));
 

@@ -29,9 +29,9 @@ class DiscussController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('content', __('Content'));
         $grid->column('images', __('Images'));
-        $grid->column('task_id', __('Task id'));
-        $grid->column('comment_user_id', __('Comment user id'));
-        $grid->column('reply_user_id', __('Reply user id'));
+        $grid->column('task_id', __('所属任务'));
+        $grid->column('user.nickname', __('发表评论人'));//comment_user_id
+        $grid->column('user.nickname', __('回复人'));//reply_user_id
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 

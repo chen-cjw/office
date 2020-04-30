@@ -33,11 +33,19 @@ class UserController extends AdminController
         $grid->column('ml_openid', __('Ml openid'));
         $grid->column('phone', __('Phone'));
         $grid->column('nickname', __('Nickname'));
-        $grid->column('sex', __('Sex'));
-        $grid->column('send_invite_set_id', __('Send invite set id'));
-        $grid->column('parent_id', __('Parent id'));
-        $grid->column('is_open', __('Is open'));
-        $grid->column('status', __('Status'));
+        $grid->column('sex', __('Sex'))->display(function ($sex) {
+            return $sex == 1 ? '男' : '女';
+        });
+        $grid->column('send_invite_set_id', __('配置(邀请老板和同事)'));
+        $grid->column('parent_id', __('Parent id'))->display(function ($parent_id) {
+            return $parent_id==0 ? '暂无' : $parent_id;
+        });
+        $grid->column('is_open', __('Is open'))->display(function ($open) {
+            return $open == 1 ? '是' : '否';
+        });
+        $grid->column('status', __('Status'))->display(function ($statusColumn) {
+            return User::$status[$statusColumn];
+        });
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
