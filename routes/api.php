@@ -120,6 +120,10 @@ $api->version('v1', [
         // 评论
         $api->get('/discusses','DiscussController@index')->name('api.discuss.index');
         $api->post('/discusses','DiscussController@store')->name('api.discuss.store');
+
+        //  支付提交订单
+        $api->post('/wechat_pay','WechatPayController@store')->name('api.wechat_pay.store');
+
     });
     /**
      * 任务详情下的评论
