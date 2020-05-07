@@ -27,4 +27,11 @@ class AuthMlOpenidStoreRequest extends FormRequest
             'code' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'code.required' => '授权失败！'
+        ];
+    }
 }

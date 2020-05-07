@@ -29,4 +29,13 @@ class AuthPhoneStoreRequest extends FormRequest
             'iv'             => 'require',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'code.require'=>'授权失败！',
+            'encrypted_data.require'=>'加密的用户数据不能为空！',
+            'iv.require'=>'与用户数据一同返回的初始向量不能为空！',
+        ];
+    }
 }
