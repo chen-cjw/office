@@ -30,6 +30,11 @@ $api->version('v1', [
     // 关注以后用跳出来的东西
     $api->any('/wechat', 'WeChatController@serve');
 
+    // 获取openid
+    $api->post('/auth/ml_openid_store','AuthController@mlOpenidStore')->name('api.auth.mlOpenidStore');
+    // 获取手机号
+    $api->post('/auth/phone_store','AuthController@phoneStore')->name('api.auth.phone_store');
+
     $api->post('/auth','AuthController@store')->name('api.auth.store');
     // 授权登陆 | 前端提交code给我
     $api->get('/auth','AuthController@index')->name('api.auth.index');
@@ -131,8 +136,8 @@ $api->version('v1', [
      * 任务详情下的评论
      **/
     // 我的团队
-    $api->get('/discuss','DiscussController@index')->name('api.discuss.index');
+//    $api->get('/discuss','DiscussController@index')->name('api.discuss.index');
 
     // 回复评论
-    $api->post('/discuss','DiscussController@store')->name('api.discuss.store');
+//    $api->post('/discuss','DiscussController@store')->name('api.discuss.store');
 });

@@ -27,7 +27,7 @@ class UserController extends Controller
         // 先授权登陆然后到这里来
         DB::beginTransaction();
         try {
-            $user = $this->user_model->createUser($userId,1,true,User::REFUND_STATUS_WAIT);
+            $user = $this->user_model->createUser($userId,1,true,User::REFUND_STATUS_WAIT,\request()->code);
             if(TeamMember::where('user_id',$user->id)->exists()) {
                 throw new StoreResourceFailedException('已有团队不可重复添加!');
             }
