@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class WechatPay extends Model
 {
+
+
+    protected $fillable = ['number','day','body','detail','out_trade_no','user_id','total_fee','status','paid_at'];
     // 支付随机数
     public function outTradeNo()
     {

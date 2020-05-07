@@ -46,7 +46,12 @@ https://documenter.getpostman.com/view/11004805/Szf539Jo
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## 支付流程
+- 参数链接: https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
+1、扫码支付
+	根据商品信息生成二维码 -> 贴到某个位置 -> 用户扫码 -> wechat -> notify (openid+商品信息) -> 下单 + 创建微信订单 -> 返回给微信 prepay_id -> 付款
+2、其他支付
+	网站下单 -> 创建微信订单 -> 微信 prepay_id -> 呼起支付(JSSDK,APP) -> 付款 -> notify
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
