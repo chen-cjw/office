@@ -44,7 +44,7 @@ class TaskController extends Controller
             // 创建日志
             $taskItem = $this->storeSave($task);
             event(new TaskLog($this->user->phone.'创建了任务',$this->user->id,$taskItem->id,Task::class));
-            event(new TaskLog($this->user->phone.'指派给了'.User::findOrFail($request->phone)->ml_openid,$request->assignment_user_id,$taskItem->id,Task::class));
+            event(new TaskLog($this->user->phone.'指派给了'.User::findOrFail($request->assignment_user_id)->phone,$request->assignment_user_id,$taskItem->id,Task::class));
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
