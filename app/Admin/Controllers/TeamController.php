@@ -28,7 +28,7 @@ class TeamController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('name', __('团队名称'));
-        $grid->column('user.nickname', __('创建人'));
+        $grid->column('user.phone', __('创建人'));
         $grid->column('number_count', __('Number count'));
         $grid->column('close_time', __('Close time'));
         $grid->column('created_at', __('Created at'));

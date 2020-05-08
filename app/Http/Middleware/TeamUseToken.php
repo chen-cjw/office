@@ -21,6 +21,7 @@ class TeamUseToken
         // 团队是否可用「到期时间/使用人数」
         $teamMember = TeamMember::where('user_id',auth('api')->id())->first();
         if($teamMember) {
+            //
             $team = Team::where('id',$teamMember->team_id)->where('close_time','>',date('Y-m-d H:i:s'))->first();
             if(!$team) {
                 throw new ResourceException('请超级管理员续费之后在使用！');

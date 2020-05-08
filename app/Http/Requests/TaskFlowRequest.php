@@ -47,14 +47,19 @@ class TaskFlowRequest extends FormRequest
                         if($this->input('name')) {
 
                         }else {
-                            if ($sku = TaskFlow::where('user_id',$this->input('user_id'))->where('step_name',$value)->first()) {
-                                return $fail('流程步骤已存在！');
+                            if ($sku = TaskFlowCollection::where('user_id',auth('api')->id())->where('name',$value)->first()) {
+                                return $fail('总流程名称已存在！');
                             }
                         }
                     },
                 ],
                 'status'=>'required|in:start,pending,end,complete',
-                'user_id'=>['required'] // 必须在用户表中，要在这个团队内
+                'user_id'=>['required',function($attribute, $value, $fail) {
+                        if(TeamMember::where('user_id',auth('api')->id())->value('team_id') !== TeamMember::where('user_id',$value)->value('team_id')) {
+                            return $fail('此用户不在我们团队！');
+                        }
+                    }
+                ] // 必须在用户表中，要在这个团队内
             ];
 
             case 'PATCH':

@@ -29,10 +29,9 @@ class TeamController extends Controller
     public function store(TeamRequest $request)
     {
         // 判断是否属于某个团队，属于是不可以添加团队的
-
         DB::beginTransaction();
         try {
-            $team = new Team(['name'=>$request->name,'close_time'=>date('Y-m-d H:i:s')]);
+            $team = new Team(['name'=>$request->name,'number_count'=>config('app.number_count'),'close_time'=>date('Y-m-d H:i:s',strtotime('+'.config('app.close_time').' day'))]);
             $team->user()->associate($this->user());
             $team->save();
 

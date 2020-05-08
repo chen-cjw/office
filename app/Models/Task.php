@@ -19,7 +19,8 @@ class Task extends ImageUpload
 
     public function user()
     {
-        return $this->belongsTo(User::class,'assignment_user_id','id');
+        return $this->belongsTo(User::class,'user_id','id');
+//        return $this->belongsTo(User::class,'assignment_user_id','id');
     }
 
     public function subtasks()
@@ -32,9 +33,9 @@ class Task extends ImageUpload
         return $this->hasMany(Discuss::class);
     }
 
-    public function taskLogs()
-    {
-        return $this->hasMany(TaskLog::class);
-    }
+//    public function taskLogs()
+//    {
+//        return $this->belongsTo(TaskLog::class);
+//    }
 
 }

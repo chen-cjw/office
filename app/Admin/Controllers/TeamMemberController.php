@@ -27,7 +27,7 @@ class TeamMemberController extends AdminController
         $grid = new Grid(new TeamMember());
 
         $grid->column('id', __('Id'));
-        $grid->column('user.nickname', __('团队成员'));
+        $grid->column('user.phone', __('团队成员'));
         $grid->column('team.name', __('所属团队'));
         $grid->column('status', __('Status'));
 //            ->display(function ($statusColumn) {

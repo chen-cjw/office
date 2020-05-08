@@ -1,11 +1,12 @@
 <?php
 namespace App\Transformers;
 use App\Models\Task;
+use App\Models\TaskLog;
 use League\Fractal\TransformerAbstract;
 
 class TaskTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['user','subtasks','discusses','taskLogs'];
+    protected $availableIncludes = ['user','subtasks','discusses'];
     public function transform(Task $task)
     {
         return [
@@ -15,6 +16,7 @@ class TaskTransformer extends TransformerAbstract
             'close_date' => $task->close_date,
             'task_flow' => $task->task_flow,
             'status' => Task::$status[$task->status],
+            'task_logs'=>TaskLog::where('model_id',$task->id)->get(),
             'created_at' => $task->created_at->toDateTimeString(),
             'updated_at' => $task->updated_at->toDateTimeString(),
         ];
