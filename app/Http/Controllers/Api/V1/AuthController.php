@@ -54,6 +54,7 @@ class AuthController extends Controller
         $openid = $sessionUser['openid'];
         $user = User::where('ml_openid', $openid)->first();
         if($user) {
+            $user->update(['avatar'=>$request->avatarUrl,'nickname'=>$request->nickName]);
             // 已存在某个团队
             if (TeamMember::where('user_id', $user->id)->exists()) {
                 $token = \Auth::guard('api')->fromUser($user);
@@ -64,6 +65,8 @@ class AuthController extends Controller
 
         User::create([ // 不存在此用户
             'ml_openid'=>$sessionUser['openid'],
+            'nickname'=>$request->nickName,
+            'avatar'=>$request->avatarUrl,
             'send_invite_set_id' => 1,
             'status'=>User::REFUND_STATUS_ADMINISTRATOR
         ]);
