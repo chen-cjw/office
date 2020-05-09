@@ -44,15 +44,14 @@ class AuthController extends Controller
     {
         $app = app('wechat.mini_program');
         $sessionUser = $app->auth->session($request->code);
-        return $sessionUser;
-        $user = User::where('openid', $sessionUser['openid'])->first();
+        $user = User::where('ml_openid', $sessionUser['openid'])->first();
         if($user) {
             if (TeamMember::where('user_id', $user->id)->exists()) {
-                return $this->mlOpenid($sessionUser['openid']);
+                $token = \Auth::guard('api')->fromUser($user);
+                return $this->respondWithToken($token,null);
             }
         }
-        $token = \Auth::guard('api')->fromUser($user);
-        return $this->respondWithToken($token,null);
+        return $this->mlOpenid($sessionUser['openid']);
     }
     public function phoneStore(AuthPhoneStoreRequest $request)
     {
