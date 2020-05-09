@@ -90,18 +90,18 @@ class User extends Authenticatable implements JWTSubject
     // 创建一个用户
     public function createUser($phone,$parent,$sendInviteSetId,$isOpen,$status,$code)
     {
-        return User::findOrFail(7);
-         return User::create([
-            'ml_openid' => mt_rand(10000000000,9999999990000),
-            'phone' => $phone,
-            'parent_id'=>$parent,
-            'is_open' => $isOpen,
-            'send_invite_set_id' => $sendInviteSetId,
-            'status'=>$status
-        ]);
+//        return User::findOrFail(7);
+//         return User::create([
+//            'ml_openid' => mt_rand(10000000000,9999999990000),
+//            'phone' => $phone,
+//            'parent_id'=>$parent,
+//            'is_open' => $isOpen,
+//            'send_invite_set_id' => $sendInviteSetId,
+//            'status'=>$status
+//        ]);
 
         // 等下封装起来
-        $code = $request->code;
+//        $code = $request->code;
         // 小程序
         try {
             $app = app('wechat.mini_program');
@@ -111,7 +111,7 @@ class User extends Authenticatable implements JWTSubject
             if (!$user) {
                 // 分享的时候带了一个邀请码，不要用左右二叉树了，做一个简单的邀请进团队
                 return User::create([
-                    'ml_openid' => mt_rand(10000000000,9999999990000),// $openid
+                    'ml_openid' => $openid,// $openid
                     'phone' => $phone,
                     'parent_id'=>$parent,
                     'is_open' => $isOpen,

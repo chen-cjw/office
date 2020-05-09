@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\AuthMlOpenidStoreRequest;
 use App\Http\Requests\AuthPhoneStoreRequest;
 use App\Http\Requests\AuthRequest;
-use App\Http\Requests\MlOpenidAuthRequest;
 use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
 use App\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Dingo\Api\Exception\StoreResourceFailedException;
 
 class AuthController extends Controller
 {
@@ -23,13 +24,20 @@ class AuthController extends Controller
         $sendInviteSetId = $request->send_invite_set_id;
         $isOpen = $parent ? true : false;
         $status = $sendInviteSetId == 1 ? User::REFUND_STATUS_MEMBER : User::REFUND_STATUS_ADMINISTRATOR;
-        $user = $user->createUser($request->phone,$request->parent_id,$request->send_invite_set_id,$isOpen,$status,$request->code);
-
-        if($teamMember = TeamMember::where('user_id',$parent)->firstOrFail()) {
-            $this->teamMember($user,$teamMember->team_id);
+        DB::beginTransaction();
+        try {
+            $user = $user->createUser($request->phone, $request->parent_id, $request->send_invite_set_id, $isOpen, $status, $request->code);
+            if ($teamMember = TeamMember::where('user_id', $parent)->firstOrFail()) {
+                $this->teamMember($user, $teamMember->team_id);
+            }
+            DB::commit();
+            $token = \Auth::guard('api')->fromUser($user);
+            return $this->respondWithToken($token)->setStatusCode(201);
+        } catch (\Exception $ex) {
+            DB::rollback();
+            \Log::warning('AuthController/store', ['message' => $ex]);
+            throw new StoreResourceFailedException('登陆失败，请重试!'.$ex);
         }
-        $token = \Auth::guard('api')->fromUser($user);
-        return $this->respondWithToken($token)->setStatusCode(201);
     }
     // 获取用户的openid
     public function mlOpenidStore(AuthMlOpenidStoreRequest $request)
