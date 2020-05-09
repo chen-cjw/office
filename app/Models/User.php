@@ -125,4 +125,5 @@ class User extends Authenticatable implements JWTSubject
             throw new \Exception('授权失败,请重新授权!');
         }
     }
+
 }

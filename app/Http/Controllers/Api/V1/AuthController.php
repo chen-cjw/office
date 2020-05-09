@@ -13,63 +13,87 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Dingo\Api\Exception\StoreResourceFailedException;
+use Illuminate\Support\Facades\Cache;
 
 class AuthController extends Controller
 {
     
-    // 用户登陆 自己登陆$sendInviteSetId 默认是老板,超级管理员权限
-    public function store(AuthRequest $request,User $user)
-    {
-        $parent = $request->parent_id;
-        $sendInviteSetId = $request->send_invite_set_id;
-        $isOpen = $parent ? true : false;
-        $status = $sendInviteSetId == 1 ? User::REFUND_STATUS_MEMBER : User::REFUND_STATUS_ADMINISTRATOR;
-        DB::beginTransaction();
-        try {
-            $user = $user->createUser($request->phone, $request->parent_id, $request->send_invite_set_id, $isOpen, $status, $request->code);
-            if ($teamMember = TeamMember::where('user_id', $parent)->firstOrFail()) {
-                $this->teamMember($user, $teamMember->team_id);
-            }
-            DB::commit();
-            $token = \Auth::guard('api')->fromUser($user);
-            return $this->respondWithToken($token)->setStatusCode(201);
-        } catch (\Exception $ex) {
-            DB::rollback();
-            \Log::warning('AuthController/store', ['message' => $ex]);
-            throw new StoreResourceFailedException('登陆失败，请重试!'.$ex);
-        }
-    }
+//    // 用户登陆 自己登陆$sendInviteSetId 默认是老板,超级管理员权限
+//    public function store(AuthRequest $request,User $user)
+//    {
+//        $parent = $request->parent_id;
+//        $sendInviteSetId = $request->send_invite_set_id;
+//        $isOpen = $parent ? true : false;
+//        $status = $sendInviteSetId == 1 ? User::REFUND_STATUS_MEMBER : User::REFUND_STATUS_ADMINISTRATOR;
+//        DB::beginTransaction();
+//        try {
+//            $user = $user->createUser($request->phone, $request->parent_id, $request->send_invite_set_id, $isOpen, $status, $request->code);
+//            if ($teamMember = TeamMember::where('user_id', $parent)->firstOrFail()) {
+//                $this->teamMember($user, $teamMember->team_id);
+//            }
+//            DB::commit();
+//            $token = \Auth::guard('api')->fromUser($user);
+//            return $this->respondWithToken($token)->setStatusCode(201);
+//        } catch (\Exception $ex) {
+//            DB::rollback();
+//            \Log::warning('AuthController/store', ['message' => $ex]);
+//            throw new StoreResourceFailedException('登陆失败，请重试!'.$ex);
+//        }
+//    }
     // 获取用户的openid
     public function mlOpenidStore(AuthMlOpenidStoreRequest $request)
     {
         $app = app('wechat.mini_program');
-        $sessionUser = $app->auth->session($request->code);
-        if (!empty($response['errcode'])) {
+        $code = $request->code;
+        $sessionUser = $app->auth->session($code);
+        if (!empty($sessionUser['errcode'])) {
             throw new \Exception('获取用户的openid操作失败!');
         }
-        $user = User::where('ml_openid', $sessionUser['openid'])->first();
+        Cache::put($code, ['session_key'=>$sessionUser['session_key'],'ml_openid'=>$sessionUser['openid']], 5);
+
+        $openid = $sessionUser['openid'];
+        $user = User::where('ml_openid', $openid)->first();
         if($user) {
+            // 已存在某个团队
             if (TeamMember::where('user_id', $user->id)->exists()) {
                 $token = \Auth::guard('api')->fromUser($user);
-                return $this->respondWithToken($token,null);
+                return $this->respondWithToken($token,$openid,$user);
             }
+            return $this->oauthNo();
         }
-        return $this->mlOpenid($sessionUser['openid']);
+
+        User::create([ // 不存在此用户
+            'ml_openid'=>$sessionUser['openid'],
+            'send_invite_set_id' => 1,
+            'status'=>User::REFUND_STATUS_ADMINISTRATOR
+        ]);
+        return $this->oauthNo();
     }
+
     public function phoneStore(AuthPhoneStoreRequest $request)
     {
         $app = app('wechat.mini_program');
         $response = $app->auth->session($request->code);
+
         if (!empty($response['errcode'])) {
             throw new \Exception('操作失败!123');
         }
-        $sessionKey = $response['session_key'];
-        $decryptedData = $app->encryptor->decryptData($sessionKey, $request->iv, $request->encrypted_data);
+
+        $session = Cache::get($request->code);// 解析的问题
+        $decryptedData = $app->encryptor->decryptData($session['session_key'], $request->iv, $request->encrypted_data);
 
         if (empty($decryptedData)) {
             throw new \Exception('操作失败!321');
         }
-        return $decryptedData;
+
+        $user = User::where('ml_openid',$session['ml_openid'])->firstOrFail();
+        $phoneNumber = $decryptedData['phoneNumber'];
+        $user->update([
+            'phone'=>$phoneNumber
+        ]);
+
+        $token = \Auth::guard('api')->fromUser($user);
+        return $this->respondWithToken($token,$phoneNumber,$user)->setStatusCode(201);
     }
 
 
@@ -84,20 +108,21 @@ class AuthController extends Controller
         return $this->response->noContent();
     }
 
-    protected function respondWithToken($token,$mlOpenid)
+    protected function respondWithToken($token,$mlOpenid,$user)
     {
         return $this->response->array([
             'ml_openid' => $mlOpenid,
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'user'=>$user,
             'expires_in' => Auth::guard('api')->factory()->getTTL() * 120
         ]);
     }
 
-    protected function mlOpenid($mlOpenid)
+    protected function oauthNo()
     {
         return $this->response->array([
-            'ml_openid' => $mlOpenid,
+            'oauth'=>'未授权手机号码'
         ]);
     }
 }

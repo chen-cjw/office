@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('unionid')->unique()->nullable()->comment('公众号和小程序的唯一标识');
             $table->string('wx_openid')->unique()->nullable()->comment('公众号');
             $table->string('ml_openid')->unique()->nullable()->comment('小程序');
-            $table->string('phone')->unique();
+            $table->string('phone')->nullable()->unique();
             $table->string('avatar')->nullable();
             $table->string('nickname')->nullable();
             $table->boolean('sex')->nullable()->default(1);
