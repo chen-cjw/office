@@ -44,6 +44,7 @@ class AuthController extends Controller
     {
         $app = app('wechat.mini_program');
         $sessionUser = $app->auth->session($request->code);
+        return $sessionUser;
         $user = User::where('openid', $sessionUser['openid'])->first();
         if($user) {
             if (TeamMember::where('user_id', $user->id)->exists()) {
