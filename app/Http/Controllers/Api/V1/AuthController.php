@@ -60,7 +60,7 @@ class AuthController extends Controller
     {
         $app = app('wechat.mini_program');
         $response = $app->auth->session($request->code);
-
+return $response;
         if (!empty($response['errcode'])) {
             throw new \Exception('操作失败!123');
         }
