@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Dingo\Api\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
 class AuthPhoneStoreRequest extends FormRequest
 {
@@ -24,18 +24,19 @@ class AuthPhoneStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'           => 'require',
-            'encrypted_data' => 'require',
-            'iv'             => 'require',
+            'code'=>'required',
+            'encrypted_data'=>'required',
+            'iv'=>'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'code.require'=>'授权失败！',
-            'encrypted_data.require'=>'加密的用户数据不能为空！',
-            'iv.require'=>'与用户数据一同返回的初始向量不能为空！',
+            'code.require'           => '缺少参数code!',
+            'encrypted_data.require' => '缺少参数encrypted_data!',
+            'iv.require'             => '缺少参数iv!',
         ];
+
     }
 }

@@ -44,6 +44,9 @@ class AuthController extends Controller
     {
         $app = app('wechat.mini_program');
         $sessionUser = $app->auth->session($request->code);
+        if (!empty($response['errcode'])) {
+            throw new \Exception('获取用户的openid操作失败!');
+        }
         $user = User::where('ml_openid', $sessionUser['openid'])->first();
         if($user) {
             if (TeamMember::where('user_id', $user->id)->exists()) {
