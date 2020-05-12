@@ -27,7 +27,7 @@ class UserController extends Controller
         // 先授权登陆然后到这里来
         DB::beginTransaction();
         try {
-            $user = $this->user_model->createUser($userId,1,true,User::REFUND_STATUS_WAIT,\request()->code);
+            $user = $this->user_model->createUser(\request()->phone,$userId,1,true,User::REFUND_STATUS_MEMBER,\request()->code);
             if(TeamMember::where('user_id',$user->id)->exists()) {
                 throw new StoreResourceFailedException('已有团队不可重复添加!');
             }
@@ -45,6 +45,7 @@ class UserController extends Controller
     // todo 这里的邀请有一个问题，同事邀请了，但是并没有团队，所以没有办法创建团队。没有添加免费适用的权利
     public function storeBoss(UserStoreBossRequest $request,$userId)
     {
+
         $user = $this->user_model->createUser($request->phone,$userId,2,true,User::REFUND_STATUS_ADMINISTRATOR,$request->code);
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
