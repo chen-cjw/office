@@ -82,15 +82,15 @@ class AuthController extends Controller
     public function phoneStore(AuthPhoneStoreRequest $request)
     {
         $session = Cache::get($request->code);// 解析的问题
-        if (!empty($response['session_key'])) {
-            throw new \Exception('操作失败!111');
-        }
+//        if (!empty($response['session_key'])) {
+//            throw new \Exception('操作失败!111');
+//        }
         $app = app('wechat.mini_program');
-        $response = $app->auth->session($request->code);
-
-        if (!empty($response['errcode'])) {
-            throw new \Exception('操作失败!123');
-        }
+//        $response = $app->auth->session($request->code);
+//
+//        if (!empty($response['errcode'])) {
+//            throw new \Exception('操作失败!123');
+//        }
 
         $decryptedData = $app->encryptor->decryptData($session['session_key'], $request->iv, $request->encrypted_data);
 
