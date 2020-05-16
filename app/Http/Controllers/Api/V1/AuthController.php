@@ -73,15 +73,21 @@ class AuthController extends Controller
                 $token = \Auth::guard('api')->fromUser($user);
                 return $this->respondWithToken($token,$openid,$user);
             }
+            return $code;
             return $this->oauthNo();// 第二次去拿手机号码
         }
+
         User::create($this->createUser($sessionUser,$request));
+        return $code;
+
         return $this->oauthNo();
     }
 
     public function phoneStore(AuthPhoneStoreRequest $request)
     {
         $session = Cache::get($request->code);// 解析的问题
+        return ['code'=>$request->code,'session'=>$session];
+
         if(!$session) {
             throw new \Exception('code 和第一次的不一致');
         }
