@@ -82,6 +82,9 @@ class AuthController extends Controller
     public function phoneStore(AuthPhoneStoreRequest $request)
     {
         $session = Cache::get($request->code);// 解析的问题
+        if(!empty($response)) {
+            throw new \Exception('code 和第一次的不一致');
+        }
 //        if (!empty($response['session_key'])) {
 //            throw new \Exception('操作失败!111');
 //        }
