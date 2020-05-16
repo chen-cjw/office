@@ -75,7 +75,6 @@ class AuthController extends Controller
             }
             return $this->oauthNo();// 第二次去拿手机号码
         }
-        $sessionUser = $request->openid;
         User::create($this->createUser($sessionUser,$request));
         return $this->oauthNo();
     }
@@ -134,7 +133,7 @@ class AuthController extends Controller
     protected function createUser($sessionUser,$request)
     {
         return [ // 不存在此用户添加
-            'ml_openid'=>$sessionUser,//['openid'],
+            'ml_openid'=>$sessionUser['openid'],
             'nickname'=>$request->nickName,
             'avatar'=>$request->avatarUrl,
             'send_invite_set_id' => $request->send_invite_set_id,

@@ -27,7 +27,7 @@ $api->version('v1', [
     'middleware' => ['serializer:array', 'bindings'] // bindings 注入获取对象
 ], function ($api) {
     // 关注以后用跳出来的东西
-    $api->any('/wechat', 'WeChatController@serve');
+    $api->any('/wechat', 'WeChatCSubstituteBindingsontroller@serve');
 
     // 获取openid
     $api->post('/auth/ml_openid_store','AuthController@mlOpenidStore')->name('api.auth.mlOpenidStore');
@@ -61,7 +61,7 @@ $api->version('v1', [
     $api->group(['middleware' => ['auth:api']], function ($api) {
 
 
-            // 个人信息
+        // 个人信息
         $api->get('/meShow','AuthController@meShow')->name('api.auth.meShow');
         /**
          * 团队
