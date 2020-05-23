@@ -43,14 +43,70 @@ class TaskController extends Controller
             $task->user()->associate($this->user);
             // 创建日志
             $taskItem = $this->storeSave($task);
-            event(new TaskLog($this->user->phone.'创建了任务',$this->user->id,$taskItem->id,Task::class));
-            event(new TaskLog($this->user->phone.'指派给了'.User::findOrFail($request->assignment_user_id)->phone,$request->assignment_user_id,$taskItem->id,Task::class));
+            event(new TaskLog($this->user->nickname.'创建了任务',$this->user->id,$taskItem->id,Task::class));
+            event(new TaskLog($this->user->nickname.'指派给了'.User::findOrFail($request->assignment_user_id)->nickname,$request->assignment_user_id,$taskItem->id,Task::class));
+            // 消息推送模版
+            $this->notificationAdd();
+            $this->notificationAppoint($task);
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
             DB::rollback();
             throw new \Exception($ex);
         }
+    }
+
+    // 指派任务
+    protected function notificationAppoint($task) {
+        $app = app('wechat.mini_program');
+
+        $user = auth('api')->user();
+        $data = [
+            'template_id' => '5QHREHN9uRyW7_rH9ZQYtyF71DImcD3vY-AgQkJvOD0', // 所需下发的订阅模板id
+            'touser' => $user->ml_openid,     // 接收者（用户）的 openid
+            'page' => '',       // 点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
+            'data' => [         // 模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }
+                'thing2' => [
+                    'value' => $task['content'],
+                ],
+                'date3' => [
+                    'value' => '结束时间'.$task['task_flow'],
+                ],
+                'thing4' => [
+                    'value' => '任务状态'.Task::$status[$task['status']]
+                ],
+            ],
+        ];
+
+        $app->subscribe_message->send($data);
+    }
+
+    // 创建
+    protected function notificationAdd() {
+        $app = app('wechat.mini_program');
+
+        $user = auth('api')->user();
+        $data = [
+            'template_id' => 'HUsu1tRWb4Czrcgs6ldCaKDnqXfH-DxhKytA2LOFk5k',  // 所需下发的订阅模板id
+            'touser' => $user->ml_openid, // 接收者（用户）的 openid
+            'page' => '', // 点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
+            'data' => [         // 模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }
+                'thing1' => [
+                    'value' => $user->nickname,
+                ],
+                'phone_number2' => [
+                    'value' => $user->phone,
+                ],
+                'thing3' => [
+                    'value' => '创建了任务',
+                ],
+                'time4' => [
+                    'value' => date('Y-m-d H:i:s'),
+                ],
+            ],
+        ];
+
+        $app->subscribe_message->send($data);
     }
 
     //
