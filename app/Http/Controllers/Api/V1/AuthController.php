@@ -24,24 +24,6 @@ class AuthController extends Controller
         $user = User::findOrFail(1);
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$user->ml_openid,$user)->setStatusCode(201);
-        $parent = $request->parent_id;
-        $sendInviteSetId = $request->send_invite_set_id;
-        $isOpen = $parent ? true : false;
-        $status = $sendInviteSetId == 1 ? User::REFUND_STATUS_MEMBER : User::REFUND_STATUS_ADMINISTRATOR;
-        DB::beginTransaction();
-        try {
-            $user = $user->createUser($request->phone, $request->parent_id, $request->send_invite_set_id, $isOpen, $status, $request->code);
-            if ($teamMember = TeamMember::where('user_id', $parent)->firstOrFail()) {
-                $this->teamMember($user, $teamMember->team_id);
-            }
-            DB::commit();
-            $token = \Auth::guard('api')->fromUser($user);
-            return $this->respondWithToken($token)->setStatusCode(201);
-        } catch (\Exception $ex) {
-            DB::rollback();
-            \Log::warning('AuthController/store', ['message' => $ex]);
-            throw new StoreResourceFailedException('登陆失败，请重试!'.$ex);
-        }
     }
 
     // 获取用户的openid
