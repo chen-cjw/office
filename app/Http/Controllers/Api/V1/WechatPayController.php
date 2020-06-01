@@ -16,12 +16,14 @@ class WechatPayController extends Controller
     {
 
     }
-    // 创建支付订单
+    // 唤起支付---创建支付订单
     public function store(WechatPay $wechatPay)
     {
         $notifyUrl = route('api.wechat_pay.handle_paid_notifies');
         $body = '购买会员版';
-        $result = $this->unify(app('wechat.payment'),$wechatPay->outTradeNo(),$totalFee=88,'JSAPI',$this->user->ml_openid,$notifyUrl,$body);
+        dd($body);
+        // JSAPI--JSAPI支付（或小程序支付）、NATIVE--Native支付、APP--app支付，MWEB--H5支付，
+        $result = $this->unify($body,$wechatPay->findAvailableNo(),$totalFee=0.01,'JSAPI',$this->user->ml_openid,$notifyUrl);
         return $result;
     }
     // todo 接收通知（主动去查/被动接收）
@@ -37,12 +39,12 @@ class WechatPayController extends Controller
     }
     
     // 下单==提交一份到微信里面去了，我本地也可以存一份
-    public function unify($app,$outTradeNo,$totalFee,$tradeType,$openid,$notifyUrl,$body)
+    public function unify($body,$outTradeNo,$totalFee,$tradeType,$openid,$notifyUrl)
     {
         $data = [
             'body' => $body,//'购买会员版',// 描述 || detail 更具体的描述
-            'out_trade_no' => $outTradeNo, // 商户订单号
-            'total_fee' => $totalFee, // 计算单位是分
+            'out_trade_no' => $outTradeNo, // 随机数商户订单号
+            'total_fee' => $totalFee * 100, // 计算单位是分
             'notify_url' => $notifyUrl, // (通知/回调地址) 告诉微信服务求，订单的状态变化，请通过这个地址告诉我。我们服务器地址
             'trade_type' => $tradeType, // 请对应换成你的支付方式对应的值类型 JSAPI
             'openid' => $openid, // $this->user->ml_openid
@@ -66,14 +68,13 @@ class WechatPayController extends Controller
 
             if ($message['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
                 // 用户是否支付成功
-                //if (array_get($message, 'result_code') === 'SUCCESS') {
-                if ($message['result_code'] === 'SUCCESS') {
+                if (array_get($message, 'result_code') === 'SUCCESS') {
+//                if ($message['result_code'] === 'SUCCESS') {
                     $order->paid_at = date('Y-m-d H:i:s'); // 更新支付时间为当前时间
                     $order->status = 'paid';
 
                     // 用户支付失败
-                //} elseif (array_get($message, 'result_code') === 'FAIL') {
-                } elseif ($message['result_code'] === 'FAIL') {
+                } elseif (array_get($message, 'result_code') === 'FAIL') {
                     $order->status = 'paid_fail';
                 }
             } else {

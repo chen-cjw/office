@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Cache;
 
 class AuthController extends Controller
 {
-
 //    // 用户登陆 自己登陆$sendInviteSetId 默认是老板,超级管理员权限
     public function store(AuthRequest $request,User $user)
     {
+        return 111;
         $user = User::findOrFail(1);
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$user->ml_openid,$user)->setStatusCode(201);
