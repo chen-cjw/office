@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\WechatPayRequest;
 use App\Models\WechatPay;
+use Dingo\Api\Exception\ResourceException;
 use Illuminate\Http\Request;
 
 class WechatPayController extends Controller
@@ -16,43 +18,43 @@ class WechatPayController extends Controller
     {
 
     }
-    // 唤起支付---创建支付订单
-    public function store(WechatPay $wechatPay)
+    // 唤起支付---创建支付订单        $notifyUrl = route('api.wechat_pay.handle_paid_notifies');
+    public function store(WechatPay $wechatPay,WechatPayRequest $request)
     {
-        $notifyUrl = route('api.wechat_pay.handle_paid_notifies');
-        $body = '购买会员版';
-        dd($body);
-        // JSAPI--JSAPI支付（或小程序支付）、NATIVE--Native支付、APP--app支付，MWEB--H5支付，
-        $result = $this->unify($body,$wechatPay->findAvailableNo(),$totalFee=0.01,'JSAPI',$this->user->ml_openid,$notifyUrl);
+        $wechatPay = new WechatPay([
+            'out_trade_no' => $wechatPay->findAvailableNo(),
+            'total_fee' => $request->number * $request->day, // （当前天数 * 当前人数）
+            'number' => $request->number,
+            'day' => $request->day,
+        ]);
+        // 现在要做一个日志记录以前有几个人，此方法已记录人数和收费
+        $wechatPay->user()->associate($this->user());
+        $wechatPay->save();
+        return $wechatPay;
+    }
+
+    /**
+     * 唤起支付操作，
+     * JSAPI--JSAPI支付（或小程序支付）、NATIVE--Native支付、APP--app支付，MWEB--H5支付，
+     **/
+    public function payByWechat($id, Request $request) {
+        // 校验权限
+        $wechatPay = $this->user()->wechatPays()->where('id',$id)->firstOrFail();
+        // 校验订单状态
+        if ($wechatPay->paid_at || $wechatPay->closed) {
+            throw new ResourceException('订单状态不正确');
+        }
+
+        $result = $this->app->order->unify([
+            'body' => '购买会员版：'.$wechatPay->out_trade_no,
+            'out_trade_no' => $wechatPay->out_trade_no,
+            'total_fee' => 1,//$wechatPay->total_fee * 100,
+            //'spbill_create_ip' => '123.12.12.123', // 可选，如不传该参数，SDK 将会自动获取相应 IP 地址
+            'notify_url' => route('api.wechat_pay.handle_paid_notifies'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'openid' => auth('api')->user()->openid,
+            'trade_type' => 'JSAPI', // 请对应换成你的支付方式对应的值类型
+        ]);
         return $result;
-    }
-    // todo 接收通知（主动去查/被动接收）
-    // 根据商户订单号查询(此单是否支付)
-    public function queryByOutTradeNumber()
-    {
-        return $this->app->order->queryByOutTradeNumber("商户系统内部的订单号（out_trade_no）");
-    }
-    // 支付两小时就关闭此单
-    public function close()
-    {
-        return $this->app->order->close('商户系统内部的订单号（out_trade_no）');
-    }
-    
-    // 下单==提交一份到微信里面去了，我本地也可以存一份
-    public function unify($body,$outTradeNo,$totalFee,$tradeType,$openid,$notifyUrl)
-    {
-        $data = [
-            'body' => $body,//'购买会员版',// 描述 || detail 更具体的描述
-            'out_trade_no' => $outTradeNo, // 随机数商户订单号
-            'total_fee' => $totalFee * 100, // 计算单位是分
-            'notify_url' => $notifyUrl, // (通知/回调地址) 告诉微信服务求，订单的状态变化，请通过这个地址告诉我。我们服务器地址
-            'trade_type' => $tradeType, // 请对应换成你的支付方式对应的值类型 JSAPI
-            'openid' => $openid, // $this->user->ml_openid
-        ];
-        ///$app->order->unify($data); // todo 这里要看一下 ，过期报错|一定要看错误的情况
-        $data['number'] =  \request()->number;
-        $data['day'] =  \request()->day;
-        return WechatPay::create($data);
     }
     // 创建订单 -- 通知
     public function handlePaidNotify()
@@ -87,5 +89,16 @@ class WechatPayController extends Controller
         });
 
         return $response;
+    }
+    // todo 接收通知（主动去查/被动接收）
+    // 根据商户订单号查询(此单是否支付)
+    public function queryByOutTradeNumber()
+    {
+        return $this->app->order->queryByOutTradeNumber("商户系统内部的订单号（out_trade_no）");
+    }
+    // 支付两小时就关闭此单
+    public function close()
+    {
+        return $this->app->order->close('商户系统内部的订单号（out_trade_no）');
     }
 }

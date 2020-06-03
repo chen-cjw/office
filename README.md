@@ -1,7 +1,10 @@
 ## Laravel Framework 6.18.2
-## 运行
-php artisan migrate 
-php artisan db:seed
+## 项目部署
+- php artisan key:generate
+- php artisan jwt:secret
+- 配置数据库
+- php artisan migrate 
+- php artisan db:seed
 
 ## https://packagist.org/ 依赖包
 - 跨源资源共享 composer require fruitcake/laravel-cors  | 全局

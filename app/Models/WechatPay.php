@@ -9,6 +9,11 @@ class WechatPay extends Model
 
 
     protected $fillable = ['number','day','body','detail','out_trade_no','user_id','total_fee','status','paid_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     // 支付随机数
     public function outTradeNo()
     {
@@ -25,7 +30,7 @@ class WechatPay extends Model
             // 随机生成 6 位的数字
             $no = $prefix.str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
             // 判断是否已经存在
-            if (!static::query()->where('no', $no)->exists()) {
+            if (!static::query()->where('out_trade_no', $no)->exists()) {
                 return $no;
             }
         }
