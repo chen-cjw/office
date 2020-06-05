@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Cache;
 
 class AuthController extends Controller
 {
-//    // 用户登陆 自己登陆$sendInviteSetId 默认是老板,超级管理员权限
+    // 用户登陆 自己登陆$sendInviteSetId 默认是老板,超级管理员权限
     public function store(AuthRequest $request,User $user)
     {
         $user = User::findOrFail(1);
@@ -40,7 +40,7 @@ class AuthController extends Controller
         Cache::put($code, ['session_key'=>$session_key,'ml_openid'=>$openid], 300);
         if($user) {
             $user->update(['avatar'=>$request->avatarUrl]);
-            if ($user->phone&&TeamMember::where('user_id', $user->id)->exists()) {
+            if ($user->phone&&TeamMember::where('user_id', $user->id)->exists()) { // 用户手机号存在并且团队存在
                 $token = \Auth::guard('api')->fromUser($user);
                 return $this->respondWithToken($token,$openid,$user);
             }
@@ -66,16 +66,7 @@ class AuthController extends Controller
         if(!$session) {
             throw new \Exception('code 和第一次的不一致');
         }
-//        if (!empty($response['session_key'])) {
-//            throw new \Exception('操作失败!111');
-//        }
         $app = app('wechat.mini_program');
-//        $response = $app->auth->session($request->code);
-//
-//        if (!empty($response['errcode'])) {
-//            throw new \Exception('操作失败!123');
-//        }
-
         $decryptedData = $app->encryptor->decryptData($session['session_key'], $request->iv, $request->encrypted_data);
 
         if (empty($decryptedData)) {
@@ -83,13 +74,26 @@ class AuthController extends Controller
         }
 
         $user = User::where('ml_openid',$session['ml_openid'])->firstOrFail();
-        $phoneNumber = $decryptedData['phoneNumber'];//11111111111
+        $phoneNumber = $decryptedData['phoneNumber'];
         $user->update(['phone'=>$phoneNumber]);
 
         $token = \Auth::guard('api')->fromUser($user);
         return $this->respondWithToken($token,$phoneNumber,$user)->setStatusCode(201);
     }
 
+
+    protected function createUser($sessionUser,$request)
+    {
+        return [ // 不存在此用户添加
+            'ml_openid'=>$sessionUser['openid'],
+            'nickname'=>$request->nickName,
+            'avatar'=>$request->avatarUrl,
+            'send_invite_set_id' => $request->send_invite_set_id,
+            'status'=>User::REFUND_STATUS_ADMINISTRATOR,
+            'is_open'=>$request->send_invite_set_id ? true : false,
+            'parent_id'=>$request->parent_id?$request->parent_id:null
+        ];
+    }
 
     // 个人中心
     public function meShow()
@@ -112,19 +116,6 @@ class AuthController extends Controller
             'user'=>$user,
             'expires_in' => Auth::guard('api')->factory()->getTTL() * 120
         ]);
-    }
-
-    protected function createUser($sessionUser,$request)
-    {
-        return [ // 不存在此用户添加
-            'ml_openid'=>$sessionUser['openid'],
-            'nickname'=>$request->nickName,
-            'avatar'=>$request->avatarUrl,
-            'send_invite_set_id' => $request->send_invite_set_id,
-            'status'=>User::REFUND_STATUS_ADMINISTRATOR,
-            'is_open'=>$request->send_invite_set_id ? true : false,
-            'parent_id'=>$request->parent_id?$request->parent_id:null
-        ];
     }
 
     protected function oauthNo()
