@@ -7,6 +7,7 @@ use App\Models\WechatPay;
 use Carbon\Carbon;
 use Dingo\Api\Exception\ResourceException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WechatPayController extends Controller
 {
@@ -60,6 +61,7 @@ class WechatPayController extends Controller
     // 创建订单 -- 通知
     public function handlePaidNotify()
     {
+        Log::info('进入');
         $response = $this->app->handlePaidNotify(function($message, $fail){
             // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
             $order = WechatPay::where('payment_no',$message['out_trade_no'])->first();
@@ -68,19 +70,28 @@ class WechatPayController extends Controller
                 return true; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
             }
             ///////////// todo <- 建议在这里调用微信的【订单查询】接口查一下该笔订单的情况，确认是已经支付 /////////////
+            Log::info('进入1');
 
             if ($message['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
+                Log::info('进入2');
+
                 // 用户是否支付成功
                 if (array_get($message, 'result_code') === 'SUCCESS') {
+                    Log::info('进入3');
+
 //                if ($message['result_code'] === 'SUCCESS') {
                     $order->status = 'paid';
                     $order->paid_at = Carbon::now(); // 更新支付时间为当前时间
                     $order->payment_no = $message['transaction_id']; // 支付平台订单号
                     // 用户支付失败
                 } elseif (array_get($message, 'result_code') === 'FAIL') {
+                    Log::info('进入4');
+
                     $order->status = 'paid_fail';
                 }
             } else {
+                Log::info('进入5');
+
                 return $fail('通信失败，请稍后再通知我');
             }
 
