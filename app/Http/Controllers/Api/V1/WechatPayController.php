@@ -63,6 +63,8 @@ class WechatPayController extends Controller
     // 创建订单 -- 通知
     public function handlePaidNotify()
     {
+
+
         Log::info('进入');
 
         $response = $this->app->handlePaidNotify(function($message, $fail){
