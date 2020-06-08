@@ -128,7 +128,7 @@ $api->version('v1', [
         //  支付提交订单
         $api->post('/wechat_pay','WechatPayController@store')->name('api.wechat_pay.store');
         $api->post('/payByWechat/{id}','WechatPayController@payByWechat')->name('api.wechat_pay.payByWechat');
-        $api->get('/handle_paid_notifies','WechatPayController@handlePaidNotify')->name('api.wechat_pay.handle_paid_notifies');
+        $api->any('/handle_paid_notifies','WechatPayController@handlePaidNotify')->name('api.wechat_pay.handle_paid_notifies');
 
 
     });

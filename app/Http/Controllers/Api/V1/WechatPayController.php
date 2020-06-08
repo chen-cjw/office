@@ -56,7 +56,9 @@ class WechatPayController extends Controller
             'openid' => auth('api')->user()->ml_openid,
             'trade_type' => 'JSAPI', // 请对应换成你的支付方式对应的值类型
         ]);
-        return $result;
+        $jssdk = $this->app->jssdk;
+        $json = $jssdk->bridgeConfig($result['prepay_id'],false);
+        return $json;
     }
     // 创建订单 -- 通知
     public function handlePaidNotify()
