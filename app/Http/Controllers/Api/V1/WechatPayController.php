@@ -63,22 +63,26 @@ class WechatPayController extends Controller
     // 创建订单 -- 通知
     public function handlePaidNotify()
     {
+        Log::info('进入');
+
         $response = $this->app->handlePaidNotify(function($message, $fail){
+            Log::info('微信支付订单号');
             // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
             $order = WechatPay::where('out_trade_no',$message['out_trade_no'])->first();
 
             if (!$order || $order->paid_at) { // 如果订单不存在 或者 订单已经支付过了
+                Log::info('告诉微信，我已经处理完了，订单没找到，别再通知我了');
                 return true; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
             }
             ///////////// todo <- 建议在这里调用微信的【订单查询】接口查一下该笔订单的情况，确认是已经支付 /////////////
-            Log::info('进入1');
+            Log::info('建议在这里调用微信的【订单查询】接口查一下该笔订单的情况，确认是已经支付');
 
             if ($message['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
-                Log::info('进入2');
+                Log::info('表示通信状态，不代表支付状态');
 
                 // 用户是否支付成功
                 if (array_get($message, 'result_code') === 'SUCCESS') {
-                    Log::info('进入3');
+                    Log::info('用户是否支付成功');
 
 //                if ($message['result_code'] === 'SUCCESS') {
                     $order->status = 'paid';
@@ -86,18 +90,16 @@ class WechatPayController extends Controller
                     $order->payment_no = $message['transaction_id']; // 支付平台订单号
                     // 用户支付失败
                 } elseif (array_get($message, 'result_code') === 'FAIL') {
-                    Log::info('进入4');
+                    Log::info('用户支付失败');
                     $order->status = 'paid_fail';
                 }
             } else {
-                Log::info('进入5');
+                Log::info('通信失败，请稍后再通知我');
                 return $fail('通信失败，请稍后再通知我');
             }
             $order->save(); // 保存订单
-
             return true; // 返回处理完成
         });
-
         return $response;
     }
     // todo 接收通知（主动去查/被动接收）
