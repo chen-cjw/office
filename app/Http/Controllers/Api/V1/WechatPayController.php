@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\WechatPayRequest;
 use App\Models\WechatPay;
+use Carbon\Carbon;
 use Dingo\Api\Exception\ResourceException;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,7 @@ class WechatPayController extends Controller
         }
 
         $result = $this->app->order->unify([
-            'body' => '购买会员版：'.$wechatPay->out_trade_no,
+            'body' => '支付会员版订单：'.$wechatPay->out_trade_no,
             'out_trade_no' => $wechatPay->out_trade_no,
             'total_fee' => 1,//$wechatPay->total_fee * 100,
             //'spbill_create_ip' => '123.12.12.123', // 可选，如不传该参数，SDK 将会自动获取相应 IP 地址
@@ -61,7 +62,7 @@ class WechatPayController extends Controller
     {
         $response = $this->app->handlePaidNotify(function($message, $fail){
             // 使用通知里的 "微信支付订单号" 或者 "商户订单号" 去自己的数据库找到订单
-            $order = WechatPay::where('out_trade_no',$message['out_trade_no'])->firstOrFail();
+            $order = WechatPay::where('payment_no',$message['out_trade_no'])->first();
 
             if (!$order || $order->paid_at) { // 如果订单不存在 或者 订单已经支付过了
                 return true; // 告诉微信，我已经处理完了，订单没找到，别再通知我了
@@ -72,9 +73,9 @@ class WechatPayController extends Controller
                 // 用户是否支付成功
                 if (array_get($message, 'result_code') === 'SUCCESS') {
 //                if ($message['result_code'] === 'SUCCESS') {
-                    $order->paid_at = date('Y-m-d H:i:s'); // 更新支付时间为当前时间
                     $order->status = 'paid';
-
+                    $order->paid_at = Carbon::now(); // 更新支付时间为当前时间
+                    $order->payment_no = $message['transaction_id']; // 支付平台订单号
                     // 用户支付失败
                 } elseif (array_get($message, 'result_code') === 'FAIL') {
                     $order->status = 'paid_fail';

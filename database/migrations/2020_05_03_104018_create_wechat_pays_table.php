@@ -26,7 +26,10 @@ class CreateWechatPaysTable extends Migration
             $table->decimal('total_fee',10)->comment('支付金额/分');
             $table->enum('status',['unpaid','paid','close','delete','paid_fail'])->default('unpaid')->comment('支付状态[unpaid未支付,paid已支付,close关闭,delete删除,paid_fail支付失败]');
             $table->dateTime('paid_at')->comment('支付时间')->nullable();
-
+            $table->string('payment_no')->nullable()->comment('支付平台订单号');
+            $table->string('refund_status')->comment('	退款状态')->default(\App\Models\WechatPay::REFUND_STATUS_PENDING);;
+            $table->string('refund_no')->unique()->nullable()->comment('退款单号');
+            $table->boolean('closed')->default(false)->comment('订单是否已关闭');
             $table->timestamps();
         });
     }
