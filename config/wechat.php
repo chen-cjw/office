@@ -112,7 +112,7 @@ return [
              'key'                => env('WECHAT_PAYMENT_KEY', 'key-for-signature'),// 刚刚设置的 API 密钥
              'cert_path'          => env('WECHAT_PAYMENT_CERT_PATH', 'path/to/cert/apiclient_cert.pem'),    // XXX: 绝对路径！！！！
              'key_path'           => env('WECHAT_PAYMENT_KEY_PATH', 'path/to/cert/apiclient_key.pem'),      // XXX: 绝对路径！！！！
-             'notify_url'         => 'http://example.com/payments/wechat-notify',                           // 默认支付结果通知地址
+             'notify_url'         => env('WECHAT_PAYMENT_NOTIFY_URL'),//'http://example.com/payments/wechat-notify',                           // 默认支付结果通知地址
              'log'         => [
                  'file' => storage_path('logs/wechat_pay.log'),
              ],

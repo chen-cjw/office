@@ -40,7 +40,6 @@ class WechatPayController extends Controller
      * JSAPI--JSAPI支付（或小程序支付）、NATIVE--Native支付、APP--app支付，MWEB--H5支付，
      **/
     public function payByWechat($id, Request $request) {
-        Log::info('进入');
         // 校验权限
         $wechatPay = $this->user()->wechatPays()->where('id',$id)->firstOrFail();
         // 校验订单状态
@@ -53,7 +52,7 @@ class WechatPayController extends Controller
             'out_trade_no' => $wechatPay->out_trade_no,
             'total_fee' => 1,//$wechatPay->total_fee * 100,
             //'spbill_create_ip' => '123.12.12.123', // 可选，如不传该参数，SDK 将会自动获取相应 IP 地址
-            'notify_url' => 'https://api.appoffice.test/handle_paid_notifies', // 支付结果通知网址，如果不设置则会使用配置里的默认地址
+            'notify_url' => config('wechat.payment.default.notify_url'), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
             'openid' => auth('api')->user()->ml_openid,
             'trade_type' => 'JSAPI', // 请对应换成你的支付方式对应的值类型
         ]);
