@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\WechatPayRequest;
+use App\Jobs\CloseWechatPay;
 use App\Models\WechatPay;
 use Carbon\Carbon;
 use Dingo\Api\Exception\ResourceException;
@@ -20,7 +21,7 @@ class WechatPayController extends Controller
     {
 
     }
-    // 唤起支付---创建支付订单        $notifyUrl = route('api.wechat_pay.handle_paid_notifies');
+    // 唤起支付---创建支付订单
     public function store(WechatPay $wechatPay,WechatPayRequest $request)
     {
         $wechatPay = new WechatPay([
@@ -32,6 +33,7 @@ class WechatPayController extends Controller
         // 现在要做一个日志记录以前有几个人，此方法已记录人数和收费
         $wechatPay->user()->associate($this->user());
         $wechatPay->save();
+        $this->dispatch(new CloseWechatPay($wechatPay, config('app.CLOSE_TIME')));
         return $wechatPay;
     }
 
@@ -39,7 +41,7 @@ class WechatPayController extends Controller
      * 唤起支付操作，
      * JSAPI--JSAPI支付（或小程序支付）、NATIVE--Native支付、APP--app支付，MWEB--H5支付，
      **/
-    public function payByWechat($id, Request $request) {
+    public function payByWechat($id) {
         // 校验权限
         $wechatPay = $this->user()->wechatPays()->where('id',$id)->firstOrFail();
         // 校验订单状态
@@ -63,8 +65,6 @@ class WechatPayController extends Controller
     // 创建订单 -- 通知
     public function handlePaidNotify()
     {
-
-
         Log::info('进入');
 
         $response = $this->app->handlePaidNotify(function($message, $fail){
@@ -86,7 +86,6 @@ class WechatPayController extends Controller
                 if (array_get($message, 'result_code') === 'SUCCESS') {
                     Log::info('用户是否支付成功');
 
-//                if ($message['result_code'] === 'SUCCESS') {
                     $order->status = 'paid';
                     $order->paid_at = Carbon::now(); // 更新支付时间为当前时间
                     $order->payment_no = $message['transaction_id']; // 支付平台订单号

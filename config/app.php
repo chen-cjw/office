@@ -2,9 +2,8 @@
 
 return [
 
-    'number_count' => env('NUMBER_COUNT',3),
     'close_time' => env('CLOSE_TIME',10),
-
+    'number_count' => env('NUMBER_COUNT',3),
     /*
     |--------------------------------------------------------------------------
     | Application Name

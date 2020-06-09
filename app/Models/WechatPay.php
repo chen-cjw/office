@@ -20,7 +20,10 @@ class WechatPay extends Model
         self::REFUND_STATUS_SUCCESS    => '退款成功',
         self::REFUND_STATUS_FAILED     => '退款失败',
     ];
-    protected $fillable = ['number','day','body','detail','out_trade_no','user_id','total_fee','status','paid_at','payment_no'];
+    protected $fillable = [
+        'number','day','body','detail','out_trade_no','user_id',
+        'total_fee','status','paid_at','payment_no','closed','refund_status','refund_no'
+    ];
 
     public function user()
     {
