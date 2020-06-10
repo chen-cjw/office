@@ -1,9 +1,9 @@
 <?php
 
 return [
-
-    'close_time' => env('CLOSE_TIME',10),
-    'number_count' => env('NUMBER_COUNT',3),
+    'default_personal_price'=>env('DEFAULT_PERSONAL_PRICE',99),//个人默认多少钱
+    'close_time' => env('CLOSE_TIME',10),// 关闭队列
+    'number_count' => env('NUMBER_COUNT',3),// 成员
     /*
     |--------------------------------------------------------------------------
     | Application Name

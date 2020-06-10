@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\WechatPayRequest;
 use App\Jobs\CloseWechatPay;
 use App\Models\WechatPay;
+use App\Transformers\WechatPayTransformer;
 use Carbon\Carbon;
 use Dingo\Api\Exception\ResourceException;
 use Illuminate\Http\Request;
@@ -19,21 +20,25 @@ class WechatPayController extends Controller
     //
     public function index()
     {
-
+        $wechatPays = $this->user()->wechatPays()->orderBy('created_at','desc')->paginate();
+        return $this->response->paginator($wechatPays,new WechatPayTransformer());
     }
     // 唤起支付---创建支付订单
     public function store(WechatPay $wechatPay,WechatPayRequest $request)
     {
+        $day = floor((strtotime($this->user()->team->close_time)-time())/86400);
+        $year = bcmul(bcmul(bcdiv(config('app.default_personal_price'),365,8),$day),$request->number);// 默认一年
+        // bcdiv — 相除||bcmul — 乘法
         $wechatPay = new WechatPay([
             'out_trade_no' => $wechatPay->findAvailableNo(),
-            'total_fee' => $request->number * $request->day, // （当前天数 * 当前人数）
+            'total_fee' => bcmul($year,$request->day),
             'number' => $request->number,
             'day' => $request->day,
         ]);
         // 现在要做一个日志记录以前有几个人，此方法已记录人数和收费
         $wechatPay->user()->associate($this->user());
         $wechatPay->save();
-        $this->dispatch(new CloseWechatPay($wechatPay, config('app.CLOSE_TIME')));
+        $this->dispatch(new CloseWechatPay($wechatPay, config('app.close_time')));
         return $wechatPay;
     }
 
@@ -44,6 +49,10 @@ class WechatPayController extends Controller
     public function payByWechat($id) {
         // 校验权限
         $wechatPay = $this->user()->wechatPays()->where('id',$id)->firstOrFail();
+        // bcsub — 减法
+        if (bcsub(strtotime($wechatPay->created_at),time()) > 3600) {
+            throw new ResourceException('此订单已过期，请删除此订单重新付款！');
+        }
         // 校验订单状态
         if ($wechatPay->paid_at || $wechatPay->closed) {
             throw new ResourceException('订单状态不正确');

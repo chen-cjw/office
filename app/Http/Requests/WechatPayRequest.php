@@ -24,7 +24,13 @@ class WechatPayRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => 'required',
+            'number' => ['required',
+                    function($attribute, $value, $fail) {
+                        if (!auth('api')->user()->team()->exists()) {
+                            return $fail('没有团队，无法支付');
+                        }
+                    }
+                ],
             'day' => 'required',
         ];
     }
