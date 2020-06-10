@@ -1,3 +1,5 @@
+## horizon 可视化页面地址 horizon/dashboard
+
 ## Laravel Framework 6.18.2
 ## 项目部署
 - php artisan key:generate

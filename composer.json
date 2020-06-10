@@ -16,6 +16,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "laravel-admin-ext/grid-lightbox": "^1.0",
         "laravel/framework": "^6.2",
+        "laravel/horizon": "^3.3",
         "laravel/tinker": "^2.0",
         "liyu/dingo-serializer-switch": "^0.3.1",
         "overtrue/laravel-lang": "~3.0",
