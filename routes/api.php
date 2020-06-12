@@ -68,6 +68,9 @@ $api->version('v1', [
          **/
         // 我的团队
         $api->get('/teams','TeamController@index')->name('api.team.index');
+        // 搜索团队成员，模糊搜索
+        $api->get('/teams/{nickname}','TeamController@search')->name('api.team.search');
+
         // 创建团队 要符合某个条件，成员可以创建团队
         $api->post('/teams','TeamController@store')->name('api.team.store');
         // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员

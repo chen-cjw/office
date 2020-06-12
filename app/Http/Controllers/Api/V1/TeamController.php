@@ -6,6 +6,7 @@ use App\Http\Requests\TeamRequest;
 use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
+use App\Transformers\TeamMemberTransformer;
 use App\Transformers\TeamTransformer;
 use Illuminate\Support\Facades\DB;
 use Dingo\Api\Exception\StoreResourceFailedException;
@@ -21,10 +22,20 @@ class TeamController extends Controller
         }
         $teamId = TeamMember::where('user_id',$this->user->id)->value('team_id');
         if ($teamId) {
-            return $this->response->item(Team::findOrFail($teamId),new TeamTransformer());
+            return $this->response->item(Team::findOrFail($teamId), new TeamTransformer());
         }
         return ['data'=>[]];
     }
+
+    // 搜索成员名字
+    public function search($nickname)
+    {
+        $teamId = $this->user()->team()->value('id');
+        $userIds = User::where('nickname','like','%'.$nickname.'%')->pluck('id');
+        $teamMembers = TeamMember::whereIn(['user_id'=>$userIds,'team_id'=>$teamId])->get();
+        return $this->response->item($teamMembers, new TeamMemberTransformer());
+    }
+
     // 创建团队
     public function store(TeamRequest $request)
     {
