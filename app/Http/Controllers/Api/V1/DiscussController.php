@@ -22,9 +22,8 @@ class DiscussController extends Controller
     {
         // 判断两个人是否是一个团队的
         $data = $request->only('content','task_id','comment_user_id');
-        $data['reply_user_id'] = $this->user->id;
+        $data['reply_user_id'] = $this->user->id; // 登陆者
         $discuss = new Discuss($data);
-
         return $this->storeSave($discuss);
     }
 }

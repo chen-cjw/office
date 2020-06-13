@@ -18,7 +18,7 @@ class CreateDiscussesTable extends Migration
             $table->text('content')->comment('回复的内容');
             $table->json('images')->comment('回复的图片');
             $table->unsignedBigInteger('task_id')->comment('那个任务下发表的');
-            $table->unsignedBigInteger('comment_user_id')->comment('发表评论人');
+            $table->unsignedBigInteger('comment_user_id')->nullable()->comment('发表评论人');
             $table->unsignedBigInteger('reply_user_id')->comment('回复人');
             $table->foreign('task_id')->references('id')->on('tasks');
             $table->foreign('reply_user_id')->references('id')->on('users');
