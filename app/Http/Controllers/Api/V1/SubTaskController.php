@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Transformers\SubTaskTransformer;
 use App\Transformers\TaskTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubTaskController extends Controller
 {
