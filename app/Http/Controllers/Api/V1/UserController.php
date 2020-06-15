@@ -36,9 +36,10 @@ class UserController extends Controller
             $token = \Auth::guard('api')->fromUser($user);
             return $this->respondWithToken($token,$user->openid)->setStatusCode(201);
         } catch (\Exception $ex) {
+            throw new \Exception($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
             DB::rollback();
-            \Log::warning('UserController/storeFellow-------邀请同事失败', ['message' => $ex]);
-            throw new StoreResourceFailedException('邀请同事失败!'.$ex);
+//            \Log::warning('UserController/storeFellow-------邀请同事失败', ['message' => $ex]);
+//            throw new StoreResourceFailedException('邀请同事失败!'.$ex);
         }
     }
 

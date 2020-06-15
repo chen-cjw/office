@@ -49,6 +49,7 @@ class TeamController extends Controller
             $this->teamMember($this->user(),$team);// 用户和团队建立关系
             DB::commit();
         } catch (\Exception $ex) {
+            throw new \Exception($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
             DB::rollback();
         }
         return $this->response->created();

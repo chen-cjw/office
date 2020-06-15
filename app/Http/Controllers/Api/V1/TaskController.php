@@ -126,8 +126,8 @@ class TaskController extends Controller
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
-            DB::rollback();
             throw new \Exception($ex);
+            DB::rollback();
         }
 
     }

@@ -52,6 +52,7 @@ class SubTaskController extends Controller
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
+            throw new \Exception($ex);
             DB::rollback();
         }
     }

@@ -40,9 +40,10 @@ class TaskFlowController extends Controller
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
-            DB::rollback();
             Log::error($ex);
-            throw new ResourceException('任务流程创建失败'); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
+            throw new ResourceException($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
+            DB::rollback();
+
         }
     }
 
