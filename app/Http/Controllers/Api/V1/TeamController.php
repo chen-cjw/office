@@ -55,20 +55,10 @@ class TeamController extends Controller
         return $this->response->created();
     }
 
-    // 修改团队名 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
-    public function update(TeamRequest $request,$team,$user)
+    public function update(TeamRequest $request)
     {
-        if($user = $request->name) {
-            $this->user()->team->update(['name'=>$request->name]);
-            return $this->response->created();
-        }
-        if($this->user->team->id == $team) {
-            if($this->user->status=='administrator'||$this->user->status=='admin') {
-                User::where('id',$user)->update(['status'=>$request->status]);
-                return $this->response->created();
-            }
-        }
-        throw new StoreResourceFailedException('没有权限修改!');
+        $this->user()->team->update(['name'=>$request->name]);
+        return $this->response->created();
     }
 
 }

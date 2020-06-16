@@ -32,7 +32,7 @@ class TeamRequest extends FormRequest
                 ];
             case 'PATCH':
                 return [
-                    'name' => ['min:3','max:20','unique:teams,name'],
+                    'name' => ['min:3','max:20','unique:teams,name,'.auth('api')->user()->team->id],
                 ];
             case 'DELETE':
 

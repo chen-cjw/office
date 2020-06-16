@@ -74,9 +74,9 @@ $api->version('v1', [
         // 创建团队 要符合某个条件，成员可以创建团队
         $api->post('/teams','TeamController@store')->name('api.team.store');
         // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
-//        $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
+        $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
         // 修改团队成员的权限
-        $api->patch('/teams/{team}/users/{user}','TeamController@update')->name('api.team.update');
+        $api->patch('/teams/{team}/users/{user}','AuthController@update')->name('api.auth.update');
 
         /**
          * 首页

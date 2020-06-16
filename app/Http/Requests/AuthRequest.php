@@ -23,9 +23,25 @@ class AuthRequest extends FormRequest
      */
     public function rules()
     {
+        switch ($this->method()) {
+            case 'GET':
+            case 'POST':
+                return [
+                    'phone' => 'unique:users,phone|regex:/^1[23456789][0-9]{9}$/',
+                    'code' => 'required|string',
+                ];
+            case 'PATCH':
+                return [// 'administrator,admin,member,freeze,wait'
+                    'status' => ['required','in:administrator,admin,member,freeze,wait'],
+                ];
+            case 'DELETE':
+
+            default:
+                return [];
+        }
         return [
             'phone' => 'unique:users,phone|regex:/^1[23456789][0-9]{9}$/',
-            'code' => 'required|string'
+            'code' => 'required|string',
         ];
     }
 
@@ -36,4 +52,7 @@ class AuthRequest extends FormRequest
             'code'=>'授权失败',
         ];
     }
+
+
+
 }

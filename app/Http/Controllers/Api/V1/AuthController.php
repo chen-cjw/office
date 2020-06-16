@@ -124,4 +124,24 @@ class AuthController extends Controller
             'oauth'=>'未授权手机号码'
         ]);
     }
+
+    // 修改团队名 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
+    public function update(AuthRequest $request,$teamId,$userId)
+    {
+        // 当前用户的团队，| 自己不可以修改自己
+        if ($this->user()->team->id === $teamId || $this->user()->id === $userId) {
+            throw new StoreResourceFailedException('团队或者用户有问题!');
+        }
+        // 传入用户的团队 有则可以修改
+        $teamMemerIsset = TeamMember::where(['user_id'=>$userId,'team_id'=>$teamId])->first();
+        if(!$teamMemerIsset) {
+            throw new StoreResourceFailedException('此用户不在我们团队!');
+        }
+        if($this->user->status=='administrator'||$this->user->status=='admin') {
+            User::where('id',$userId)->update(['status'=>$request->status]);
+            return $this->response->created();
+        }
+
+        throw new StoreResourceFailedException('没有权限修改!');
+    }
 }
