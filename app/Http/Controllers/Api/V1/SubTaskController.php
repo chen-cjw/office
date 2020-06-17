@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\TaskLog;
 use App\Http\Requests\SubTaskRequest;
 use App\Models\Subtask;
 use App\Models\TaskFlow;
@@ -16,22 +17,21 @@ class SubTaskController extends Controller
     // 默认是分配的
     public function index()
     {
-        if($close_date = \request()->close_date) {
-            $subTasks = $this->user->subTasks()->orderBy('close_date',$close_date)->paginate();
-        }elseif ($created_at = \request()->created_at) {
-            $subTasks = $this->user->subTasks()->orderBy('created_at',$created_at)->paginate();
+        $close_date = \request()->close_date;
+        $created_at = \request()->created_at;
+        $status = \request()->input('status','complete');
+        $query = $this->user;
+        if($close_date) {
+            $query = $query->subTasks()->orderBy('close_date',$close_date)->where('status',$status)->paginate();
+        }elseif ($created_at) {
+            $query = $query->subTasks()->orderBy('created_at',$created_at)->where('status',$status)->paginate();
+        }elseif($status = \request()->status) {
+            $query = $query->subTasks()->where('status',$status)->paginate();
         }else {
-            $subTasks = $this->user->subTasks()->orderBy('created_at','desc')->paginate();
+            $query = $query->subTasks()->orderBy('created_at','desc')->paginate();
         }
 
-        return $this->response->paginator($subTasks, new SubTaskTransformer());
-    }
-    // 查看已完成的(分配给我的)
-    public function status(Request $request)
-    {
-//        $status = $request->input('status','complete');
-        $subTasks = $this->user->subTasks()->where('status','complete')->paginate();
-        return $this->response->paginator($subTasks, new SubTaskTransformer());
+        return $this->response->paginator($query, new SubTaskTransformer());
     }
 
     public function show($id)
@@ -48,7 +48,8 @@ class SubTaskController extends Controller
             $subtask->user()->associate($user);
             $subtask->task()->associate($this->user->tasks()->findOrFail($request->task_id));
             $this->storeSave($subtask);
-            event(new TaskFlow($this->user->username.'指派给了'.$user->username,$request->user_id,$request->task_id));
+
+            event(new TaskLog($this->user->username.'指派给了'.$user->username, $request->user_id, $request->task_id, Subtask::class));
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {

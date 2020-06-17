@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="bcee3e9f-d641-43e2-82e2-31b9f6226407" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/AuthRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/AuthRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TeamRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/TeamRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TaskController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php">
+      <file leaf-file-name="api.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1484">
-              <caret line="128" selection-start-line="128" selection-end-line="129" />
+            <state relative-caret-position="104">
+              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
             </state>
           </provider>
         </entry>
@@ -34,65 +33,20 @@
       <file leaf-file-name="SubTaskController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="48" column="60" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="60" />
+            <state relative-caret-position="208">
+              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
               <folding>
-                <element signature="e#47#84#0#PHP" expanded="true" />
+                <element signature="e#47#70#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php">
+      <file leaf-file-name="TaskFlow.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/TaskFlow.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="131" column="80" selection-start-line="131" selection-start-column="80" selection-end-line="131" selection-end-column="80" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthRequest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Requests/AuthRequest.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-79">
-              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2020_03_29_105825_create_users_table.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_29_105825_create_users_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="29" column="83" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="83" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TeamController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AuthPhoneStoreRequest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Requests/AuthPhoneStoreRequest.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-56">
-              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TeamRequest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Requests/TeamRequest.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+            <state relative-caret-position="60">
+              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -100,21 +54,47 @@
       <file leaf-file-name="SubTaskRequest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" selection-start-line="27" selection-end-line="64" />
+            <state relative-caret-position="245">
+              <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="48" selection-end-column="29" />
               <folding>
                 <element signature="e#37#57#0#PHP" expanded="true" />
-                <element signature="e#432#709#0#PHP" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <file leaf-file-name="TeamController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="78" column="96" selection-start-line="78" selection-start-column="96" selection-end-line="78" selection-end-column="96" />
+            <state relative-caret-position="435">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskLog.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Events/TaskLog.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="76" column="28" selection-start-line="76" selection-start-column="20" selection-end-line="76" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -123,11 +103,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>outTradeNo</find>
-      <find>number</find>
-      <find>paid_fail</find>
-      <find>payByWechat</find>
-      <find>paid_at</find>
       <find>oauthNo</find>
       <find>status</find>
       <find>WECHAT_PAYMENT_SANDBOX</find>
@@ -144,7 +119,6 @@
       <find>NUMBER_COUNT</find>
       <find>closed</find>
       <find>result_code</find>
-      <find>search</find>
       <find>TeamController</find>
       <find>'jwt'</find>
       <find>jwt</find>
@@ -153,6 +127,12 @@
       <find>$discuss</find>
       <find>update</find>
       <find>teams</find>
+      <find>sub_tasks</find>
+      <find>SubTaskController</find>
+      <find>search</find>
+      <find>sub_tasks/status</find>
+      <find>subTasks</find>
+      <find>指派给了</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -202,16 +182,16 @@
         <option value="$PROJECT_DIR$/database/migrations/2020_03_30_034410_create_discusses_table.php" />
         <option value="$PROJECT_DIR$/app/Transformers/TaskTransformer.php" />
         <option value="$PROJECT_DIR$/app/Transformers/UserTransformer.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/UserController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/TeamRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/AuthRequest.php" />
-        <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
       </list>
     </option>
   </component>
@@ -433,19 +413,7 @@
               <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
               <item name="app-office" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Requests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+              <item name="Models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
@@ -515,12 +483,12 @@
       <workItem from="1590973378483" duration="3917000" />
       <workItem from="1590981605133" duration="13167000" />
       <workItem from="1591348848972" duration="36670000" />
-      <workItem from="1592033629856" duration="8331000" />
+      <workItem from="1592033629856" duration="13085000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="398752000" />
+    <option name="totallyTimeSpent" value="403506000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -590,20 +558,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/WechatPay.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-71">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -672,13 +626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -843,38 +790,10 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/AuthMlOpenidStoreRequest.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="48" column="60" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="60" />
-          <folding>
-            <element signature="e#47#84#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1484">
-          <caret line="128" selection-start-line="128" selection-end-line="129" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/AuthPhoneStoreRequest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-56">
           <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" selection-start-line="27" selection-end-line="64" />
-          <folding>
-            <element signature="e#37#57#0#PHP" expanded="true" />
-            <element signature="e#432#709#0#PHP" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -899,13 +818,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="78" column="96" selection-start-line="78" selection-start-column="96" selection-end-line="78" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -913,10 +825,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="48" selection-end-column="29" />
+          <folding>
+            <element signature="e#37#57#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/TaskFlow.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
+        <state relative-caret-position="435">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Events/TaskLog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="76" column="28" selection-start-line="76" selection-start-column="20" selection-end-line="76" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+          <folding>
+            <element signature="e#47#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
         </state>
       </provider>
     </entry>

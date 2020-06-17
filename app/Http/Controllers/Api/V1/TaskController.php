@@ -22,12 +22,18 @@ class TaskController extends Controller
      **/
     public function index()
     {
-        if($close_date = \request()->close_date) {
-            $tasks = $this->user->tasks()->orderBy('close_date',$close_date)->paginate();
-        }elseif ($created_at = \request()->created_at) {
-            $tasks = $this->user->tasks()->orderBy('created_at',$created_at)->paginate();
+        $close_date = \request()->close_date;//input('close_date','desc');
+        $created_at = \request()->created_at;//input('created_at','desc');
+        $status = \request()->status;
+        $query = $this->user;
+        if($close_date) {
+            $tasks = $query->tasks()->orderBy('close_date',$close_date)->where('status',$status)->paginate();
+        }elseif ($created_at) {
+            $tasks = $query->tasks()->orderBy('created_at',$created_at)->where('status',$status)->paginate();
+        }elseif ($status) {
+            $tasks = $query->tasks()->where('status',$status)->paginate();
         }else {
-            $tasks = $this->user->tasks()->orderBy('created_at','desc')->paginate();
+            $tasks = $query->tasks()->orderBy('created_at','desc')->paginate();
         }
         return $this->response->paginator($tasks,new TaskTransformer());
     }
@@ -46,8 +52,8 @@ class TaskController extends Controller
             event(new TaskLog($this->user->nickname.'创建了任务',$this->user->id,$taskItem->id,Task::class));
             event(new TaskLog($this->user->nickname.'指派给了'.User::findOrFail($request->assignment_user_id)->nickname,$request->assignment_user_id,$taskItem->id,Task::class));
             // 消息推送模版
-            $this->notificationAdd();
-            $this->notificationAppoint($task);
+//            $this->notificationAdd();
+//            $this->notificationAppoint($task);
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {

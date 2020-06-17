@@ -69,7 +69,7 @@ $api->version('v1', [
         // 我的团队
         $api->get('/teams','TeamController@index')->name('api.team.index');
         // 搜索团队成员，模糊搜索
-        $api->get('/teams/{nickname}','TeamController@search')->name('api.team.search');
+        $api->get('/team_users/{username}','TeamController@search')->name('api.team.search');
 
         // 创建团队 要符合某个条件，成员可以创建团队
         $api->post('/teams','TeamController@store')->name('api.team.store');
@@ -83,8 +83,6 @@ $api->version('v1', [
          **/
         // 任务列表(首页) 分配给我的
         $api->get('/sub_tasks','SubTaskController@index')->name('api.sub_tasks.index');
-        // 查看已完成的(分配给我的)
-        $api->get('/sub_tasks/status','SubTaskController@status')->name('api.tasks.status');
 
         // 查看我创建的任务
         $api->get('/tasks','TaskController@index')->name('api.tasks.index');

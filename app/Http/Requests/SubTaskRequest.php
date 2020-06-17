@@ -43,11 +43,9 @@ class SubTaskRequest extends FormRequest
                     ],
                     'user_id' => ['required',
                         function ($attribute, $value, $fail) {
-                            if($value) {
-                                $teamId = auth('api')->user()->team()->value('id');
-                                if (!TeamMember::where('team_id', $teamId)->first()) {
-                                    return $fail('此用户不是我们团队的！');
-                                }
+                            $teamId = auth('api')->user()->team()->value('id');
+                            if (!TeamMember::where('team_id', $teamId)->where('user_id',$value)->first()) {
+                                return $fail('此用户不是我们团队的！');
                             }
                         },
                     ],

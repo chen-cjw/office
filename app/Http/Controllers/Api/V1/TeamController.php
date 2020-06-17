@@ -32,8 +32,10 @@ class TeamController extends Controller
     {
         $teamId = $this->user()->team()->value('id');
         $userIds = User::where('nickname','like','%'.$nickname.'%')->pluck('id');
-        $teamMembers = TeamMember::whereIn(['user_id'=>$userIds,'team_id'=>$teamId])->get();
-        return $this->response->item($teamMembers, new TeamMemberTransformer());
+
+        $teamMembers = TeamMember::where('team_id',$teamId)->whereIn('user_id',$userIds)->get();
+
+        return $this->response->collection($teamMembers, new TeamMemberTransformer());
     }
 
     // 创建团队
