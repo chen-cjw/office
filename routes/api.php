@@ -57,9 +57,8 @@ $api->version('v1', [
 
     // 邀请老板加入
     $api->get('/teams/users/{user}','UserController@storeBoss')->name('api.team.storeBoss');
-
-    $api->group(['middleware' => ['auth:api']], function ($api) {
-
+    // 用户处于某种状态的时候才可以有以下的操作,必须有号码才可以操作
+    $api->group(['middleware' => ['auth:api','user.status','user.authorization']], function ($api) {
 
         // 个人信息
         $api->get('/meShow','AuthController@meShow')->name('api.auth.meShow');

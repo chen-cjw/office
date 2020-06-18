@@ -4,6 +4,8 @@ namespace App\Http;
 
 use App\Http\Middleware\TeamMemberToken;
 use App\Http\Middleware\TeamUseToken;
+use App\Http\Middleware\UserAuthorization;
+use App\Http\Middleware\UserStatus;
 use App\Http\Middleware\WelfareToken;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate;
@@ -70,6 +72,8 @@ class Kernel extends HttpKernel
         'team.use'=>TeamUseToken::class,   // 团队是否可用(人数/到期时间)
         'team.member'=>TeamMemberToken::class, // 团队成员是否存在
         'welfare' => WelfareToken::class, // 邀请用户的福利
+        'user.status' => UserStatus::class,
+        'user.authorization' => UserAuthorization::class
     ];
 
     /**

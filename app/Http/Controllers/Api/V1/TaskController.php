@@ -22,8 +22,8 @@ class TaskController extends Controller
      **/
     public function index()
     {
-        $close_date = \request()->close_date;//input('close_date','desc');
-        $created_at = \request()->created_at;//input('created_at','desc');
+        $close_date = \request()->close_date;
+        $created_at = \request()->created_at;
         $status = \request()->status;
         $query = $this->user;
         if($close_date) {
@@ -31,7 +31,7 @@ class TaskController extends Controller
         }elseif ($created_at) {
             $tasks = $query->tasks()->orderBy('created_at',$created_at)->where('status',$status)->paginate();
         }elseif ($status) {
-            $tasks = $query->tasks()->where('status',$status)->paginate();
+            $tasks = $query->tasks()->where('status',$status)->orderBy('created_at','desc')->paginate();
         }else {
             $tasks = $query->tasks()->orderBy('created_at','desc')->paginate();
         }

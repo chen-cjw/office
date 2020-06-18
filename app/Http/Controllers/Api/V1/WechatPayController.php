@@ -94,7 +94,7 @@ class WechatPayController extends Controller
                 // 用户是否支付成功
                 if (array_get($message, 'result_code') === 'SUCCESS') {
                     Log::info('用户是否支付成功');
-
+                    
                     $order->status = 'paid';
                     $order->paid_at = Carbon::now(); // 更新支付时间为当前时间
                     $order->payment_no = $message['transaction_id']; // 支付平台订单号
