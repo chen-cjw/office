@@ -26,7 +26,7 @@ class DiscussRequest extends FormRequest
         return [
             'content'=>'required',
             'task_id'=>'required',
-            'images'=>'required',
+//            'images'=>'required',
 //            'comment_user_id'=>'required',
         ];
     }

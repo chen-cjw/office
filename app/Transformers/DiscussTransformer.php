@@ -23,6 +23,6 @@ class DiscussTransformer extends TransformerAbstract
 
     public function nickname($user_id)
     {
-        return User::where('id',$user_id)->value('openid');
+        return User::where('id',$user_id)->value('nickname');
     }
 }
