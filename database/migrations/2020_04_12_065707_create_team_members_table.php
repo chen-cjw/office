@@ -21,8 +21,8 @@ class CreateTeamMembersTable extends Migration
             $table->foreign('team_id')->references('id')->on('teams');
 //            $table->unique('user_id','team_id');
             // 这里应该还有一个操作日志才对
-            $table->enum('status',['administrator','admin','member','freeze','wait'])
-                ->comment('超级管理员(administrator)|管理员(admin)|成员(member)|冻结账号(freeze)|等待审核(wait)');
+//            $table->enum('status',['administrator','admin','member','freeze','wait'])
+//                ->comment('超级管理员(administrator)|管理员(admin)|成员(member)|冻结账号(freeze)|等待审核(wait)');
 
             $table->timestamps();
         });

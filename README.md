@@ -62,39 +62,109 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## 
+##1.使用redis,安装官方推荐扩展包(predis/predis )
+- composer require predis/predis
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+##2.修改.env配置
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+- QUEUE_CONNECTION=redis
+
+##3.config/database.php
+//可修改options.prefix 区分不同项目redis前缀
+ 'redis' => [
+
+        'client' => env('REDIS_CLIENT', 'predis'),
+
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'predis'),
+            'prefix' => Str::slug(env('APP_NAME', 'laravel'), '_').'_database_',
+        ],
+
+        'default' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DB', 0),
+        ],
+
+        'cache' => [
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'password' => env('REDIS_PASSWORD', null),
+            'port' => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_CACHE_DB', 1),
+        ],
+
+    ],
+##4.创建队列任务
+
+
+- php artisan make:job CloseWechatPay
+
+##5.修改队列任务逻辑
+
+ protected $order;
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct(Order $order,$delay)
+    {
+        $this->order = $order;
+        // 设置延迟的时间，delay() 方法的参数代表多少秒之后执行
+        $this->delay($delay);
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        // 判断对应的订单是否已经被支付
+        // 如果已经支付则不需要关闭订单，直接退出
+        if ($this->order->is_pay != 0) {
+            return;
+        }
+        // 通过事务执行 sql
+        \DB::transaction(function() {
+            // 将订单的 closed 字段标记为 true，即关闭订单
+            $this->order->update(['is_pay' => 3,'remark'=>'订单关闭']);
+        });
+    }
+    
+##6.调用队列任务
+
+            $order = Order::create($data);
+            $this->dispatch(new CloseWechatPay($order,30*60));
+##7.ubuntu 安装守护进程
+
+- sudo apt-get install supervisor
+
+##8.在/etc/supervisor/conf.d目录下创建 队列任务配置文件
+
+- touch closeWechatPay.conf
+
+##9.修改配置文件
+
+[program:closeWechatPay]
+process_name=%(program_name)s_%(process_num)02d
+command=/usr/local/php72/bin/php(php根目录) /data/wwwroot/xyk.topyee.top/ZujiPHP(项目根目录)/artisan queue:work  --tries=3
+autostart=true
+autorestart=true
+user=root
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/var/log/supervisor/laravel-queue.log
+
+
+##10.启动supervisor
+
+- sudo supervisorctl reread
+- sudo supervisorctl update
+- sudo supervisorctl start closeWechatPay:*
 
 ## Contributing
 

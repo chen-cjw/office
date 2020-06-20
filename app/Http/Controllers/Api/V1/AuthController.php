@@ -85,13 +85,13 @@ class AuthController extends Controller
     protected function createUser($sessionUser,$request)
     {
         return [ // 不存在此用户添加
-            'ml_openid'=>$sessionUser['openid'],
-            'nickname'=>$request->nickName,
-            'avatar'=>$request->avatarUrl,
+            'ml_openid' => $sessionUser['openid'],
+            'nickname' => $request->nickName,
+            'avatar' => $request->avatarUrl,
             'send_invite_set_id' => $request->send_invite_set_id,
-            'status'=>User::REFUND_STATUS_ADMINISTRATOR,
-            'is_open'=>$request->send_invite_set_id ? true : false,
-            'parent_id'=>$request->parent_id?$request->parent_id:null
+            'status' => $request->send_invite_set_id == 1 ? User::REFUND_STATUS_WAIT : User::REFUND_STATUS_ADMINISTRATOR, // 成员是要审核的
+            'is_open' => $request->send_invite_set_id ? true : false,
+            'parent_id' => $request->parent_id ? $request->parent_id : null
         ];
     }
 
