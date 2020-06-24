@@ -54,7 +54,7 @@ class TaskFlowRequest extends FormRequest
 //                    'task_flows.*.status' => 'required|in:all,start,pending,end,complete'
             ];
 
-            case 'PATCH':
+            case 'PUT':
                 return [
                     'user_id' => ['required',
                         function($attribute, $value, $fail) {

@@ -75,7 +75,7 @@ $api->version('v1', [
         // 对于申请的用户进行 允许|拒绝 | 设置管理员|取消管理员|删除团队组员
         $api->patch('/teams/{team}','TeamController@update')->name('api.team.update');
         // 修改团队成员的权限
-        $api->patch('/teams/{team}/users/{user}','AuthController@update')->name('api.auth.update');
+        $api->put('/teams/{team}/users/{user}','AuthController@update')->name('api.auth.update');
 
         /**
          * 首页
@@ -90,7 +90,7 @@ $api->version('v1', [
 //        $api->post('/tasks','TaskController@store')->name('api.task.store');
 //        $api->patch('/tasks/{id}','TaskController@update')->name('api.task.update');
         $api->post('/sub_tasks','SubTaskController@store')->name('api.sub_task.store');
-        $api->patch('/sub_tasks/{id}','SubTaskController@update')->name('api.sub_task.update');
+        $api->put('/sub_tasks/{id}','SubTaskController@update')->name('api.sub_task.update');
 
         // 详情(我创建的任务)
         $api->get('/tasks/{task}','TaskController@show')->name('api.task.show');
@@ -109,16 +109,16 @@ $api->version('v1', [
             $api->post('/task_flows','TaskFlowController@store')->name('api.task_flow.store');
         });
 //        $api->group(['middleware' => ['welfare']], function ($api) {
-            $api->patch('/tasks/{id}','TaskController@update')->name('api.task.update');
+            $api->put('/tasks/{id}','TaskController@update')->name('api.task.update');
 //        });
 
-        $api->patch('/task_flows/{status}','TaskFlowController@updateStatus')->name('api.task_flow.updateStatus');
+        $api->put('/task_flows/{status}','TaskFlowController@updateStatus')->name('api.task_flow.updateStatus');
         // 任务流程列表
         $api->get('/task_flow_collections','TaskFlowCollectionController@index')->name('api.task_flow_collections.index');
         // 查看
         $api->get('/task_flow_collections/{id}','TaskFlowCollectionController@show')->name('api.task_flow_collections.show');
         // 编辑
-        $api->patch('/task_flow_collections/{task_flow_collection_id}/task_flows/{task_flow_id}','TaskFlowController@update')->name('api.task_flow_collections.update');
+        $api->put('/task_flow_collections/{task_flow_collection_id}/task_flows/{task_flow_id}','TaskFlowController@update')->name('api.task_flow_collections.update');
 
 
         // 评论

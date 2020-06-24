@@ -51,7 +51,7 @@ class SubTaskRequest extends FormRequest
                     ],
                     'status' => ['required'],
                 ];
-            case 'PATCH':
+            case 'PUT':
                 return [
                     'status' => ['required'],
                 ];

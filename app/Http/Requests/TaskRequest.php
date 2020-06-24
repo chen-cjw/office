@@ -37,7 +37,7 @@ class TaskRequest extends FormRequest
                     'status'=>'required|in:start,end,stop',
                     'assignment_user_id'=>['required',new TeamUserRule()]  // 这个人必须在团队里面
                 ];
-            case 'PATCH':
+            case 'PUT':
                 return [
                     'status' => ['required',''],
                 ];

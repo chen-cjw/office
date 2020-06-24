@@ -30,7 +30,7 @@ class AuthRequest extends FormRequest
                     'phone' => 'unique:users,phone|regex:/^1[23456789][0-9]{9}$/',
                     'code' => 'required|string',
                 ];
-            case 'PATCH':
+            case 'PUT':
                 return [// 'administrator,admin,member,freeze,wait'
                     'status' => ['required','in:administrator,admin,member,freeze,wait'],
                 ];
