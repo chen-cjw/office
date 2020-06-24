@@ -15,36 +15,33 @@ use Illuminate\Support\Facades\Log;
 class TaskFlowController extends Controller
 {
     // 任务流程
-    public function store(TaskFlowRequest $request)
+    public function store(Request $request)
     {
+
         DB::beginTransaction();
         try {
-            $taskFlowCollectionName = $request->name;
-            $stepName = $request->step_name;
-            if ($taskFlowCollectionName==null) {
-                // 创建
-                $taskFlowCollection = new TaskFlowCollection(['name'=>$stepName]);
-                $taskFlowCollection->user()->associate($this->user);
-                $taskFlowCollection->save();
-            }else {
-                // 修改
-                $taskFlowCollection= $this->user->taskFlowCollections()->where('name',$taskFlowCollectionName)->first();//
-                $taskFlowCollection->update(['name'=>$taskFlowCollectionName.'-'.$stepName]);;
+            $taskFlowItems = $request->input('task_flows');
+            $taskFlowCollection = new TaskFlowCollection([
+                'name' => $request->name
+            ]);
+            $taskFlowCollection->user()->associate($this->user);
+            $taskFlowCollection->save();
+            foreach ($taskFlowItems as $data) {
+                $taskFlowItem = new TaskFlow([
+                    'step_name' => $data['step_name'],
+                    'status' => $data['status'],
+                    'user_id' => $data['user_id'],
+                    'task_flow_collection_id' => $taskFlowCollection->id,
+                ]);
+                $taskFlowItem->save();
             }
-            // task_flows 表         'step_name','status'
-            $taskFlow = new TaskFlow($request->only('step_name','status'));
-            // user_id 要控制在自己的团队之内
-            $taskFlow->user()->associate(User::findOrFail($request->user_id));
-            $taskFlow->taskFlowCollection()->associate($taskFlowCollection);
-            $taskFlow->save();
             DB::commit();
-            return $this->response->created();
         } catch (\Exception $ex) {
             Log::error($ex);
             throw new ResourceException($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
             DB::rollback();
-
         }
+        return $this->response->created();
     }
 
     // todo 这里需要看是否是某个团队成员

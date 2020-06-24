@@ -18,7 +18,7 @@ class TaskFlow extends ImageUpload
     ];
 
     protected $fillable = [
-        'step_name','status'
+        'step_name','status','user_id','task_flow_collection_id'
     ];
 
     public function taskFlowCollection()
