@@ -29,7 +29,7 @@ class TaskFlowController extends Controller
             foreach ($taskFlowItems as $data) {
                 $taskFlowItem = new TaskFlow([
                     'step_name' => $data['step_name'],
-                    'status' => $data['status'],
+                    'status' => 'all',// $data['status'] == 'all' ? 'all' : $data['status'],
                     'user_id' => $data['user_id'],
                     'task_flow_collection_id' => $taskFlowCollection->id,
                 ]);
