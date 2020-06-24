@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcee3e9f-d641-43e2-82e2-31b9f6226407" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskFlowController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TaskFlowController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+            <state relative-caret-position="79">
+              <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskFlowRequest.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TaskFlowRequest.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
+            <state relative-caret-position="492">
+              <caret line="54" column="14" lean-forward="true" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -187,8 +187,8 @@
         <option value="$PROJECT_DIR$/app/Models/TaskFlow.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_04_08_042327_create_task_flows_table.php" />
         <option value="$PROJECT_DIR$/app/Transformers/TaskFlowTransformer.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php" />
       </list>
     </option>
   </component>
@@ -486,12 +486,12 @@
       <workItem from="1590981605133" duration="13167000" />
       <workItem from="1591348848972" duration="36670000" />
       <workItem from="1592033629856" duration="16250000" />
-      <workItem from="1592446681771" duration="18206000" />
+      <workItem from="1592446681771" duration="18259000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="424877000" />
+    <option name="totallyTimeSpent" value="424930000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -512,9 +512,9 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.24484849" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.24484849" />
       <window_info anchor="right" id="Remote Host" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2546495" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2546495" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -882,17 +882,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
+        <state relative-caret-position="79">
+          <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="31" column="40" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
+        <state relative-caret-position="492">
+          <caret line="54" column="14" lean-forward="true" selection-start-line="54" selection-start-column="14" selection-end-line="54" selection-end-column="14" />
         </state>
       </provider>
     </entry>

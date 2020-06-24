@@ -51,7 +51,7 @@ class TaskFlowRequest extends FormRequest
                             }
                         },
                     ],
-                    'task_flows.*.status' => 'required|in:all,start,pending,end,complete'
+//                    'task_flows.*.status' => 'required|in:all,start,pending,end,complete'
             ];
 
             case 'PATCH':
