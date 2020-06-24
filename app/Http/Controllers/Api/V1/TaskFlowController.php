@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 class TaskFlowController extends Controller
 {
     // 任务流程
-    public function store(Request $request)
+    public function store(TaskFlowRequest $request)
     {
 
         DB::beginTransaction();

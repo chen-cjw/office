@@ -32,34 +32,19 @@ class TaskFlowRequest extends FormRequest
             case 'GET':
             case 'POST':
                 return [
-                'name'=>[
-                    function ($attribute, $value, $fail) {
-                        if($value) {
-                            if (!TaskFlowCollection::where('user_id',auth('api')->id())->where('name',$value)->first()) {
-                                return $fail('流程名称不存在！');
+                    'name'=> 'required',
+                    'task_flows'  => ['required', 'array'],
+                    'task_flows.*.step_name' => [
+                        'required'
+                    ],
+                    'task_flows.*.user_id' => [ // 检查 items 数组下每一个子数组的 sku_id 参数
+                        'required',function($attribute, $value, $fail) {
+                            if(TeamMember::where('user_id',auth('api')->id())->value('team_id') !== TeamMember::where('user_id',$value)->value('team_id')) {
+                                return $fail('此用户不在我们团队！');
                             }
-                        }
-                    },
-                ],
-
-                'step_name'=>['required',
-                    function ($attribute, $value, $fail) {
-                        if($this->input('name')) {
-
-                        }else {
-                            if ($sku = TaskFlowCollection::where('user_id',auth('api')->id())->where('name',$value)->first()) {
-                                return $fail('总流程名称已存在！');
-                            }
-                        }
-                    },
-                ],
-                'status'=>'required|in:start,pending,end,complete',
-                'user_id'=>['required',function($attribute, $value, $fail) {
-                        if(TeamMember::where('user_id',auth('api')->id())->value('team_id') !== TeamMember::where('user_id',$value)->value('team_id')) {
-                            return $fail('此用户不在我们团队！');
-                        }
-                    }
-                ] // 必须在用户表中，要在这个团队内
+                        },
+                    ],
+                    'task_flows.*.status' => 'required|in:start,pending,end,complete'
             ];
 
             case 'PATCH':
