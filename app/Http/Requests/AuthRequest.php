@@ -32,7 +32,7 @@ class AuthRequest extends FormRequest
                 ];
             case 'PUT':
                 return [// 'administrator,admin,member,freeze,wait'
-                    'status' => ['required','in:administrator,admin,member,freeze,wait'],
+                    'status' => ['required','in:administrator,admin,member,freeze,wait,delete'],
                 ];
             case 'DELETE':
 

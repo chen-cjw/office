@@ -138,6 +138,10 @@ class AuthController extends Controller
             throw new StoreResourceFailedException('此用户不在我们团队!');
         }
         if($this->user->status=='administrator'||$this->user->status=='admin') {
+            if ($request->status == 'delete' || $request->status == 'refuse') {// 修改状态为删除和拒绝的时候
+                TeamMember::where(['user_id'=>$userId,'team_id'=>$teamId])->delete();
+                return $this->response->noContent();
+            }
             User::where('id',$userId)->update(['status'=>$request->status]);
             return $this->response->created();
         }
