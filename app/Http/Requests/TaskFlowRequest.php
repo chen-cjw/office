@@ -32,19 +32,26 @@ class TaskFlowRequest extends FormRequest
             case 'GET':
             case 'POST':
                 return [
-                    'name'=> 'required',
+                    'name'=> ['required',
+                        function($attribute, $value, $fail) {
+                            if(TaskFlowCollection::where(['user_id'=>auth('api')->id(),'name'=>$value])->exists()) {
+                                return $fail('流程名称不能重复！');
+                            }
+                        },
+                    ],
                     'task_flows'  => ['required', 'array'],
                     'task_flows.*.step_name' => [
                         'required'
                     ],
                     'task_flows.*.user_id' => [ // 检查 items 数组下每一个子数组的 sku_id 参数
-                        'required',function($attribute, $value, $fail) {
+                        'required',
+                        function($attribute, $value, $fail) {
                             if(TeamMember::where('user_id',auth('api')->id())->value('team_id') !== TeamMember::where('user_id',$value)->value('team_id')) {
                                 return $fail('此用户不在我们团队！');
                             }
                         },
                     ],
-                    'task_flows.*.status' => 'required|in:start,pending,end,complete'
+                    'task_flows.*.status' => 'required|in:all,start,pending,end,complete'
             ];
 
             case 'PATCH':

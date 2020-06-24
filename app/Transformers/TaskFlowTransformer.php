@@ -11,7 +11,7 @@ class TaskFlowTransformer extends TransformerAbstract
         return [
             'id' => $taskFlow->id,
             'step_name' => $taskFlow->step_name,
-            'status' => TaskFlow::$status[$taskFlow->status],
+            'status' => $taskFlow->status == 'all' ? 'all' : TaskFlow::$status[$taskFlow->status],
             'created_at' => $taskFlow->created_at->toDateTimeString(),
             'updated_at' => $taskFlow->updated_at->toDateTimeString(),
         ];
