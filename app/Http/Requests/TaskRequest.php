@@ -33,7 +33,13 @@ class TaskRequest extends FormRequest
                     'content'=>['required',new TeamMemberRule()], // 提前有团队了
                     'images'=>'',
                     'close_date'=>'required|date',
-                    'task_flow'=>'required',
+                    'task_flow'=>['required',
+                        function($attribute, $value, $fail) {
+                            if(!auth('api')->user()->taskFlows()->where('step_name',$value)->first()) {
+                                return $fail('流程提交错误，请不要非法操作！');
+                            }
+                        }
+                    ],
                     'status'=>'required|in:start,end,stop',
                     'assignment_user_id'=>['required',new TeamUserRule()]  // 这个人必须在团队里面
                 ];
