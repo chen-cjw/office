@@ -35,8 +35,8 @@ class TaskRequest extends FormRequest
                     'close_date'=>'required|date',
                     'task_flow'=>['required',
                         function($attribute, $value, $fail) {
-                            if(!auth('api')->user()->taskFlows()->where('step_name',$value)->first()) {
-                                return $fail('流程提交错误，请不要非法操作！');
+                            if(!auth('api')->user()->taskFlowCollections()->where('name',$value)->first()) {
+                                return $fail('所选流程错误，请不要非法操作！');
                             }
                         }
                     ],
