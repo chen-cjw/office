@@ -13,6 +13,10 @@ class Controller extends BaseController
     //
     public function storeSave($model)
     {
+        $model->images = json_encode(request('images'));
+        $model->save();
+        return $model;
+
         $imageBool = request()->hasFile('images');
         $images = request()->file('images');
         $uploadImage = $model->uploadImages($imageBool,$images);
