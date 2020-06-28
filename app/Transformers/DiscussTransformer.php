@@ -16,6 +16,8 @@ class DiscussTransformer extends TransformerAbstract
             'content' => $discuss->content,
             'images' => $discuss->images,
             'reply' => $discuss->comment_user_id?$this->nickname($discuss->reply_user_id).'回复'.$this->nickname($discuss->comment_user_id):$this->nickname($discuss->reply_user_id),
+            'reply_user_id' => $discuss->reply_user_id,
+            'comment_user_id' => $discuss->comment_user_id,
             'created_at' => $discuss->created_at->toDateTimeString(),
             'updated_at' => $discuss->updated_at->toDateTimeString(),
         ];

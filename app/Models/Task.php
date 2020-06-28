@@ -17,6 +17,10 @@ class Task extends ImageUpload
         'content','images','close_date','task_flow','status','assignment_user_id'
     ];
 
+    public function assignmentUser()
+    {
+        return $this->belongsTo(User::class,'assignment_user_id','id');
+    }
     public function user()
     {
         return $this->belongsTo(User::class,'user_id','id');
