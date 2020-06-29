@@ -30,7 +30,13 @@ class SubTaskRequest extends FormRequest
             case 'POST':
                 return [
                     'content' => ['required'],
-                    'close_date' => ['required'],
+                    'close_date' => ['required',
+                        function ($attribute, $value, $fail) {
+                            if (strtotime($value)<time()) {
+                                return $fail('结束时间应该大于当前时间！');
+                            }
+                        }
+                    ],
                     'task_flow' => ['required'],
                     'task_id' => ['required',
                         function ($attribute, $value, $fail) {
