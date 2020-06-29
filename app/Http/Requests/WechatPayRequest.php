@@ -26,6 +26,9 @@ class WechatPayRequest extends FormRequest
         return [
             'number' => ['required',
                     function($attribute, $value, $fail) {
+                        if ($value <= 0) {
+                            return $fail('人数不能小于0');
+                        }
                         if (!auth('api')->user()->team()->exists()) {
                             return $fail('没有团队，无法支付');
                         }

@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcee3e9f-d641-43e2-82e2-31b9f6226407" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TaskRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/TaskRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_03_104018_create_wechat_pays_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_03_104018_create_wechat_pays_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,29 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TaskFlowController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="17" column="36" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SubTaskController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="230">
-              <caret line="41" column="35" lean-forward="true" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+              <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
               <folding>
                 <element signature="e#47#70#0#PHP" expanded="true" />
               </folding>
@@ -50,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="388">
-              <caret line="37" column="25" lean-forward="true" selection-start-line="33" selection-start-column="24" selection-end-line="37" selection-end-column="25" />
+              <caret line="37" column="25" selection-start-line="33" selection-start-column="24" selection-end-line="37" selection-end-column="25" />
               <folding>
                 <element signature="e#37#57#0#PHP" expanded="true" />
               </folding>
@@ -61,13 +47,22 @@
       <file leaf-file-name="TaskController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
+            <state relative-caret-position="7">
               <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskRequest.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/api.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="132" selection-start-line="132" selection-end-line="132" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TaskRequest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Requests/TaskRequest.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="350">
@@ -76,34 +71,50 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskFlowRequest.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php">
+      <file leaf-file-name="WechatPayController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+            <state relative-caret-position="341">
+              <caret line="62" column="109" selection-start-line="62" selection-start-column="109" selection-end-line="62" selection-end-column="109" />
+              <folding>
+                <element signature="e#47#86#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskTransformer.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Transformers/TaskTransformer.php">
+      <file leaf-file-name="CloseWechatPay.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Jobs/CloseWechatPay.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+            <state relative-caret-position="409">
+              <caret line="41" selection-start-line="41" selection-end-line="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Admin/Controllers/AuthController.php">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file leaf-file-name="WechatPayRequest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="309">
+              <caret line="28" column="37" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="Task.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Models/Task.php">
+      <file leaf-file-name="WechatPay.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/WechatPay.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="63" selection-start-line="21" selection-start-column="63" selection-end-line="21" selection-end-column="63" />
+            <state relative-caret-position="-136">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2020_05_03_104018_create_wechat_pays_table.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2020_05_03_104018_create_wechat_pays_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -112,8 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>closed</find>
-      <find>result_code</find>
       <find>TeamController</find>
       <find>'jwt'</find>
       <find>jwt</find>
@@ -142,6 +151,8 @@
       <find>images</find>
       <find>uploadImages</find>
       <find>task_flow</find>
+      <find>storeAdd</find>
+      <find>payByWechat</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,14 +165,12 @@
         <option value="$PROJECT_DIR$/storage/logs/wechat.log" />
         <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
         <option value="$PROJECT_DIR$/app/Models/User.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_05_03_104018_create_wechat_pays_table.php" />
         <option value="$PROJECT_DIR$/config/wechat.php" />
         <option value="$PROJECT_DIR$/bootstrap/helpers.php" />
         <option value="$PROJECT_DIR$/app/Models/WechatPay.php" />
         <option value="$PROJECT_DIR$/config/database.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/database/factories/UserFactory.php" />
         <option value="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" />
@@ -171,9 +180,7 @@
         <option value="$PROJECT_DIR$/app/Http/Requests/TeamRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php" />
         <option value="$PROJECT_DIR$/app/Http/Kernel.php" />
-        <option value="$PROJECT_DIR$/app/Jobs/CloseWechatPay.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/UserAuthorization.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/UserStatus.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/DiscussRequest.php" />
@@ -188,7 +195,6 @@
         <option value="$PROJECT_DIR$/app/Transformers/TaskFlowTransformer.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/AuthRequest.php" />
-        <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/UploadImageManyRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/UploadImageController.php" />
         <option value="$PROJECT_DIR$/app/Models/ImageUpload.php" />
@@ -201,6 +207,11 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/TaskRequest.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_05_03_104018_create_wechat_pays_table.php" />
+        <option value="$PROJECT_DIR$/app/Jobs/CloseWechatPay.php" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php" />
       </list>
     </option>
   </component>
@@ -379,61 +390,7 @@
               <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
               <item name="app-office" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Api" type="462c0819:PsiDirectoryNode" />
-              <item name="V1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Transformers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
-              <item name="app-office" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+              <item name="Jobs" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
@@ -509,12 +466,12 @@
       <workItem from="1590981605133" duration="13167000" />
       <workItem from="1591348848972" duration="36670000" />
       <workItem from="1592033629856" duration="16250000" />
-      <workItem from="1592446681771" duration="27411000" />
+      <workItem from="1592446681771" duration="34204000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="434082000" />
+    <option name="totallyTimeSpent" value="440875000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -535,9 +492,9 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.28363636" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.28363636" />
       <window_info anchor="right" id="Remote Host" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2546495" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2546495" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -584,20 +541,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Models/Discuss.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Transformers/UserTransformer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="35" column="78" selection-start-line="35" selection-start-column="78" selection-end-line="35" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/app.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -613,9 +556,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2020_04_22_153326_create_templates_table.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_05_03_104018_create_wechat_pays_table.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2020_03_29_105825_create_users_table.php">
@@ -663,16 +603,6 @@
             <caret line="178" column="18" selection-start-line="178" selection-start-column="18" selection-end-line="178" selection-end-column="18" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="97" column="26" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="26" />
-          <folding>
-            <element signature="e#47#86#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -747,9 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/UserStoreBossRequest.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -781,13 +708,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="107" column="38" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -890,7 +810,7 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/SubTaskController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="41" column="35" lean-forward="true" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+          <caret line="41" column="35" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
           <folding>
             <element signature="e#47#70#0#PHP" expanded="true" />
           </folding>
@@ -900,17 +820,10 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="388">
-          <caret line="37" column="25" lean-forward="true" selection-start-line="33" selection-start-column="24" selection-end-line="37" selection-end-column="25" />
+          <caret line="37" column="25" selection-start-line="33" selection-start-column="24" selection-end-line="37" selection-end-column="25" />
           <folding>
             <element signature="e#37#57#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -918,6 +831,58 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
           <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7">
+          <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_05_03_104018_create_wechat_pays_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="18" column="54" selection-start-line="18" selection-start-column="54" selection-end-line="18" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Jobs/CloseWechatPay.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/WechatPay.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/WechatPayRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="28" column="37" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="62" column="109" selection-start-line="62" selection-start-column="109" selection-end-line="62" selection-end-column="109" />
+          <folding>
+            <element signature="e#47#86#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

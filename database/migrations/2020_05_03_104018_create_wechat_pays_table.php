@@ -16,7 +16,7 @@ class CreateWechatPaysTable extends Migration
         Schema::create('wechat_pays', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('number')->comment('人数');
-            $table->unsignedInteger('day')->comment('天数');
+            $table->unsignedInteger('day')->comment('年');
             $table->string('body')->comment('描述==通知标题')->nullable();
             $table->string('detail')->nullable()->comment('详细描述')->nullable();
             $table->string('out_trade_no')->comment('商户订单号');

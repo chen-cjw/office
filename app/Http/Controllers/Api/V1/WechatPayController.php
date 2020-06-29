@@ -24,24 +24,45 @@ class WechatPayController extends Controller
         return $this->response->paginator($wechatPays,new WechatPayTransformer());
     }
     // 唤起支付---创建支付订单
-    public function store(WechatPay $wechatPay,WechatPayRequest $request)
+    public function store($wechatPay,$request,$idDay,$isAddTime,$totalFee)
     {
-        $day = floor((strtotime($this->user()->team->close_time)-time())/86400);
-        $year = bcmul(bcmul(bcdiv(config('app.default_personal_price'),365,8),$day),$request->number);// 默认一年
+//        $day = floor((strtotime($this->user()->team->close_time)-time())/86400);
+//        $year = bcmul(bcmul(bcdiv(config('app.default_personal_price'),365,8),$day),$request->number);// 默认一年
         // bcdiv — 相除||bcmul — 乘法
         $wechatPay = new WechatPay([
             'out_trade_no' => $wechatPay->findAvailableNo(),
-            'total_fee' => bcmul($year,$request->day),
+            'total_fee' => $totalFee,//bcmul($year,$request->day),
             'number' => $request->number,
-            'day' => $request->day,
+            'day' => $idDay,
+            'is_add_time' => $isAddTime, // 添加时间
         ]);
         // 现在要做一个日志记录以前有几个人，此方法已记录人数和收费
         $wechatPay->user()->associate($this->user());
         $wechatPay->save();
+        if($wechatPay->day == 0) {
+            // 未添加成功的ID
+//            Log::info('未添加成功的ID:'.$wechatPay->id);
+            $wechatPay->user->team()->increment('number_count',$wechatPay->number);
+        }else {
+//            Log::info('未添加成功的ID:'.$wechatPay->id);
+            $team = $wechatPay->user->team->first();
+            $team->update(['close_time'=>date('Y-m-d', strtotime('+'.($wechatPay->day*365).' day', strtotime($team->close_time)))]);
+        }
         $this->dispatch(new CloseWechatPay($wechatPay, config('app.close_time')));
         return $wechatPay;
     }
 
+    public function storeAdd(WechatPay $wechatPay,WechatPayRequest $request)
+    {
+        if($request->day != '0') {
+            $totalFee = bcmul(bcmul(config('app.default_personal_price'),$request->number),$request->day);
+            return $this->store($wechatPay, $request, $request->day, true,$totalFee); // 延长使用时间
+        }
+        $day = floor((strtotime($this->user()->team->close_time)-time())/86400); // 天数
+        // 增加的人数到期时间不足一年的，以单价除以365天乘以剩余未到期天数进行计算
+        $totalFee = bcmul(bcmul(bcdiv(config('app.default_personal_price'),365,8),$day),$request->number);//
+        return $this->store($wechatPay, $request, 0, false,$totalFee); // 增加人数
+    }
     /**
      * 唤起支付操作，
      * JSAPI--JSAPI支付（或小程序支付）、NATIVE--Native支付、APP--app支付，MWEB--H5支付，
@@ -108,6 +129,16 @@ class WechatPayController extends Controller
                 return $fail('通信失败，请稍后再通知我');
             }
             $order->save(); // 保存订单
+            if($order->day == 0) {
+                // 未添加成功的ID
+                Log::info('未添加成功的ID:'.$order->id);
+                $order->user->team()->increment('number_count',$order->number);
+            }else {
+                Log::info('未添加成功的ID:'.$order->id);
+                $team = $order->user->team->first();
+                $team->update(['close_time'=>date('Y-m-d', strtotime('+'.($order->day*365).' day', strtotime($team->close_time)))]);
+            }
+            $order->id;
             return true; // 返回处理完成
         });
         return $response;
