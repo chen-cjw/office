@@ -32,7 +32,13 @@ class TaskRequest extends FormRequest
                 return [
                     'content'=>['required',new TeamMemberRule()], // 提前有团队了
                     'images'=>'',
-                    'close_date'=>'required|date',
+                    'close_date'=>['required','date',
+                        function ($attribute, $value, $fail) {
+                            if (strtotime($value)<time()) {
+                                return $fail('结束时间应该大于当前时间！');
+                            }
+                        }
+                    ],
                     'task_flow'=>['required',
                         function($attribute, $value, $fail) {
                             if(!auth('api')->user()->taskFlowCollections()->where('name',$value)->first()) {
