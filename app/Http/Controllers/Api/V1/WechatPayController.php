@@ -39,15 +39,6 @@ class WechatPayController extends Controller
         // 现在要做一个日志记录以前有几个人，此方法已记录人数和收费
         $wechatPay->user()->associate($this->user());
         $wechatPay->save();
-        if($wechatPay->day == 0) {
-            // 未添加成功的ID
-//            Log::info('未添加成功的ID:'.$wechatPay->id);
-            $wechatPay->user->team()->increment('number_count',$wechatPay->number);
-        }else {
-//            Log::info('未添加成功的ID:'.$wechatPay->id);
-            $team = $wechatPay->user->team->first();
-            $team->update(['close_time'=>date('Y-m-d', strtotime('+'.($wechatPay->day*365).' day', strtotime($team->close_time)))]);
-        }
         $this->dispatch(new CloseWechatPay($wechatPay, config('app.close_time')));
         return $wechatPay;
     }
