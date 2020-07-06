@@ -88,8 +88,8 @@ class AuthController extends Controller
             'ml_openid' => $sessionUser['openid'],
             'nickname' => $request->nickName,
             'avatar' => $request->avatarUrl,
-            'send_invite_set_id' => $request->send_invite_set_id,
-            'status' => $request->send_invite_set_id == 1 ? User::REFUND_STATUS_WAIT : User::REFUND_STATUS_ADMINISTRATOR, // 成员是要审核的
+            'send_invite_set_id' => \request()->input('send_invite_set_id',2),
+            'status' => \request()->input('send_invite_set_id',2) == 1 ? User::REFUND_STATUS_WAIT : User::REFUND_STATUS_ADMINISTRATOR, // 成员是要审核的
             'is_open' => $request->send_invite_set_id ? true : false,
             'parent_id' => $request->parent_id ? $request->parent_id : null
         ];
