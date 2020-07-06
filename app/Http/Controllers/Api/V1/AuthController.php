@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -56,6 +57,7 @@ class AuthController extends Controller
             }
             return $this->oauthNo();// 第二次去拿手机号码
         }
+        Log::info('创建用户',$this->createUser($sessionUser,$request));
         User::create($this->createUser($sessionUser,$request));
         return $this->oauthNo();
     }
