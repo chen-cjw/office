@@ -49,7 +49,7 @@ class AuthController extends Controller
                 $this->teamMember($user, $team = Team::findOrFail($team_id));// 用户和团队建立关系
             }
             if  ($parent_id = $request->parent_id) { // 更换邀请人
-                $user->update(['parent_id'=>$parent_id]);
+                $user->update(['parent_id'=>$parent_id,'status'=>User::REFUND_STATUS_WAIT,'send_invite_set_id'=>1]);
             }
             if ($user->phone) {
                 $token = \Auth::guard('api')->fromUser($user);
