@@ -14,7 +14,7 @@ class TeamTransformer extends TransformerAbstract
         return [
             'id' => $team->id,
             'name' => $team->name,
-            'number_count' => $team->number_count,
+            'number_count' => config('app.payment_period') == true ? '无限' : $team->number_count,
             'close_time' => $team->close_time,
             'created_at' => $team->created_at->toDateTimeString(),
             'updated_at' => $team->updated_at->toDateTimeString(),
