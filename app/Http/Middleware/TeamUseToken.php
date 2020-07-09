@@ -26,11 +26,14 @@ class TeamUseToken
             if(!$team) {
                 throw new ResourceException('请超级管理员续费之后在使用！');
             }
-            // 团队下有多少人任务流程创建失败
-            $team = Team::where('id',$teamMember->team_id)->first();
-            $teamMemberCount = $team->members()->count();
-            if (bccomp($teamMemberCount, $team->number_count) == 1) { //bccomp('1', '2') . "\n";   // -1
-                throw new ResourceException('团队超员，请先去关掉多余的成员！');
+            // 是否在试用期间，试用期间不关心成员人数
+            if (config('app.payment_period') == true) {
+                // 团队下有多少人任务流程创建失败
+                $team = Team::where('id',$teamMember->team_id)->first();
+                $teamMemberCount = $team->members()->count();
+                if (bccomp($teamMemberCount, $team->number_count) == 1) { //bccomp('1', '2') . "\n";   // -1
+                    throw new ResourceException('团队超员，请先去关掉多余的成员！');
+                }
             }
         }else {
             throw new ResourceException('目前没有参加任何团队！');

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'payment_period'=>env('PAYMENT_PERIOD',false),// 免费试用期间/需要付款期间
     'default_personal_price'=>env('DEFAULT_PERSONAL_PRICE',99),//个人默认多少钱
     'close_time' => env('CLOSE_TIME',10),// 关闭队列
     'number_count' => env('NUMBER_COUNT',3),// 成员
