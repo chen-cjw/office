@@ -37,9 +37,9 @@ class Task extends ImageUpload
         return $this->hasMany(Discuss::class);
     }
 
-//    public function taskLogs()
-//    {
-//        return $this->belongsTo(TaskLog::class);
-//    }
+    public function taskLogs()
+    {
+        return $this->morphMany(TaskLog::class,'model');//->orderBy('id','desc');
+    }
 
 }
