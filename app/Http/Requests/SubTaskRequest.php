@@ -32,8 +32,9 @@ class SubTaskRequest extends FormRequest
                     'content' => ['required'],
                     'close_date' => ['required','date',
                         function ($attribute, $value, $fail) {
-                            if (strtotime($value)<time()) {
-                                return $fail('结束时间应该大于当前时间！');
+                            //if (strtotime($value)<time()) {
+                            if (bccomp(strtotime($value),strtotime(date('Y-m-d'))) == -1) {
+                                    return $fail('结束时间应该大于当前时间！');
                             }
                         }
                     ],
