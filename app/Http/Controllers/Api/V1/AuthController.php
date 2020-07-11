@@ -35,31 +35,38 @@ class AuthController extends Controller
         if (!empty($sessionUser['errcode'])) {
             throw new \Exception('获取用户的openid操作失败!');
         }
-        $openid = $sessionUser['openid'];//$request->openid;//
-        $session_key = $sessionUser['session_key'];//$request->openid;//
-        $user = User::where('ml_openid', $openid)->first();
-        Cache::put($code, ['session_key'=>$session_key,'ml_openid'=>$openid], 300);
-        if($user) {
-            $user->update(['avatar'=>$request->avatarUrl]);
-            if ($user->phone&&TeamMember::where('user_id', $user->id)->exists()) { // 用户手机号存在并且团队存在
-                $token = \Auth::guard('api')->fromUser($user);
-                return $this->respondWithToken($token,$openid,$user);
+        DB::beginTransaction();
+        try {
+            $openid = $sessionUser['openid'];//$request->openid;//
+            $session_key = $sessionUser['session_key'];//$request->openid;//
+            $user = User::where('ml_openid', $openid)->first();
+            Cache::put($code, ['session_key' => $session_key, 'ml_openid' => $openid], 300);
+            if ($user) {
+                $user->update(['avatar' => $request->avatarUrl]);
+                if ($user->phone && TeamMember::where('user_id', $user->id)->exists()) { // 用户手机号存在并且团队存在
+                    $token = \Auth::guard('api')->fromUser($user);
+                    return $this->respondWithToken($token, $openid, $user);
+                }
+                if ($team_id = $request->team_id) {// 已存在，只是不在某个团队，让他重新进团队就可以了
+                    $this->teamMember($user, $team = Team::findOrFail($team_id));// 用户和团队建立关系
+                }
+                if ($parent_id = $request->parent_id) { // 更换邀请人
+                    $user->update(['parent_id' => $parent_id, 'status' => User::REFUND_STATUS_WAIT, 'send_invite_set_id' => 1]);
+                }
+                if ($user->phone) {
+                    $token = \Auth::guard('api')->fromUser($user);
+                    return $this->respondWithToken($token, $openid, $user);
+                }
+                return $this->oauthNo();// 第二次去拿手机号码
             }
-            if ($team_id = $request->team_id) {// 已存在，只是不在某个团队，让他重新进团队就可以了
-                $this->teamMember($user, $team = Team::findOrFail($team_id));// 用户和团队建立关系
-            }
-            if  ($parent_id = $request->parent_id) { // 更换邀请人
-                $user->update(['parent_id'=>$parent_id,'status'=>User::REFUND_STATUS_WAIT,'send_invite_set_id'=>1]);
-            }
-            if ($user->phone) {
-                $token = \Auth::guard('api')->fromUser($user);
-                return $this->respondWithToken($token,$openid,$user);
-            }
-            return $this->oauthNo();// 第二次去拿手机号码
+            Log::info('创建用户', $this->createUser($sessionUser, $request));
+            User::create($this->createUser($sessionUser, $request));
+            DB::commit();
+            return $this->oauthNo();
+        } catch (\Exception $ex) {
+            throw new \Exception($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
+            DB::rollback();
         }
-        Log::info('创建用户',$this->createUser($sessionUser,$request));
-        User::create($this->createUser($sessionUser,$request));
-        return $this->oauthNo();
     }
 
     public function phoneStore(AuthPhoneStoreRequest $request)
