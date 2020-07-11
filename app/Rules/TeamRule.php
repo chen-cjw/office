@@ -27,8 +27,7 @@ class TeamRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        dd(auth()->user());
-        $isset = TeamMember::where('user_id',auth('api')->user()->id)->first();
+        $isset = TeamMember::where('user_id',auth('api')->id())->first();
         if ($isset) {
             return false;
         }
