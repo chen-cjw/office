@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Models\TaskFlowCollection;
+use App\Models\TeamMember;
 use App\Transformers\TaskFlowCollectionTransformer;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,14 @@ class TaskFlowCollectionController extends Controller
 {
     public function index()
     {
-        return $this->response->paginator($this->user->taskFlowCollections()->paginate(),new TaskFlowCollectionTransformer());
+        // 成员-团队-成员
+        $teamMembers = TeamMember::where('user_id',auth('api')->user()->id)->first();
+        if($teamMembers) {
+            $teamMemberUsers = TeamMember::where('team_id',$teamMembers->team_id)->pluck('user_id');
+            $taskFlowCollections = TaskFlowCollection::whereIn('user_id',$teamMemberUsers)->paginate();
+            return $this->response->paginator($taskFlowCollections,new TaskFlowCollectionTransformer());
+        }
+
     }
 
     public function show($id)
