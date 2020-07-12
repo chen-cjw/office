@@ -5,20 +5,9 @@ namespace App\Http\Requests;
 use App\Rules\TeamMemberRule;
 use App\Rules\TeamRule;
 use App\Rules\TeamUserRule;
-use Dingo\Api\Http\FormRequest;
 
 class TaskRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

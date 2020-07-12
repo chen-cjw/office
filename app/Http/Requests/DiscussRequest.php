@@ -2,20 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Dingo\Api\Http\FormRequest;
-
 class DiscussRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -28,6 +16,13 @@ class DiscussRequest extends FormRequest
             'task_id'=>'required',
 //            'images'=>'required',
 //            'comment_user_id'=>'required',
+        ];
+    }
+    public function attributes()
+    {
+        return [
+            'content'=>'内容',
+            'task_id'=>'某任务评论',
         ];
     }
 }
