@@ -59,11 +59,14 @@ class User extends Authenticatable implements JWTSubject
         'is_open' => 'boolean',
     ];
     // 每个人只能有一个团队
-    public function team()
+//    public function team()
+//    {
+//        return $this->hasOne(Team::class);
+//    }
+    public function teams()
     {
-        return $this->hasOne(Team::class);
+        return $this->belongsToMany(Team::class,'team_members','team_id','user_id');
     }
-
     public function tasks()
     {
         return $this->hasMany(Task::class);

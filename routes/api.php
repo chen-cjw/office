@@ -106,9 +106,7 @@ $api->version('v1', [
         $api->group(['middleware' => ['team.use']], function ($api) {
             $api->post('/tasks','TaskController@store')->name('api.task.store');
             $api->post('/upload_images','UploadImageController@store')->name('api.task.store');
-
             // UploadImageController
-
             $api->post('/task_flows','TaskFlowController@store')->name('api.task_flow.store');
         });
 //        $api->group(['middleware' => ['welfare']], function ($api) {

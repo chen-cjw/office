@@ -11,10 +11,13 @@ class TeamTransformer extends TransformerAbstract
 
     public function transform(Team $team)
     {
+        $closeTime = strtotime(auth('api')->user()->teams[0]->close_time);
+        $createTime = strtotime(auth('api')->user()->teams[0]->created_at);
+        $teamCloseTime = date('Y-m-d',$closeTime);// 2020-10-10
         return [
             'id' => $team->id,
             'name' => $team->name,
-            'number_count' => config('app.payment_period') == true ? '无限' : $team->number_count,
+            'number_count' => bccomp(strtotime($teamCloseTime),strtotime(date('Y-m-d',$createTime).' + 30 day')) == 0? '无限' : $team->number_count,
             'close_time' => $team->close_time,
             'created_at' => $team->created_at->toDateTimeString(),
             'updated_at' => $team->updated_at->toDateTimeString(),
