@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcee3e9f-d641-43e2-82e2-31b9f6226407" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Transformers/TeamTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Transformers/TeamTransformer.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,6 +52,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="TeamUseToken.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="277">
+              <caret line="40" column="104" selection-start-line="40" selection-start-column="104" selection-end-line="40" selection-end-column="104" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Models/User.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -79,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TeamTransformer.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TeamTransformer.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Transformers/TeamTransformer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+            <state relative-caret-position="330">
+              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -97,16 +106,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserAuthorization.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Middleware/UserAuthorization.php">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sub_tasks</find>
       <find>SubTaskController</find>
       <find>search</find>
       <find>subTasks</find>
@@ -136,6 +139,7 @@
       <find>wechat_pay</find>
       <find>CLOSE_TIME</find>
       <find>team</find>
+      <find>团队超员，请先去关掉多余的成员</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -177,7 +181,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TaskFlowCollectionController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php" />
         <option value="$PROJECT_DIR$/routes/api.php" />
-        <option value="$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/FormRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/TaskFlowRequest.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/AuthMlOpenidStoreRequest.php" />
@@ -198,6 +201,7 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php" />
         <option value="$PROJECT_DIR$/app/Models/User.php" />
         <option value="$PROJECT_DIR$/app/Transformers/TeamTransformer.php" />
+        <option value="$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php" />
       </list>
     </option>
   </component>
@@ -488,12 +492,12 @@
       <workItem from="1591348848972" duration="36670000" />
       <workItem from="1592033629856" duration="16250000" />
       <workItem from="1592446681771" duration="40936000" />
-      <workItem from="1594354645317" duration="13082000" />
+      <workItem from="1594354645317" duration="13389000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="460689000" />
+    <option name="totallyTimeSpent" value="460996000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -514,9 +518,9 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.28363636" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.28363636" />
       <window_info anchor="right" id="Remote Host" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25822604" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25822604" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -790,13 +794,6 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/WeChatController.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="36" column="43" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -884,8 +881,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Transformers/TeamTransformer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        <state relative-caret-position="330">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="40" column="104" selection-start-line="40" selection-start-column="104" selection-end-line="40" selection-end-column="104" />
         </state>
       </provider>
     </entry>
