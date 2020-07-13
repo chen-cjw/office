@@ -63,4 +63,13 @@ class TeamController extends Controller
         return $this->response->created();
     }
 
+    public function delete($user_id,$team_id)
+    {
+        $team = $this->user()->team->where('id',$team_id)->first();
+        if($team) {
+            TeamMember::where('user_id',$user_id)->where('team_id',$team_id)->delete();
+        }
+        return $this->response->noContent();
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use App\Rules\TeamRule;
 
 class TeamRequest extends FormRequest
@@ -17,7 +18,13 @@ class TeamRequest extends FormRequest
             case 'GET':
             case 'POST':
                 return [
-                    'name' => ['required','min:3','max:20','unique:teams,name',new TeamRule()],
+                    'name' => ['required','min:3','max:20','unique:teams,name',new TeamRule(),
+                        function ($attribute, $value, $fail) {
+                            if (auth('api')->user()->status != User::REFUND_STATUS_ADMINISTRATOR || auth('api')->user()->send_invite_set_id != 2) {
+                                return $fail('此用户不是超级管理员/老板！');
+                            }
+                        },
+                    ],
                 ];
             case 'PATCH':
                 return [

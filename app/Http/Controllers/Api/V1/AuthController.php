@@ -150,6 +150,7 @@ class AuthController extends Controller
         if($this->user->status=='administrator'||$this->user->status=='admin') {
             if ($request->status == 'delete' || $request->status == 'refuse') {// 修改状态为删除和拒绝的时候
                 TeamMember::where(['user_id'=>$userId,'team_id'=>$teamId])->delete();
+                User::where('id',$userId)->update(['status'=>User::REFUND_STATUS_ADMINISTRATOR,'send_invite_set_id'=>2]);
                 return $this->response->noContent();
             }
             User::where('id',$userId)->update(['status'=>$request->status]);

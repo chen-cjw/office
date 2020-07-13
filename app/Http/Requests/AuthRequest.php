@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\TeamMember;
+
 class AuthRequest extends FormRequest
 {
     /**
@@ -20,7 +22,13 @@ class AuthRequest extends FormRequest
                 ];
             case 'PUT':
                 return [// 'administrator,admin,member,freeze,wait'
-                    'status' => ['required','in:administrator,admin,member,freeze,wait,delete'],
+                    'status' => ['required','in:administrator,admin,member,freeze,wait,delete',
+                        function ($attribute, $value, $fail) {
+                            if (!auth('api')->user()->team) {
+                                return $fail('此用户没有权限！');
+                            }
+                        },
+                    ],
                 ];
             case 'DELETE':
 
