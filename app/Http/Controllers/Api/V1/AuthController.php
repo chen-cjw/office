@@ -107,7 +107,6 @@ class AuthController extends Controller
     // 个人中心
     public function meShow()
     {
-        return date('Y-m-d',strtotime($this->user()->teams[0]->created_at));
         return $this->response->item($this->user(),new UserTransformer());
     }
 
