@@ -24,7 +24,7 @@ class TaskTransformer extends TransformerAbstract
 
     public function includeAssignmentUser(Task $task)
     {
-        return $this->item($task->user,new UserTransformer());
+        return $this->item($task->assignmentUser,new UserTransformer());
     }
     public function includeUser(Task $task)
     {
