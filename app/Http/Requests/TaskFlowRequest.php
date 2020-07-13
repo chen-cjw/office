@@ -50,7 +50,7 @@ class TaskFlowRequest extends FormRequest
                         function($attribute, $value, $fail) {
                             $teamMember = TeamMember::where('user_id',$value)->first();
                             if($teamMember) {
-                                if($teamMember->team_id != auth('api')->user()->team->id) {
+                                if($teamMember->team_id != auth('api')->user()->teams[0]->id) {
                                     return $fail('此成员不在团队中！');
                                 }
                             }else {
