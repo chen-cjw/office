@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcee3e9f-d641-43e2-82e2-31b9f6226407" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Transformers/TeamTransformer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Transformers/TeamTransformer.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -58,7 +58,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SubTaskRequest.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SubTaskRequest.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="361">
@@ -68,6 +68,11 @@
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HelpCenterController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/HelpCenterController.php">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="User.php" pinned="false" current-in-tab="false">
@@ -97,20 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TeamTransformer.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TeamTransformer.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Transformers/TeamTransformer.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.env">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="60" column="51" selection-start-line="60" selection-start-column="51" selection-end-line="60" selection-end-column="51" />
+              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -208,9 +204,9 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/WechatPayController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/V1/TeamController.php" />
         <option value="$PROJECT_DIR$/app/Models/User.php" />
-        <option value="$PROJECT_DIR$/app/Transformers/TeamTransformer.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php" />
         <option value="$PROJECT_DIR$/app/Http/Requests/SubTaskRequest.php" />
+        <option value="$PROJECT_DIR$/app/Transformers/TeamTransformer.php" />
       </list>
     </option>
   </component>
@@ -424,6 +420,12 @@
             <path>
               <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
               <item name="app-office" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Transformers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="app-office" type="b2602c69:ProjectViewProjectNode" />
+              <item name="app-office" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -501,12 +503,12 @@
       <workItem from="1591348848972" duration="36670000" />
       <workItem from="1592033629856" duration="16250000" />
       <workItem from="1592446681771" duration="40936000" />
-      <workItem from="1594354645317" duration="13605000" />
+      <workItem from="1594354645317" duration="13770000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="461212000" />
+    <option name="totallyTimeSpent" value="461377000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -576,16 +578,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/Controller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-          <folding>
-            <element signature="e#47#101#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/UploadImageController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -868,13 +860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Transformers/TeamTransformer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Middleware/TeamUseToken.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -899,6 +884,16 @@
           <folding>
             <element signature="e#37#57#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/HelpCenterController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Transformers/TeamTransformer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
         </state>
       </provider>
     </entry>

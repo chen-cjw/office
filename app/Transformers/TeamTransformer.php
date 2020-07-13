@@ -22,7 +22,7 @@ class TeamTransformer extends TransformerAbstract
             'created_at' => $team->created_at->toDateTimeString(),
             'updated_at' => $team->updated_at->toDateTimeString(),
         ];
-    }团队超员，请先去关掉多余的成员
+    }
 
     public function includeUser(Team $team)
     {
