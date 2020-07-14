@@ -62,18 +62,16 @@ class SubTaskController extends Controller
     // 只有本人/指定任务给我那个人可以修改任务状态
     public function update(SubTaskRequest $request,$id)
     {
-        $userId = $this->user()->id;
+        $user = $this->user();
         //
         DB::beginTransaction();
         try {
-            if ($userId == Task::where('id', $id)->value('user_id') || $userId == Task::where('id', $id)->value('assignment_user_id')) {
-                $this->user->tasks()->where('id', $id)->firstOrFail()->update(['status' => $request->status]);
-                event(new TaskLog($this->user->username . '任务已' . Task::$status[$request->status], $userId, $id, Task::class));
-                DB::commit();
-                return $this->response->created();
-            }
+            $user->subTasks()->where('id', $id)->firstOrFail()->update(['status' => $request->status]);
+            event(new TaskLog($user->username . '任务已' . Task::$status[$request->status], $user->id, $id, Task::class));
+            DB::commit();
+            return $this->response->created();
         }catch (\Exception $ex) {
-            throw new ResourceException('指定者/被指定者可以修改！');
+            throw new ResourceException('只有负责人可以修改！');
             //throw new \Exception($ex);
             DB::rollback();
         }
