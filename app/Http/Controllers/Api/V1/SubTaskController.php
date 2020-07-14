@@ -55,8 +55,8 @@ class SubTaskController extends Controller
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
-            throw new \Exception($ex);
             DB::rollback();
+            throw new \Exception($ex);
         }
     }
     // 只有本人/指定任务给我那个人可以修改任务状态
@@ -71,9 +71,9 @@ class SubTaskController extends Controller
             DB::commit();
             return $this->response->created();
         }catch (\Exception $ex) {
+            DB::rollback();
             throw new ResourceException('只有负责人可以修改！');
             //throw new \Exception($ex);
-            DB::rollback();
         }
 
     }

@@ -64,8 +64,8 @@ class AuthController extends Controller
             DB::commit();
             return $this->oauthNo();
         } catch (\Exception $ex) {
-            throw new \Exception($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
             DB::rollback();
+            throw new \Exception($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
         }
     }
 

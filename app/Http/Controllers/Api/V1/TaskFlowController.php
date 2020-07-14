@@ -38,8 +38,8 @@ class TaskFlowController extends Controller
             DB::commit();
         } catch (\Exception $ex) {
             Log::error($ex);
-            throw new ResourceException($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
             DB::rollback();
+            throw new ResourceException($ex); // 报错原因大多是因为taskFlowCollections表，name和user_id一致
         }
         return $this->response->created();
     }

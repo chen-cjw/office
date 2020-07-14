@@ -44,8 +44,8 @@ class TaskController extends Controller
     // 2、指派人必须在我的团队
     public function store(TaskRequest $request)
     {
-//        DB::beginTransaction();
-//        try {
+        DB::beginTransaction();
+        try {
             $task = new Task($request->only('content','close_date','task_flow','status','assignment_user_id'));
             $task->user()->associate($this->user);
 
@@ -56,12 +56,12 @@ class TaskController extends Controller
             // 消息推送模版
 //            $this->notificationAdd();
 //            $this->notificationAppoint($task);
-//            DB::commit();
+            DB::commit();
             return $this->response->created();
-//        } catch (\Exception $ex) {
-//            DB::rollback();
-//            throw new \Exception($ex);
-//        }
+        } catch (\Exception $ex) {
+            DB::rollback();
+            throw new \Exception($ex);
+        }
     }
 
     // 指派任务
@@ -138,8 +138,8 @@ class TaskController extends Controller
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
-            throw new \Exception($ex);
             DB::rollback();
+            throw new \Exception($ex);
         }
 
     }
