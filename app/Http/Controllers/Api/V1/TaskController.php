@@ -44,23 +44,24 @@ class TaskController extends Controller
     // 2、指派人必须在我的团队
     public function store(TaskRequest $request)
     {
-        DB::beginTransaction();
-        try {
+//        DB::beginTransaction();
+//        try {
             $task = new Task($request->only('content','close_date','task_flow','status','assignment_user_id'));
             $task->user()->associate($this->user);
-            // 创建日志
+
+        // 创建日志
             $taskItem = $this->storeSave($task);
             event(new TaskLog($this->user->nickname.'创建了任务',$this->user->id,$taskItem->id,Task::class));
             event(new TaskLog($this->user->nickname.'指派给了'.User::findOrFail($request->assignment_user_id)->nickname,$request->assignment_user_id,$taskItem->id,Task::class));
             // 消息推送模版
 //            $this->notificationAdd();
 //            $this->notificationAppoint($task);
-            DB::commit();
+//            DB::commit();
             return $this->response->created();
-        } catch (\Exception $ex) {
-            DB::rollback();
-            throw new \Exception($ex);
-        }
+//        } catch (\Exception $ex) {
+//            DB::rollback();
+//            throw new \Exception($ex);
+//        }
     }
 
     // 指派任务
@@ -119,7 +120,7 @@ class TaskController extends Controller
     //
     public function show($id)
     {
-        $tasks = Task::where('id',$id)->first();
+        $tasks = Task::where('id',$id)->firstOrFail();
         if ($tasks->user_id == $this->user()->id || $tasks->assignment_user_id == $this->user()->id) {
             return $this->response->item($tasks,new TaskTransformer());
         }

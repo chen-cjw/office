@@ -14,7 +14,7 @@ class TasksAddTaskId extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->string('task_id')->after('task_flow')->default(null)->comment('父级ID');
+            $table->string('task_id')->after('task_flow')->nullable()->comment('父级ID');
         });
     }
 
@@ -26,7 +26,7 @@ class TasksAddTaskId extends Migration
     public function down()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('sort');
+            $table->dropColumn('task_id');
         });
     }
 }
