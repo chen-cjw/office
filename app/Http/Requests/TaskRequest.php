@@ -35,12 +35,12 @@ class TaskRequest extends FormRequest
 //                            }
 //                        }
                     ],
-                    'status'=>'required|in:start,end,stop',
+                    'status' => ['required','in:start,end,stop,pending,complete,overdue'],
                     'assignment_user_id'=>['required',new TeamUserRule()]  // 这个人必须在团队里面
                 ];
             case 'PUT':
                 return [
-                    'status' => ['required',''],
+                    'status' => ['required','in:start,end,stop,pending,complete,overdue'],
                 ];
             case 'DELETE':
 

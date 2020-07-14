@@ -45,7 +45,7 @@ class SubTaskRequest extends FormRequest
                             }
                         },
                     ],
-                    'status' => ['required'],
+                    'status' => ['required','in:start,end,stop,pending,complete,overdue'],
                 ];
             case 'PUT':
                 return [
