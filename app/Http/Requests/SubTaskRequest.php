@@ -31,7 +31,7 @@ class SubTaskRequest extends FormRequest
                     'task_id' => ['required',
                         function ($attribute, $value, $fail) {
                             if($value) {
-                                if (!auth('api')->user()->tasks()->where('id',$value)->first()) {
+                                if (!auth('api')->user()->subTasks()->where('id',$value)->first()) {
                                     return $fail('任务不存在！');
                                 }
                             }
