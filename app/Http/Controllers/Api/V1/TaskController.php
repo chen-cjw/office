@@ -119,7 +119,8 @@ class TaskController extends Controller
     //
     public function show($id)
     {
-        if ($tasks = $this->user->tasks()->where('id',$id)->first()) {
+        $tasks = $this->user->tasks()->where('id',$id)->first()
+        if ($tasks) {
             return $this->response->item($tasks,new TaskTransformer());
         }
         if ($tasks->assignment_user_id == $this->user()->id) {
