@@ -15,6 +15,10 @@ class Subtask extends ImageUpload
         self::REFUND_STATUS_OVERDUE    => '逾期',
         self::REFUND_STATUS_STOP    => '停止',
     ];
+    public function assignmentUser()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     protected $fillable = ['content','images','task_id','close_date','task_flow','status'];
 
