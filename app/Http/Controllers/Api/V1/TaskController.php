@@ -131,7 +131,7 @@ class TaskController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->user->tasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+            $this->user->subTasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
             // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
             event(new Welfare());
             DB::commit();
