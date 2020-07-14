@@ -24,13 +24,13 @@ class SubTaskController extends Controller
         $status = \request()->input('status','complete');
         $query = $this->user;
         if($close_date) {
-            $query = $query->tasks()->orderBy('close_date',$close_date)->where('status',$status)->paginate();
+            $query = $query->subTasks()->orderBy('close_date',$close_date)->where('status',$status)->paginate();
         }elseif ($created_at) {
-            $query = $query->tasks()->orderBy('created_at',$created_at)->where('status',$status)->paginate();
+            $query = $query->subTasks()->orderBy('created_at',$created_at)->where('status',$status)->paginate();
         }elseif($status = \request()->status) {
-            $query = $query->tasks()->where('status',$status)->paginate();
+            $query = $query->subTasks()->where('status',$status)->paginate();
         }else {
-            $query = $query->tasks()->orderBy('created_at','desc')->paginate();
+            $query = $query->subTasks()->orderBy('created_at','desc')->paginate();
         }
 
         return $this->response->paginator($query, new TaskTransformer());
