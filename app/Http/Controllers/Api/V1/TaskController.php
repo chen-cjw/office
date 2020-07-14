@@ -12,6 +12,7 @@ use App\Models\TeamMember;
 use App\Models\User;
 use App\Transformers\TaskTransformer;
 use Carbon\Carbon;
+use Dingo\Api\Exception\ResourceException;
 use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -118,7 +119,13 @@ class TaskController extends Controller
     //
     public function show($id)
     {
-        return $this->response->item($this->user->tasks()->findOrFail($id),new TaskTransformer());
+        if ($tasks = $this->user->tasks()->where('id',$id)->first()) {
+            return $this->response->item($tasks,new TaskTransformer());
+        }
+        if ($tasks->assignment_user_id == $this->user()->id) {
+            return $this->response->item($tasks,new TaskTransformer());
+        }
+        throw new ResourceException('暂无此任务！');
     }
 
     // 只有本人才可以修改任务状态，任务完成。邀请我的人(有团队的人)，可使用天数就会增加
