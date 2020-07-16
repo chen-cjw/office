@@ -120,13 +120,14 @@ class WechatPayController extends Controller
                 return $fail('通信失败，请稍后再通知我');
             }
             $order->save(); // 保存订单
+            $team = $order->user->team->first();
+            $team->update(['is_probation_period'=>false]); // todo 只要付款了，就不是试用期间了
             if($order->day == 0) {
                 // 未添加成功的ID
                 Log::info('未添加成功的ID:'.$order->id);
                 $order->user->team()->increment('number_count',$order->number);
             }else {
                 Log::info('未添加成功的ID:'.$order->id);
-                $team = $order->user->team->first();
                 $team->update(['close_time'=>date('Y-m-d', strtotime('+'.($order->day*365).' day', strtotime($team->close_time)))]);
             }
             $order->id;
