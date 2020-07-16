@@ -121,9 +121,13 @@ class TaskController extends Controller
     public function show($id)
     {
         $tasks = Task::where('id',$id)->firstOrFail();
-        if ($tasks->user_id == $this->user()->id || $tasks->assignment_user_id == $this->user()->id) {
+        $taskUserId = Task::where('id',$id)->value('user_id');
+        if (TeamMember::where('user_id',$taskUserId)->value('team_id') == TeamMember::where('user_id',$this->user->id)->value('team_id')) {
             return $this->response->item($tasks,new TaskTransformer());
         }
+//        if ($tasks->user_id == $this->user()->id || $tasks->assignment_user_id == $this->user()->id) {
+//            return $this->response->item($tasks,new TaskTransformer());
+//        }
         throw new ResourceException('暂无此任务！');
     }
 
