@@ -40,6 +40,7 @@ class WelfareListener
                 $teamMember = TeamMember::where('user_id',$thisUser->parent_id)->first();
                 if($teamMember) {
                     Team::findOrFail($teamMember->team_id)->update(['close_time'=>$addTime]);
+
                 }
             }
         }
