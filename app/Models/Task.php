@@ -42,7 +42,7 @@ class Task extends ImageUpload
 
     public function discusses()
     {
-        return $this->hasMany(Discuss::class);
+        return $this->hasMany(Discuss::class)->orderBy('id','desc');
     }
 
     public function taskLogs()
