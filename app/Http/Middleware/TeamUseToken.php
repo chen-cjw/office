@@ -39,7 +39,7 @@ class TeamUseToken
 //            dd($teamCloseTime,date('Y-m-d',strtotime(date('Y-m-d',$createTime).' + 30 day')));
             // date('Y-m-d',strtotime("2009-05-26 + 1 day"));
 //            if (bccomp(strtotime($teamCloseTime),strtotime(date('Y-m-d',$createTime).' + 30 day')) != 0) { // 时间到期没有付费，就去付费，付费完成以后关闭时间就会变长
-            if (Team::where('id',$teamMember->team_id)->value('is_probation_period') == 1) {
+            if (Team::where('id',$teamMember->team_id)->value('is_probation_period') != 1) {
                 // 团队下有多少人任务流程创建失败
                 $team = Team::where('id',$teamMember->team_id)->first();
                 $teamMemberCount = $team->members()->count();
