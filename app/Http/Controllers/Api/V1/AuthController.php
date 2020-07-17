@@ -121,7 +121,7 @@ class AuthController extends Controller
             $user->update(['avatar' => $request->avatarUrl]);
             if ($user->phone && TeamMember::where('user_id', $user->id)->exists()) { // 用户手机号存在并且团队存在
                 $token = \Auth::guard('api')->fromUser($user);
-                return $this->respondWithToken($token, $openid, $user);
+                return $this->respondWithToken($token, $session['ml_openid'], $user);
             }
             if ($team_id = $request->team_id) {// 已存在，只是不在某个团队，让他重新进团队就可以了
                 $this->teamMember($user, $team = Team::findOrFail($team_id));// 用户和团队建立关系
@@ -131,7 +131,7 @@ class AuthController extends Controller
             }
             if ($user->phone) {
                 $token = \Auth::guard('api')->fromUser($user);
-                return $this->respondWithToken($token, $openid, $user);
+                return $this->respondWithToken($token, $session['ml_openid'], $user);
             }
             return $this->oauthNo();// 第二次去拿手机号码
         }
