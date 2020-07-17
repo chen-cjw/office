@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Task;
 use App\Models\Team;
 use App\Models\TeamMember;
 
@@ -30,6 +31,9 @@ class SubTaskRequest extends FormRequest
                     'task_flow' => ['required'],
                     'task_id' => ['required',
                         function ($attribute, $value, $fail) {
+                            if (Task::where('id',$value)->value('task_id')) {
+                                return $fail('子任务不可以在创建子任务！');
+                            }
                             if($value) {
                                 if (!auth('api')->user()->subTasks()->where('id',$value)->first()) {
                                     return $fail('任务不存在！');
