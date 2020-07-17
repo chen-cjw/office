@@ -118,8 +118,6 @@ class AuthController extends Controller
         $user->update(['phone'=>$phoneNumber]);
 
         if ($user) {
-            throw new \Exception('123!');
-
             $user->update(['avatar' => $request->avatarUrl]);
             if ($user->phone && TeamMember::where('user_id', $user->id)->exists()) { // 用户手机号存在并且团队存在
                 $token = \Auth::guard('api')->fromUser($user);
