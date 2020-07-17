@@ -67,12 +67,14 @@ class AuthController extends Controller
             }
             Log::info('创建用户', $this->createUser($sessionUser, $request));
             $user = User::create($this->createUser($sessionUser, $request));
+            // todo 封装代码
             if ($team_id = $request->team_id) {// 已存在，只是不在某个团队，让他重新进团队就可以了
                 $this->teamMember($user, $team = Team::findOrFail($team_id));// 用户和团队建立关系
             }
             if ($parent_id = $request->parent_id) { // 更换邀请人
                 $user->update(['parent_id' => $parent_id, 'status' => User::REFUND_STATUS_WAIT, 'send_invite_set_id' => 1]);
             }
+
             DB::commit();
             return $this->oauthNo();
         } catch (\Exception $ex) {
@@ -81,6 +83,15 @@ class AuthController extends Controller
         }
     }
 
+    public function createOrUpdate($request,$user)
+    {
+        if ($team_id = $request->team_id) {// 已存在，只是不在某个团队，让他重新进团队就可以了
+            $this->teamMember($user, $team = Team::findOrFail($team_id));// 用户和团队建立关系
+        }
+        if ($parent_id = $request->parent_id) { // 更换邀请人
+            $user->update(['parent_id' => $parent_id, 'status' => User::REFUND_STATUS_WAIT, 'send_invite_set_id' => 1]);
+        }
+    }
     public function phoneStore(AuthPhoneStoreRequest $request)
     {
         $session = Cache::get($request->code);// 解析的问题
