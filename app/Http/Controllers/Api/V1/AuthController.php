@@ -122,19 +122,13 @@ class AuthController extends Controller
 
             $user->update(['avatar' => $request->avatarUrl]);
             if ($user->phone && TeamMember::where('user_id', $user->id)->exists()) { // 用户手机号存在并且团队存在
-                throw new \Exception('1!');
-
                 $token = \Auth::guard('api')->fromUser($user);
                 return $this->respondWithToken($token, $openid, $user);
             }
             if ($team_id = $request->team_id) {// 已存在，只是不在某个团队，让他重新进团队就可以了
-                throw new \Exception('2!');
-
                 $this->teamMember($user, $team = Team::findOrFail($team_id));// 用户和团队建立关系
             }
             if ($parent_id = $request->parent_id) { // 更换邀请人
-                throw new \Exception('3!');
-
                 $user->update(['parent_id' => $parent_id, 'status' => User::REFUND_STATUS_WAIT, 'send_invite_set_id' => 1]);
             }
             if ($user->phone) {
