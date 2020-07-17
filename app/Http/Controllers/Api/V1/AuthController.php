@@ -60,11 +60,12 @@ class AuthController extends Controller
 //                if ($parent_id = $request->parent_id) { // 更换邀请人
 //                    $user->update(['parent_id' => $parent_id, 'status' => User::REFUND_STATUS_WAIT, 'send_invite_set_id' => 1]);
 //                }
+                DB::commit();
+
                 if ($user->phone) {
                     $token = \Auth::guard('api')->fromUser($user);
                     return $this->respondWithToken($token, $openid, $user);
                 }
-                DB::commit();
                 return $this->oauthNo();// 第二次去拿手机号码
             }
             Log::info('创建用户', $this->createUser($sessionUser, $request));
