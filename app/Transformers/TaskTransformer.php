@@ -35,6 +35,7 @@ class TaskTransformer extends TransformerAbstract
 
     public function includeSubtasks(Task $task)
     {
+        return $this->collection($task->subtasks,new TaskTransformer());
         return $this->collection($task->subtasks,new SubTaskTransformer());
     }
 
