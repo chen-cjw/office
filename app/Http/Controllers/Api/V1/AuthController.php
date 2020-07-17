@@ -9,6 +9,7 @@ use App\Models\Team;
 use App\Models\TeamMember;
 use App\Models\User;
 use App\Transformers\UserTransformer;
+use Dingo\Api\Exception\ResourceException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,11 @@ class AuthController extends Controller
         $app = app('wechat.mini_program');
         $code = $request->code;
         $sessionUser = $app->auth->session($code);
-        dd($request->team_id,$request->all());
+        if($parent_id = $request->parent_id) {
+            if (!$request->team_id) {
+                throw new ResourceException('非法邀请');
+            }
+        }
         if (!empty($sessionUser['errcode'])) {
             throw new \Exception('获取用户的openid操作失败!');
         }
