@@ -19,7 +19,7 @@ class UserStatus
     {
 
         if(User::where('id',auth('api')->id())->where('status','freeze')->exists() || User::where('id',auth('api')->id())->where('status','wait')->exists()) {
-            throw new ResourceException('此用户暂时不可用');
+            throw new ResourceException('待审核');
         }
         return $next($request);
     }
