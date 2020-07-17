@@ -31,7 +31,7 @@ class SubTaskRequest extends FormRequest
                     'task_flow' => ['required'],
                     'task_id' => ['required',
                         function ($attribute, $value, $fail) {
-                            if (!Task::where('id',$value)->value('task_id')) {
+                            if (Task::where('id',$value)->value('task_id')!=null) {
                                 return $fail('子任务不可以创建子任务！');
                             }
                             if($value) {
