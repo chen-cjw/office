@@ -48,6 +48,8 @@ class AuthController extends Controller
             $user = User::where('ml_openid', $openid)->first();
             Cache::put($code, ['session_key' => $session_key, 'ml_openid' => $openid], 300);
             if ($user) {
+                throw new \Exception('123!');
+
                 $user->update(['avatar' => $request->avatarUrl]);
                 if ($user->phone && TeamMember::where('user_id', $user->id)->exists()) { // 用户手机号存在并且团队存在
                     throw new \Exception('1!');
