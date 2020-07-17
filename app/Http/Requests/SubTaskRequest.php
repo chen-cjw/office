@@ -32,7 +32,7 @@ class SubTaskRequest extends FormRequest
                     'task_id' => ['required',
                         function ($attribute, $value, $fail) {
                             if (!Task::where('id',$value)->value('task_id')) {
-                                return $fail('子任务不可以在创建子任务！');
+                                return $fail('子任务不可以创建子任务！');
                             }
                             if($value) {
                                 if (!auth('api')->user()->subTasks()->where('id',$value)->first()) {
