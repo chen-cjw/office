@@ -21,19 +21,20 @@ class SubTaskController extends Controller
     {
         $close_date = \request()->close_date;
         $created_at = \request()->created_at;
-        $status = \request()->input('status','complete');
-        $query = $this->user;
-        if($close_date) {
-            $query = $query->subTasks()->orderBy('close_date',$close_date)->where('status',$status)->paginate();
-        }elseif ($created_at) {
-            $query = $query->subTasks()->orderBy('created_at',$created_at)->where('status',$status)->paginate();
-        }elseif($status = \request()->status) {
-            $query = $query->subTasks()->where('status',$status)->paginate();
-        }else {
-            $query = $query->subTasks()->orderBy('created_at','desc')->paginate();
+        $status = \request()->status;
+//        $status = \request()->input('status','complete');
+        $query = $this->user->subTasks();
+        if ($status) {
+            $query = $query->where('status',$status);
+        }
+        if ($close_date) {
+            $query = $query->orderBy('close_date',$close_date);
+        }
+        if ($created_at) {
+            $query = $query->orderBy('created_at',$created_at);
         }
 
-        return $this->response->paginator($query, new TaskTransformer());
+        return $this->response->paginator($query->paginate(), new TaskTransformer());
     }
 
     public function show($id)

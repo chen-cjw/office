@@ -26,17 +26,19 @@ class TaskController extends Controller
         $close_date = \request()->close_date;
         $created_at = \request()->created_at;
         $status = \request()->status;
-        $query = $this->user;
-        if($close_date) {
-            $tasks = $query->tasks()->orderBy('close_date',$close_date)->where('status',$status)->paginate();
-        }elseif ($created_at) {
-            $tasks = $query->tasks()->orderBy('created_at',$created_at)->where('status',$status)->paginate();
-        }elseif ($status) {
-            $tasks = $query->tasks()->where('status',$status)->orderBy('created_at','desc')->paginate();
-        }else {
-            $tasks = $query->tasks()->orderBy('created_at','desc')->paginate();
+        $query = $this->user->tasks();
+
+        if ($status) {
+            $query = $query->where('status',$status);
         }
-        return $this->response->paginator($tasks,new TaskTransformer());
+        if ($close_date) {
+            $query = $query->orderBy('close_date',$close_date);
+        }
+        if ($created_at) {
+            $query = $query->orderBy('created_at',$created_at);
+        }
+
+        return $this->response->paginator($query->paginate(),new TaskTransformer());
     }
 
     // todo 谁可以创建任务
