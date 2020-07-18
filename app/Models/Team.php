@@ -9,7 +9,7 @@ class Team extends Model
 
     // start(开始)|end(结束)|stop(停止)
 
-    protected $fillable = ['name','number_count','close_time'];
+    protected $fillable = ['name','number_count','close_time','is_probation_period'];
 
     public function user()
     {

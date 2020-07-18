@@ -16,7 +16,6 @@ Route::group([
     $router->resource('discusses', 'DiscussController'); // 评论
     $router->resource('notices', 'NoticeController'); // 通知中心
     $router->resource('send_invite_sets', 'SendInviteSetController'); // 设置(邀请同事/老板)
-    $router->resource('sub_tasks', 'SubtaskController'); // 子任务
     $router->resource('tasks', 'TaskController'); // 任务
     $router->resource('task_flow_collections', 'TaskFlowCollectionController'); // 任务流程集合
     $router->resource('task_flows', 'TaskFlowController'); // 任务流程

@@ -135,8 +135,16 @@ class TaskController extends Controller
     public function update(TaskRequest $request,$id)
     {
         DB::beginTransaction();
+        $task = Task::where('id',$id)->firstOrFail();
         try {
-            $this->user->subTasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+            if($task->task_id && $task->assignment_user_id == $this->user->id) {
+                $this->user->subTasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+            } elseif (!$task->task_id && $task->user_id == $this->user->id) {
+                $this->user->tasks()->where('id',$id)->firstOrFail()->update(['status'=>$request->status]);
+            }else {
+                throw new ResourceException('只有本人才可以操作!');
+            }
+
             // 判断是否结束了任务，然后触发时间。给邀请人触发添加免费使用天数
             event(new Welfare());
             DB::commit();

@@ -154,7 +154,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'admin',
+        'disk' => 'public', //admin
 
         // Image and file upload path under the disk above.
         'directory' => [

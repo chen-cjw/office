@@ -29,10 +29,15 @@ class TeamController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('name', __('团队名称'));
         $grid->column('user.phone', __('创建人'));
-        $grid->column('number_count', __('Number count'));
+        $grid->column('number_count', __('Number count'))->display(function ($is_probation_period) {
+            return 1 == 1 ? '是' : '否';
+        });;
         $grid->column('close_time', __('Close time'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('is_probation_period', __('是否试用期间'))->display(function ($is_probation_period) {
+            return $is_probation_period == 1 ? '是' : '否';
+        });
+        //$grid->column('created_at', __('Created at'));
+        //$grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }

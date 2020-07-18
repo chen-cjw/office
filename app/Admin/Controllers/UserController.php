@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\SendInviteSet;
 use App\Models\User;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -27,7 +28,7 @@ class UserController extends AdminController
         $grid = new Grid(new User());
 
         $grid->column('id', __('Id'));
-        $grid->column('avatar', __('Avatar'));
+        $grid->column('avatar', __('Avatar'))->image('','35','35');
         //$grid->column('unionid', __('Unionid'));
         //$grid->column('wx_openid', __('Wx openid'));
         $grid->column('ml_openid', __('Ml openid'));
@@ -36,7 +37,9 @@ class UserController extends AdminController
         $grid->column('sex', __('Sex'))->display(function ($sex) {
             return $sex == 1 ? '男' : '女';
         });
-        $grid->column('send_invite_set_id', __('配置(邀请老板和同事)'));
+        $grid->column('send_invite_set_id', __('邀请老板/同事'))->display(function ($send_invite_set_id) {
+            return $send_invite_set_id==1 ? '同事' : '老板';
+        });;
         $grid->column('parent_id', __('Parent id'))->display(function ($parent_id) {
             return $parent_id==0 ? '暂无' : $parent_id;
         });
@@ -67,7 +70,7 @@ class UserController extends AdminController
         $show->field('wx_openid', __('Wx openid'));
         $show->field('ml_openid', __('Ml openid'));
         $show->field('phone', __('Phone'));
-        $show->field('avatar', __('Avatar'));
+        $show->field('avatar', __('Avatar'))->image();
         $show->field('nickname', __('Nickname'));
         $show->field('sex', __('Sex'));
         $show->field('send_invite_set_id', __('Send invite set id'));
@@ -96,10 +99,16 @@ class UserController extends AdminController
         $form->image('avatar', __('Avatar'));
         $form->text('nickname', __('Nickname'));
         $form->switch('sex', __('Sex'));
-        $form->number('send_invite_set_id', __('Send invite set id'));
-        $form->number('parent_id', __('Parent id'));
-        $form->number('is_open', __('Is open'));
-        $form->text('status', __('Status'))->default('wait');
+        $form->select('send_invite_set_id', __('Send invite set id'))->options(SendInviteSet::pluck('name','id'));
+        //$form->number('parent_id', __('Parent id'));
+        $form->switch('is_open', __('Is open'));
+        $form->select('status', __('Status'))->default('wait')->options([
+            'administrator'=>'超级管理员',
+            'admin'=>'管理员',
+            'member'=>'成员',
+            'freeze'=>'冻结账号',
+            'wait'=>'等待审核',
+        ]);
 
         return $form;
     }

@@ -18,9 +18,9 @@ class TeamTransformer extends TransformerAbstract
         return [
             'id' => $team->id,
             'name' => $team->name,
-            'number_count' => $bccomp == 0? '无限' : $team->number_count,
+            'number_count' => $team->is_probation_period == 1 ? '无限' : $team->number_count,
             'close_time' => $team->close_time,
-            'is_team_version' => $bccomp == 0 ? false : true,
+            'is_team_version' => $team->is_probation_period == 1 ? false : true,
             'created_at' => $team->created_at->toDateTimeString(),
             'updated_at' => $team->updated_at->toDateTimeString(),
         ];
