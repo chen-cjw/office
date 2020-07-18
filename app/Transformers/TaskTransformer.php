@@ -15,7 +15,7 @@ class TaskTransformer extends TransformerAbstract
             'images' => $task->images,
             'close_date' => $task->close_date,
             'task_flow' => $task->task_flow,
-            'status' => Task::$status[$task->status],
+            'status' => strtotime($task->close_date) < strtotime(date('Y-m-d')) ? '逾期' : Task::$status[$task->status],//Task::$status[$task->status],
             'task_id' => $task->task_id,
             'is_subTask' => $task->task_id==null?false:true,
 //            'task_logs' => TaskLog::where('model_id',$task->id)->get(),
