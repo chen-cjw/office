@@ -19,6 +19,7 @@ class DiscussTransformer extends TransformerAbstract
             'reply' => $discuss->comment_user_id ? $this->nickname($discuss->reply_user_id).'回复'.$this->nickname($discuss->comment_user_id):$this->nickname($discuss->reply_user_id),
             'reply_user_id' => $discuss->reply_user_id,
             'comment_user_id' => $discuss->comment_user_id,
+            'avatar' => User::where('id',$discuss->reply_user_id)->value('avatar'),
             'created_at' => $discuss->created_at->toDateTimeString(),
             'updated_at' => $discuss->updated_at->toDateTimeString(),
         ];
@@ -28,4 +29,5 @@ class DiscussTransformer extends TransformerAbstract
     {
         return User::where('id',$user_id)->value('nickname');
     }
+
 }
