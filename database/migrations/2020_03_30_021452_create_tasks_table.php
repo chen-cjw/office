@@ -22,7 +22,7 @@ class CreateTasksTable extends Migration
             $table->date('close_date')->comment('截止日期');
             $table->string('task_flow')->comment('任务流程');
             $table->string('assignment_user_id')->comment('指派给某个人');
-            $table->enum('status',['start','end','stop'])->comment('start(开始)|end(结束)|stop(停止)');
+            $table->enum('status',['start','pending','end','stop','complete'])->comment('start(开始)|end(结束)|stop(停止)|pending(进行中)|complete(完成)');
             $table->timestamps();
         });
     }

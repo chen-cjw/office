@@ -133,7 +133,12 @@ $api->version('v1', [
 
     });
     $api->any('/handle_paid_notifies','WechatPayController@handlePaidNotify')->name('api.wechat_pay.handle_paid_notifies');
-
+    // 帮助中心
+    $api->get('/help_centers','HelpCenterController@index')->name('api.help_centers.index');
+    $api->get('/help_centers/{id}','HelpCenterController@show')->name('api.help_centers.show');
+    // 联系客服
+    $api->get('/contact_customer_service','ContactCustomerServiceController@index')->name('api.contact_customer_service.index');
+    $api->get('/contact_customer_service/{id}','ContactCustomerServiceController@show')->name('api.contact_customer_service.show');
     /**
      * 任务详情下的评论
      **/

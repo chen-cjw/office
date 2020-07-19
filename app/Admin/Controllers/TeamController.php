@@ -36,6 +36,10 @@ class TeamController extends AdminController
         $grid->column('is_probation_period', __('是否试用期间'))->display(function ($is_probation_period) {
             return $is_probation_period == 1 ? '是' : '否';
         });
+        $grid->column('task_id','查看')->display(function () {
+            return "<a href='/admin/team_members?team_id={$this->id}' target='_blank'>查看成员</a>";
+            return $this->first_name . ' ' . $this->last_name;
+        });
         //$grid->column('created_at', __('Created at'));
         //$grid->column('updated_at', __('Updated at'));
 

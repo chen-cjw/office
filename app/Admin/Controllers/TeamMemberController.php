@@ -29,13 +29,22 @@ class TeamMemberController extends AdminController
         $grid->column('id', __('Id'));
         $grid->column('user.phone', __('团队成员'));
         $grid->column('team.name', __('所属团队'));
-        $grid->column('status', __('Status'));
-//            ->display(function ($statusColumn) {
-//            return TeamMember::$status[$statusColumn];
-//        });
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
+        $grid->filter(function($filter){
+            // 在这里添加字段过滤器
+            $filter->scope('team')->whereHas('name', function ($query) {
+                $query->whereNotNull('address');
+            });
+            $filter->where(function ($query) {
 
+                $query->whereHas('team', function ($query) {
+                    $query->where('name', $this->input);
+                });
+
+            }, '所属团队');
+            $filter->equal('team_id', '团队ID');
+        });
         return $grid;
     }
 
