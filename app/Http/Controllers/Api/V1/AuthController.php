@@ -24,6 +24,7 @@ class AuthController extends Controller
     {
         $user = User::findOrFail($request->id);
         $token = \Auth::guard('api')->fromUser($user);
+        new_user_add($user->ml_openid,'123','123','2019-10-10');
         return $this->respondWithToken($token,$user->ml_openid,$user)->setStatusCode(201);
     }
 

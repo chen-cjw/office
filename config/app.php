@@ -1,6 +1,23 @@
 <?php
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | start 订阅消息
+    |--------------------------------------------------------------------------
+    */
+    'order_wePay_success_notification'=>env('ORDER_WEPAY_SUCCESS_NOTIFICATION',''),//订单支付成功通知
+    'service_due'=>env('SERVICE_DUE',''),//订单支付成功通知
+    'new_comment_reply'=>env('NEW_COMMENT_REPLY',''),//新评论回复通知
+    'new_synergy'=>env('NEW_SYNERGY',''),//新的协同提醒
+    'new_user_add'=>env('NEW_USER_ADD',''),//新用户加入通知
+    /*
+    |--------------------------------------------------------------------------
+    | end 订阅消息
+    |--------------------------------------------------------------------------
+    */
+
     'payment_period'=>env('PAYMENT_PERIOD',false),// 免费试用期间/需要付款期间
     'default_personal_price'=>env('DEFAULT_PERSONAL_PRICE',99),//个人默认多少钱
     'close_time' => env('CLOSE_TIME',30),// 免费使用时间
