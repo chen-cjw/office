@@ -46,8 +46,8 @@ function order_wePay_success_notification($receiver,$payment_no,$paid_at,$total_
             ],
         ],
     ];
-    return $data;
-    //$app->subscribe_message->send($data);
+    $app = app('wechat.payment');
+    $app->subscribe_message->send($data);
 }
 
 // 服务到期提醒
@@ -69,7 +69,8 @@ function service_due($receiver,$service_name,$due_time,$tip)
             ],
         ],
     ];
-    return $data;
+    $app = app('wechat.payment');
+    $app->subscribe_message->send($data);
 }
 
 // 新评论回复通知
@@ -94,7 +95,8 @@ function new_comment_reply($receiver,$replying_person,$time,$content,$remark)
             ],
         ],
     ];
-    return $data;
+    $app = app('wechat.payment');
+    $app->subscribe_message->send($data);
 }
 
 // 新的协同提醒
@@ -116,11 +118,12 @@ function new_synergy($receiver,$title,$created_at,$close_time)
             ],
         ],
     ];
-    return $data;
+    $app = app('wechat.payment');
+    $app->subscribe_message->send($data);
 }
 
 // 新用户加入通知
-function new_user_add($receiver,$title,$phone,$update_time)
+function new_user_add($receiver,$name,$phone,$update_time)
 {
     $data = [
         'template_id' => config('app.new_user_add'), // 所需下发的订阅模板id
@@ -128,7 +131,7 @@ function new_user_add($receiver,$title,$phone,$update_time)
         'page' => '',       // 点击模板卡片后的跳转页面，仅限本小程序内的页面。支持带参数,（示例index?foo=bar）。该字段不填则模板无跳转。
         'data' => [         // 模板内容，格式形如 { "key1": { "value": any }, "key2": { "value": any } }
             'thing1' => [ // 姓名
-                'value' => $title,
+                'value' => $name,
             ],
             'phone_number2' => [ // 联系方式
                 'value' => $phone,
@@ -138,5 +141,6 @@ function new_user_add($receiver,$title,$phone,$update_time)
             ],
         ],
     ];
-    return $data;
+    $app = app('wechat.payment');
+    $app->subscribe_message->send($data);
 }
