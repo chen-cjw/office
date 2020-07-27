@@ -140,8 +140,10 @@ $api->version('v1', [
     $api->get('/contact_customer_service','ContactCustomerServiceController@index')->name('api.contact_customer_service.index');
     $api->get('/contact_customer_service/{id}','ContactCustomerServiceController@show')->name('api.contact_customer_service.show');
     /**
-     * 任务详情下的评论
+     * 模板
      **/
+    $api->get('/templates','TemplateController@index')->name('api.templates.index');
+
     // 我的团队
 //    $api->get('/discuss','DiscussController@index')->name('api.discuss.index');
 
