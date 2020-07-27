@@ -28,9 +28,9 @@ class TaskLogController extends AdminController
 
         $grid->column('id', __('Id'));
         $grid->column('content', __('Content'));
-        $grid->column('user_id', __('User id'));
-        $grid->column('model_id', __('Model id'));
-        $grid->column('model_type', __('Model type'));
+//        $grid->column('user_id', __('User id'));
+//        $grid->column('model_id', __('Model id'));
+//        $grid->column('model_type', __('Model type'));
         $grid->column('created_at', __('Created at'));
         $grid->column('updated_at', __('Updated at'));
 
@@ -49,9 +49,9 @@ class TaskLogController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('content', __('Content'));
-        $show->field('user_id', __('User id'));
-        $show->field('model_id', __('Model id'));
-        $show->field('model_type', __('Model type'));
+//        $show->field('user_id', __('User id'));
+//        $show->field('model_id', __('Model id'));
+//        $show->field('model_type', __('Model type'));
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
 
@@ -68,10 +68,10 @@ class TaskLogController extends AdminController
         $form = new Form(new TaskLog());
 
         $form->text('content', __('Content'));
-        $form->number('user_id', __('User id'));
-        $form->text('model_id', __('Model id'));
-        $form->text('model_type', __('Model type'));
-
+//        $form->number('user_id', __('User id'));
+//        $form->text('model_id', __('Model id'));
+//        $form->text('model_type', __('Model type'));
+//
         return $form;
     }
 }
