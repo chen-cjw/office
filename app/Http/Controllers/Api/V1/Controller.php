@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller as BaseController;
 use App\Models\Task;
 use App\Models\TeamMember;
+use App\Models\User;
 use Dingo\Api\Routing\Helpers;
 
 class Controller extends BaseController
@@ -15,6 +16,9 @@ class Controller extends BaseController
     {
         $model->images = json_encode(request('images'));
         $model->save();
+        $user = User::find($model->comment_user_id);
+        // todo 新评论回复通知
+        new_comment_reply($user->ml_openid,$user->nickname,$user->content,'');
         return $model;
 
         $imageBool = request()->hasFile('images');

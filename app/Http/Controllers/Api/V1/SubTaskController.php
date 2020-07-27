@@ -53,6 +53,9 @@ class SubTaskController extends Controller
             $this->storeSave($subtask);
 
             event(new TaskLog($this->user->username.'指派给了'.$user->username, $request->user_id, $request->task_id, Task::class));
+            // todo 新的协同提醒
+            $user = User::find($request->assignment_user_id);
+            new_synergy($user->ml_openid,$request->input('content'),date('Y-m-d'),$request->close_date);
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {

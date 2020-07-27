@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\WechatPayRequest;
 use App\Jobs\CloseWechatPay;
+use App\Models\User;
 use App\Models\WechatPay;
 use App\Transformers\WechatPayTransformer;
 use Carbon\Carbon;
@@ -131,8 +132,13 @@ class WechatPayController extends Controller
                 $team->update(['close_time'=>date('Y-m-d', strtotime('+'.($order->day*365).' day', strtotime($team->close_time)))]);
             }
             $order->id;
+            // todo 订单支付成功通知,支付平台的订单号
+            $user = User::find($order->user_id);
+            order_wePay_success_notification($user->ml_openid,$order->payment_no,$order->paid_at,$order->total_fee,$order->body,'');
+
             return true; // 返回处理完成
         });
+
         return $response;
     }
     // todo 接收通知（主动去查/被动接收）

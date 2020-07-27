@@ -24,8 +24,6 @@ class AuthController extends Controller
     {
         $user = User::findOrFail($request->id);
         $token = \Auth::guard('api')->fromUser($user);
-        new_user_add($user->ml_openid,$user->nickname,$user->phone,$user->updated_at);
-
         return $this->respondWithToken($token,$user->ml_openid,$user)->setStatusCode(201);
     }
 
@@ -45,8 +43,8 @@ class AuthController extends Controller
         }
         DB::beginTransaction();
         try {
-            $openid = $sessionUser['openid'];//$request->openid;//
-            $session_key = $sessionUser['session_key'];//$request->openid;//
+            $openid = $sessionUser['openid'];
+            $session_key = $sessionUser['session_key'];
             $user = User::where('ml_openid', $openid)->first();
             Cache::put($code, ['session_key' => $session_key, 'ml_openid' => $openid], 300);
             if ($user) {
@@ -72,7 +70,7 @@ class AuthController extends Controller
             }
             Log::info('创建用户', $this->createUser($sessionUser, $request));
             $user = User::create($this->createUser($sessionUser, $request));
-            // todo 封装代码
+
             $this->createOrUpdate($request,$user);
 
 //            if ($team_id = $request->team_id) {// 已存在，只是不在某个团队，让他重新进团队就可以了
@@ -99,7 +97,6 @@ class AuthController extends Controller
             $user->update(['parent_id' => $parent_id, 'status' => User::REFUND_STATUS_WAIT, 'send_invite_set_id' => 1]);
         }
         new_user_add($user->ml_openid,$user->nickname,$user->phone,$user->updated_at);
-
     }
     public function phoneStore(AuthPhoneStoreRequest $request)
     {

@@ -58,6 +58,10 @@ class TaskController extends Controller
             // 消息推送模版
 //            $this->notificationAdd();
 //            $this->notificationAppoint($task);
+            // todo 新的协同提醒
+            $user = User::find($request->assignment_user_id);
+            new_synergy($user->ml_openid,$request->input('content'),date('Y-m-d'),$request->close_date);
+
             DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {

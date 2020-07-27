@@ -46,7 +46,7 @@ function order_wePay_success_notification($receiver,$payment_no,$paid_at,$total_
             ],
         ],
     ];
-    $app = app('wechat.payment');
+    $app = app('wechat.mini_program');
     $app->subscribe_message->send($data);
 }
 
@@ -69,7 +69,7 @@ function service_due($receiver,$service_name,$due_time,$tip)
             ],
         ],
     ];
-    $app = app('wechat.payment');
+    $app = app('wechat.mini_program');
     $app->subscribe_message->send($data);
 }
 
@@ -95,7 +95,7 @@ function new_comment_reply($receiver,$replying_person,$time,$content,$remark)
             ],
         ],
     ];
-    $app = app('wechat.payment');
+    $app = app('wechat.mini_program');
     $app->subscribe_message->send($data);
 }
 
@@ -118,7 +118,7 @@ function new_synergy($receiver,$title,$created_at,$close_time)
             ],
         ],
     ];
-    $app = app('wechat.payment');
+    $app = app('wechat.mini_program');
     $app->subscribe_message->send($data);
 }
 
@@ -141,6 +141,6 @@ function new_user_add($receiver,$name,$phone,$update_time)
             ],
         ],
     ];
-    $app = app('wechat.payment');
+    $app = app('wechat.mini_program');
     $app->subscribe_message->send($data);
 }
