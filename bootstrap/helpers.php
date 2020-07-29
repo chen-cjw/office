@@ -121,7 +121,7 @@ function new_synergy($receiver,$title,$created_at,$close_time)
     $app = app('wechat.mini_program');
     $res = $app->subscribe_message->send($data);
     if (!empty($res['errcode'])) {
-        throw new \Dingo\Api\Exception\ResourceException('errcode:'.$res['errcode']);
+        throw new \Dingo\Api\Exception\ResourceException($res['errcode'].','.$res['errmsg']);
     }
 }
 
