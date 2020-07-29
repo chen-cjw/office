@@ -119,7 +119,7 @@ function new_synergy($receiver,$title,$created_at,$close_time)
         ],
     ];
     $app = app('wechat.mini_program');
-    $app->subscribe_message->send($data);
+    return $app->subscribe_message->send($data);
 }
 
 // 新用户加入通知 5
