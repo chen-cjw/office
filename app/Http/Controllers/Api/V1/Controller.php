@@ -16,9 +16,6 @@ class Controller extends BaseController
     {
         $model->images = json_encode(request('images'));
         $model->save();
-        $user = User::find($model->comment_user_id);
-        // todo 新评论回复通知
-        new_comment_reply($user->ml_openid,$user->nickname,$user->content,'');
         return $model;
 
         $imageBool = request()->hasFile('images');

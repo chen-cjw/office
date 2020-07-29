@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\DiscussRequest;
 use App\Models\Discuss;
 use App\Models\Task;
+use App\Models\User;
 
 class DiscussController extends Controller
 {
@@ -25,6 +26,13 @@ class DiscussController extends Controller
         $data['comment_user_id'] = $request->comment_user_id; // Task::findOrFail($request->task_id)->value('user_id'); // 发表人
         $data['reply_user_id'] = $this->user->id; // 回复人(登陆者)
         $discuss = new Discuss($data);
-        return $this->storeSave($discuss);
+        $this->storeSave($discuss);
+        if($request->comment_user_id) {
+            $user = User::find($request->comment_user_id);
+            // todo 新评论回复通知
+            new_comment_reply($user->ml_openid,$user->nickname,$user->content,'');
+        }
+        return $this->response->created();
+
     }
 }

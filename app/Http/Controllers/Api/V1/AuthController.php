@@ -95,8 +95,8 @@ class AuthController extends Controller
         }
         if ($parent_id = $request->parent_id) { // 更换邀请人
             $user->update(['parent_id' => $parent_id, 'status' => User::REFUND_STATUS_WAIT, 'send_invite_set_id' => 1]);
+            new_user_add($user->ml_openid,$user->nickname,$user->phone,$user->updated_at);// 只有邀请的时候才有订阅消息
         }
-        new_user_add($user->ml_openid,$user->nickname,$user->phone,$user->updated_at);
     }
     public function phoneStore(AuthPhoneStoreRequest $request)
     {

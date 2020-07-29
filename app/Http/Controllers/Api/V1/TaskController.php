@@ -59,10 +59,11 @@ class TaskController extends Controller
 //            $this->notificationAdd();
 //            $this->notificationAppoint($task);
             // todo 新的协同提醒
+            DB::commit();
             $user = User::find($request->assignment_user_id);
             new_synergy($user->ml_openid,$request->input('content'),date('Y-m-d'),$request->close_date);
+            //new_comment_reply($user->ml_openid,$user->nickname,$user->content,'');
 
-            DB::commit();
             return $this->response->created();
         } catch (\Exception $ex) {
             DB::rollback();

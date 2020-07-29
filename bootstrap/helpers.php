@@ -21,7 +21,7 @@ function array_get($array, $key, $default = null)
     return $array;
 }
 
-// 订单支付成功通知
+// 订单支付成功通知 1
 function order_wePay_success_notification($receiver,$payment_no,$paid_at,$total_fee,$body,$remark)
 {
     $data = [
@@ -50,7 +50,7 @@ function order_wePay_success_notification($receiver,$payment_no,$paid_at,$total_
     $app->subscribe_message->send($data);
 }
 
-// 服务到期提醒
+// 服务到期提醒 2
 function service_due($receiver,$service_name,$due_time,$tip)
 {
     $data = [
@@ -73,7 +73,7 @@ function service_due($receiver,$service_name,$due_time,$tip)
     $app->subscribe_message->send($data);
 }
 
-// 新评论回复通知
+// 新评论回复通知 3
 function new_comment_reply($receiver,$replying_person,$time,$content,$remark)
 {
     $data = [
@@ -99,7 +99,7 @@ function new_comment_reply($receiver,$replying_person,$time,$content,$remark)
     $app->subscribe_message->send($data);
 }
 
-// 新的协同提醒
+// 新的协同提醒 4
 function new_synergy($receiver,$title,$created_at,$close_time)
 {
     $data = [
@@ -122,7 +122,7 @@ function new_synergy($receiver,$title,$created_at,$close_time)
     $app->subscribe_message->send($data);
 }
 
-// 新用户加入通知
+// 新用户加入通知 5
 function new_user_add($receiver,$name,$phone,$update_time)
 {
     $data = [
