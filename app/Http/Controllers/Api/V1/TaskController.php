@@ -67,7 +67,7 @@ class TaskController extends Controller
             $user = User::find($request->assignment_user_id);
             $res = new_synergy($user->ml_openid,$request->input('content'),date('Y-m-d'),$request->close_date);
             if (!empty($res['errcode'])) {
-                throw new ResourceException('errcode:'.$res['errcode']);
+                throw new \Exception('errcode:'.$res['errcode']);
             }
             DB::commit();
 
