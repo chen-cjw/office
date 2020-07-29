@@ -62,7 +62,6 @@ class TaskController extends Controller
 //            $this->notificationAdd();
 //            $this->notificationAppoint($task);
             // todo 新的协同提醒
-            DB::commit();
 
             //new_comment_reply($user->ml_openid,$user->nickname,$user->content,'');
             $user = User::find($request->assignment_user_id);
@@ -70,6 +69,8 @@ class TaskController extends Controller
             if (!empty($res['errcode'])) {
                 throw new ResourceException('errcode:'.$res['errcode']);
             }
+            DB::commit();
+
             return $this->response->created();
         } catch (\Exception $ex) {
             DB::rollback();
