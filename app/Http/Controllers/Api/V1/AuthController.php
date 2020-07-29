@@ -102,6 +102,7 @@ class AuthController extends Controller
     {
         $session = Cache::get($request->code);// 解析的问题
         if(!$session) {
+            Log::error('用户code：'.$request->code);
             throw new \Exception('code 和第一次的不一致');
         }
         $app = app('wechat.mini_program');
