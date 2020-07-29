@@ -103,7 +103,7 @@ class AuthController extends Controller
         $session = Cache::get($request->code);// 解析的问题
         if(!$session) {
             Log::error('用户code：'.$request->code);
-            throw new \Exception('code 和第一次的不一致');
+            throw new \Exception('code 和第一次的不一致'.$request->code);
         }
         $app = app('wechat.mini_program');
         $decryptedData = $app->encryptor->decryptData($session['session_key'], $request->iv, $request->encrypted_data);

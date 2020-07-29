@@ -63,8 +63,8 @@
       <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="104" column="47" selection-start-line="104" selection-start-column="47" selection-end-line="104" selection-end-column="47" />
+            <state relative-caret-position="196">
+              <caret line="105" column="63" selection-start-line="105" selection-start-column="63" selection-end-line="105" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -513,12 +513,12 @@
       <workItem from="1591348848972" duration="36670000" />
       <workItem from="1592033629856" duration="16250000" />
       <workItem from="1592446681771" duration="40936000" />
-      <workItem from="1594354645317" duration="61638000" />
+      <workItem from="1594354645317" duration="61730000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="509245000" />
+    <option name="totallyTimeSpent" value="509337000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -539,9 +539,9 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.31030303" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.31030303" />
       <window_info anchor="right" id="Remote Host" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25822604" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25822604" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -926,8 +926,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/V1/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="104" column="47" selection-start-line="104" selection-start-column="47" selection-end-line="104" selection-end-column="47" />
+        <state relative-caret-position="196">
+          <caret line="105" column="63" selection-start-line="105" selection-start-column="63" selection-end-line="105" selection-end-column="63" />
         </state>
       </provider>
     </entry>
