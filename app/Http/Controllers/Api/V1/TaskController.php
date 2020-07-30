@@ -46,9 +46,6 @@ class TaskController extends Controller
     // 2、指派人必须在我的团队
     public function store(TaskRequest $request)
     {
-        $user = User::find($request->assignment_user_id);
-        $res = new_synergy($user->ml_openid,$request->input('content'),date('Y-m-d'),$request->close_date);
-        dd($res);
         DB::beginTransaction();
         try {
             $task = new Task($request->only('content','close_date','task_flow','status','assignment_user_id'));
@@ -65,10 +62,7 @@ class TaskController extends Controller
 
             //new_comment_reply($user->ml_openid,$user->nickname,$user->content,'');
             $user = User::find($request->assignment_user_id);
-            $res = new_synergy($user->ml_openid,$request->input('content'),date('Y-m-d'),$request->close_date);
-//            if (!empty($res['errcode'])) {
-//                throw new ResourceException('errcode:'.$res['errcode']);
-//            }
+            new_synergy($user->ml_openid,$request->input('content'),date('Y-m-d'),$request->close_date);
             DB::commit();
 
             return $this->response->created();

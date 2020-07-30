@@ -118,10 +118,10 @@ class AuthController extends Controller
 
         $token = \Auth::guard('api')->fromUser($user);
 
-        if ($request->template_id) {
-            $parentUser = User::find($user->parent_id);
-            new_user_add($parentUser->ml_openid,$user->nickname,$user->phone,$user->updated_at);// 只有邀请的时候才有订阅消息
-        }
+//        if ($request->template_id) {
+            //$parentUser = User::find($user->parent_id);
+            //new_user_add($parentUser->ml_openid,$user->nickname,$user->phone,$user->updated_at);// 只有邀请的时候才有订阅消息
+//        }
 
         return $this->respondWithToken($token,$phoneNumber,$user)->setStatusCode(201);
     }
