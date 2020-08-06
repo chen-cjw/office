@@ -22,4 +22,5 @@ Route::group([
     $router->resource('task_logs', 'TaskLogController'); // 操作任务的日志
     $router->resource('teams', 'TeamController'); // 团队
     $router->resource('team_members', 'TeamMemberController'); // 团队成员
+    $router->get('wechat_pays', 'WechatPayController@index'); // 团队成员
 });
